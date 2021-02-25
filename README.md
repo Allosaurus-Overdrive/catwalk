@@ -8,8 +8,6 @@ Pull Request = Must be reviewed by 2 team members.  The person who created the p
 
 StandUp = 9:30am PT/ 12:30 ET
 
-Communication Tracking End =
-
 =============
 Components
 =============
