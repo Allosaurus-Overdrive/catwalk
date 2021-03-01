@@ -13,12 +13,16 @@ const ProductInfo = () => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState();
-  const getInfo = () => axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/20111' ,options)
+  const [slogan, setSlogan] = useState('');
+  const [features, setFeatures] = useState([]);
+  const getInfo = () => axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/20111', options)
     .then((response) => {
-      setDescription(response.data.description);
       setName(response.data.name);
       setCategory(response.data.category);
-      setPrice(response.data.default_price)
+      setPrice(response.data.default_price);
+      setSlogan(response.data.slogan);
+      setDescription(response.data.description);
+      setFeatures(response.data.features);
     })
     .catch((err) => {
       throw err;
@@ -28,10 +32,17 @@ const ProductInfo = () => {
 
   return (
     <div>
-      <div>{description}</div>
       <div>{name}</div>
       <div>{category}</div>
       <div>{price}</div>
+      <div>{description}</div>
+      <div>{slogan}</div>
+      {features.map((feature, idx) => (
+        <div key={feature.feature}>
+          {feature.feature}
+          {feature.value}
+        </div>
+      ))}
     </div>
   );
 };
