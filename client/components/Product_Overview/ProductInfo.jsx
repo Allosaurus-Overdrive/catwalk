@@ -37,7 +37,7 @@ const ProductInfo = () => {
       <div>{price}</div>
       <div>{description}</div>
       <div>{slogan}</div>
-      {features.map((feature, idx) => (
+      {features.map((feature) => (
         <div key={feature.feature}>
           {feature.feature}
           {feature.value}
