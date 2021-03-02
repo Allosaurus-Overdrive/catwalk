@@ -391,10 +391,8 @@ function RelatedProducts(props) {
   // need to add get related products on component did mount
 
   const getRelatedProducts = () => {
-    let relatedProductIds = [];
-
+    const relatedProductObjs = [];
     const options = {
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/related`,
       headers: {
         Authorization: config.TOKEN,
       },
@@ -402,11 +400,22 @@ function RelatedProducts(props) {
 
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/related`, options)
       .then(({ data }) => {
-        console.log(data);
-      })
-      .catch((err) => console.log('err in getting related products: ', err));
+        const promiseArray = [];
 
-    // call setrelatedproductsarray after getting it
+        for (let i = 0; i < data.length; i++) {
+          promiseArray.push(
+            axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}`, options)
+              .then(({ data }) => relatedProductObjs.push(data))
+              .catch((err) => console.log('error in getting single product obj when getting related products: ', err)),
+          );
+        }
+
+        Promise.all(promiseArray)
+          .then(() => console.log('relatedproductobjs: ', relatedProductObjs))
+          .catch((err) => console.log('error in resolving promise.all: ', err));
+      })
+      .then(() => setRelatedProductsArray(relatedProductObjs))
+      .catch((err) => console.log('err in getting related products: ', err));
   };
 
   useEffect(() => {
