@@ -298,9 +298,20 @@ const RelatedName = styled.h3`
   margin-block-end: 0.5em;
 `;
 
+const RelatedSalePrice = styled.h3`
+  display: inline-block;
+  font-weight: 800;
+  font-size: 70%;
+  color: red;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+`;
+
 const RelatedPrice = styled.h3`
+  display: inline;
   font-weight: 100;
   font-size: 70%;
+  text-decoration: ${(props) => (props.sale ? 'line-through' : 'none')};
   color: grey;
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
@@ -355,6 +366,18 @@ const RelatedArrowButton = styled.button`
 //exampleGetStyles.results[0].photos[0].thumbnail_url
 
 function ProductCard(props) {
+  const [isSale, useIsSale] = useState([false]);
+
+  const salePrice = () => {
+    if (props.styles[0].sale_price) {
+      useIsSale([true, props.styles[0].sale_price]);
+    }
+  };
+
+  useEffect(() => {
+    salePrice();
+  }, []);
+
   return (
     <RelatedCardWrapper className="related-card-wrapper">
       <RelatedIcon className="far fa-star" />
@@ -362,10 +385,26 @@ function ProductCard(props) {
       <RelatedOverview className="related-overview">
         <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
         <RelatedName className="related-name">{props.item.name}</RelatedName>
-        <RelatedPrice className="related-price">
-          $
-          {props.styles[0].original_price}
-        </RelatedPrice>
+        {!!isSale[0] && (
+        <div>
+          <RelatedSalePrice className="related-sale-price">
+            $
+            {props.styles[0].sale_price}
+            &nbsp;
+            &nbsp;
+          </RelatedSalePrice>
+          <RelatedPrice sale className="related-price">
+            $
+            {props.styles[0].original_price}
+          </RelatedPrice>
+        </div>
+        )}
+        {!isSale[0] && (
+          <RelatedPrice className="related-price">
+            $
+            {props.styles[0].original_price}
+          </RelatedPrice>
+        )}
         <div className="related-rating">*****</div>
       </RelatedOverview>
     </RelatedCardWrapper>
