@@ -381,6 +381,7 @@ function RelatedProducts(props) {
   const [clientWidth, setClientWidth] = useState(0);
   const [endReached, setEndReached] = useState('left');
   const [relatedProductsArray, setRelatedProductsArray] = useState([]);
+  const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState({});
 
   useEffect(() => {
     setScrollLeft(ref.current.scrollLeft);
@@ -392,6 +393,8 @@ function RelatedProducts(props) {
 
   const getRelatedProducts = () => {
     const relatedProductObjs = [];
+    const relatedProductsStyles = {};
+
     const options = {
       headers: {
         Authorization: config.TOKEN,
@@ -416,6 +419,27 @@ function RelatedProducts(props) {
           .catch((err) => console.log('error in resolving promise.all: ', err));
       })
       .catch((err) => console.log('err in getting related products: ', err));
+
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/related`, options)
+      .then(({ data }) => {
+        const promiseArray = [];
+
+        for (let i = 0; i < data.length; i++) {
+          promiseArray.push(
+            axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}/styles`, options)
+              .then(({ data }) => {
+                relatedProductsStyles[data.product_id] = data.results[0];
+              })
+              .catch((err) => console.log('error in getting single style obj when getting related products: ', err)),
+          );
+        }
+
+        Promise.all(promiseArray)
+          .then(() => console.log('relatedproductstyles: ', relatedProductsStyles))
+          .then(() => setRelatedProductStylesObj(relatedProductsStyles))
+          .catch((err) => console.log('error in resolving promise.all: ', err));
+      })
+      .catch((err) => console.log('err in getting related products styles: ', err));
   };
 
   useEffect(() => {
