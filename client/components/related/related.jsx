@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 // TO-DOS:
@@ -285,6 +285,7 @@ const RelatedProductsWrapper = styled.section`
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  scroll-behavior: smooth;
 `;
 
 const RelatedProductsList = styled.ul`
@@ -333,17 +334,23 @@ function ProductCard(props) {
 
 // list of product cards
 function RelatedProducts(props) {
+  const ref = useRef(null);
+
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
+
   return (
     <div>
-      <RelatedLeftButton className="left" type="button"> &#8592; </RelatedLeftButton>
-      <RelatedProductsWrapper>
+      <RelatedLeftButton className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedLeftButton>
+      <RelatedProductsWrapper ref={ref}>
         <RelatedProductsList>
           {exampleProducts.map((item) => (
             <ProductCard item={item} key={item.id} />
           ))}
         </RelatedProductsList>
       </RelatedProductsWrapper>
-      <RelatedRightButton className="right" type="button"> &#8594; </RelatedRightButton>
+      <RelatedRightButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedRightButton>
     </div>
   );
 }
