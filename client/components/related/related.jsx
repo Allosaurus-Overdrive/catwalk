@@ -412,9 +412,9 @@ function RelatedProducts(props) {
 
         Promise.all(promiseArray)
           .then(() => console.log('relatedproductobjs: ', relatedProductObjs))
+          .then(() => setRelatedProductsArray(relatedProductObjs))
           .catch((err) => console.log('error in resolving promise.all: ', err));
       })
-      .then(() => setRelatedProductsArray(relatedProductObjs))
       .catch((err) => console.log('err in getting related products: ', err));
   };
 
@@ -445,7 +445,7 @@ function RelatedProducts(props) {
     setClientWidth(ref.current.clientWidth);
 
     const atLeftEnd = (scrollOffset < 0 && currentScrollLeft === 0);
-    const atRightEnd = (currentScrollLeft === exampleProducts.length * 222) && (scrollOffset > 0);
+    const atRightEnd = (currentScrollLeft === relatedProductsArray.length * 222) && (scrollOffset > 0);
 
     if (atLeftEnd) {
       setEndReached('left');
@@ -464,7 +464,7 @@ function RelatedProducts(props) {
       && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
       <RelatedProductsListWrapper ref={ref}>
         <RelatedProductsList>
-          {exampleProducts.map((item) => (
+          {relatedProductsArray.map((item) => (
             <ProductCard item={item} key={item.id} />
           ))}
         </RelatedProductsList>
