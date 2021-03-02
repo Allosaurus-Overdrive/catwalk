@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import config from '../../../config';
 
 // TO-DOS:
 // get the productID of the current page from alex's overview component where he stores the id?
 // import the ratings star function from sheeba
-// store state of
+// make comparison modal inside single product card
+
+// need to get this somehow from alex's component.
+// or if he sets 20111 as his default, then we can just always start with this;
+const productOverviewId = 20111;
 
 const exampleGetProduct = {
   id: 20111,
@@ -374,12 +380,38 @@ function RelatedProducts(props) {
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
   const [endReached, setEndReached] = useState('left');
+  const [relatedProductsArray, setRelatedProductsArray] = useState([]);
 
   useEffect(() => {
     setScrollLeft(ref.current.scrollLeft);
     setScrollWidth(ref.current.scrollWidth);
     setClientWidth(ref.current.clientWidth);
   });
+
+  // need to add get related products on component did mount
+
+  const getRelatedProducts = () => {
+    let relatedProductIds = [];
+
+    const options = {
+      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/related`,
+      headers: {
+        Authorization: config.TOKEN,
+      },
+    };
+
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/related`, options)
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => console.log('err in getting related products: ', err));
+
+    // call setrelatedproductsarray after getting it
+  };
+
+  useEffect(() => {
+    getRelatedProducts();
+  }, []);
 
   const scroll = (scrollOffset) => {
     let currentScrollLeft;
