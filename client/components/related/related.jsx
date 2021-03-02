@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 
 // TO-DOS:
@@ -198,13 +198,40 @@ const exampleProducts = [
       },
     ],
   },
+  {
+    id: 20666,
+    campus: 'hr-sea',
+    name: 'A Wallet',
+    slogan: 'Non ducimus maxime.',
+    description: 'Distinctio nostrum odit mollitia qui. Officia veritatis a aut velit et laudantium. Repellendus sint voluptatem et.',
+    category: 'Accessory',
+    default_price: 820.00,
+    created_at: '2021-02-24T19:34:41.281Z',
+    updated_at: '2021-02-24T19:34:41.281Z',
+    features: [
+      {
+        feature: 'Cut',
+        value: 'Skinny',
+      },
+      {
+        feature: 'Fair Trade Certified',
+        value: null,
+      },
+      {
+        feature: 'Non-GMO',
+        value: null,
+      },
+      {
+        feature: 'Lens',
+        value: '"100% UV Protective"',
+      },
+    ],
+  },
 ];
 
-// single product card component, given what it has from props
-// use example data for now
-// write styled components outside of the actual functional component itself...
-
-// RELATED PRODUCT CARD STYLED COMPONENTS
+//  //  //  //  //  //  //  //  //  //  //  //
+// RELATED PRODUCT CARD STYLED COMPONENTS  //
+//  //  //  //  //  //  //  //  //  //  ////
 
 const RelatedCardWrapper = styled.li`
   font-family: 'Roboto', sans-serif;
@@ -273,15 +300,23 @@ const RelatedPrice = styled.h3`
   margin-block-end: 0.5em;
 `;
 
-// RELATED PRODUCT LIST STYLED COMPONENTS
+//  //  //  //  //  //  //  //  //  //  //  //
+// RELATED PRODUCT LIST STYLED COMPONENTS  //
+//  //  //  //  //  //  //  //  //  //  ////
 
 const RelatedProductsWrapper = styled.section`
+  margin-left: 10px;
+  margin-right: 10px;
+`;
+
+const RelatedProductsListWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   display: inline-flex;
-  height: 300px;
-  width: 80%;
+  height: 350px;
+  width: 85%;
+  margin-left: 10px;
+  margin-right: 10px;
   background: white;
-  margin: 10px;
   position: relative;
   overflow: hidden;
   white-space: nowrap;
@@ -291,29 +326,26 @@ const RelatedProductsWrapper = styled.section`
 const RelatedProductsList = styled.ul`
   display: inline;
   padding-inline-start: 0;
-  margin: auto;
   position: relative;
 `;
 
-const RelatedLeftButton = styled.button`
+const RelatedArrowButton = styled.button`
   font-size: 150%;
-  float: left;
-  margin: 125px 0px;
+  float: ${(props) => (props.left ? 'left' : 'right')};
+  margin: auto;
   padding: 0;
-  height: 50px;
+  border-style: none;
+  height: 287px;
   width: 50px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  cursor: pointer;
 `;
 
-const RelatedRightButton = styled.button`
-  font-size: 150%;
-  float: right;
-  margin: 125px 0px;
-  padding: 0;
-  height: 50px;
-  width: 50px;
-`;
+//  //  //  //  //  //  //  //  //  //  //  ////
+// RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
+//  //  //  //  //  //  //  //  //  //  //  //
 
-// one product card
 function ProductCard(props) {
   return (
     <RelatedCardWrapper className="related-card-wrapper">
@@ -332,26 +364,73 @@ function ProductCard(props) {
   );
 }
 
-// list of product cards
+//  //  //  //  //  //  //  //  //  //  //  ////
+// RELATED PRODUCT LIST FUNCTIONAL COMPONENT  /
+//  //  //  //  //  //  //  //  //  //  //  //
+
 function RelatedProducts(props) {
   const ref = useRef(null);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [scrollWidth, setScrollWidth] = useState(0);
+  const [clientWidth, setClientWidth] = useState(0);
+  const [endReached, setEndReached] = useState('left');
+
+  useEffect(() => {
+    setScrollLeft(ref.current.scrollLeft);
+    setScrollWidth(ref.current.scrollWidth);
+    setClientWidth(ref.current.clientWidth);
+  });
 
   const scroll = (scrollOffset) => {
+    let currentScrollLeft;
+
+    if (ref.current.scrollLeft + scrollOffset + clientWidth >= scrollWidth && scrollOffset > 0) {
+      currentScrollLeft = scrollWidth;
+    } else if (ref.current.scrollLeft + scrollOffset <= 0 && scrollOffset < 0) {
+      currentScrollLeft = 0;
+    } else if (ref.current.scrollLeft === 0 && scrollOffset > 0) {
+      if (scrollOffset + clientWidth > scrollWidth) {
+        currentScrollLeft = scrollWidth;
+      } else {
+        currentScrollLeft = scrollOffset + clientWidth;
+      }
+    } else {
+      currentScrollLeft = ref.current.scrollLeft + scrollOffset;
+    }
+
     ref.current.scrollLeft += scrollOffset;
+    setScrollLeft(ref.current.scrollLeft);
+    setScrollWidth(ref.current.scrollWidth);
+    setClientWidth(ref.current.clientWidth);
+
+    const atLeftEnd = (scrollOffset < 0 && currentScrollLeft === 0);
+    const atRightEnd = (currentScrollLeft === exampleProducts.length * 222) && (scrollOffset > 0);
+
+    if (atLeftEnd) {
+      setEndReached('left');
+    } else if (atRightEnd) {
+      setEndReached('right');
+    } else if (clientWidth >= scrollWidth) {
+      setEndReached('both');
+    } else {
+      setEndReached('middle');
+    }
   };
 
   return (
-    <div>
-      <RelatedLeftButton className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedLeftButton>
-      <RelatedProductsWrapper ref={ref}>
+    <RelatedProductsWrapper>
+      {endReached !== 'left' && endReached !== 'both'
+      && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
+      <RelatedProductsListWrapper ref={ref}>
         <RelatedProductsList>
           {exampleProducts.map((item) => (
             <ProductCard item={item} key={item.id} />
           ))}
         </RelatedProductsList>
-      </RelatedProductsWrapper>
-      <RelatedRightButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedRightButton>
-    </div>
+      </RelatedProductsListWrapper>
+      {endReached !== 'right' && endReached !== 'both'
+      && <RelatedArrowButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
+    </RelatedProductsWrapper>
   );
 }
 
