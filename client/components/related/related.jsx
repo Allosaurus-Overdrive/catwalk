@@ -352,17 +352,19 @@ const RelatedArrowButton = styled.button`
 // RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
 //  //  //  //  //  //  //  //  //  //  //  //
 
+//exampleGetStyles.results[0].photos[0].thumbnail_url
+
 function ProductCard(props) {
   return (
     <RelatedCardWrapper className="related-card-wrapper">
       <RelatedIcon className="far fa-star" />
-      <RelatedImage className="related-image" src={exampleGetStyles.results[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
+      <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
       <RelatedOverview className="related-overview">
         <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
         <RelatedName className="related-name">{props.item.name}</RelatedName>
         <RelatedPrice className="related-price">
           $
-          {exampleGetStyles.results[0].original_price}
+          {props.styles[0].original_price}
         </RelatedPrice>
         <div className="related-rating">*****</div>
       </RelatedOverview>
@@ -380,8 +382,8 @@ function RelatedProducts(props) {
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
   const [endReached, setEndReached] = useState('left');
-  const [relatedProductsArray, setRelatedProductsArray] = useState([]);
-  const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState({});
+  const [relatedProductsArray, setRelatedProductsArray] = useState(null);
+  const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState(null);
 
   useEffect(() => {
     setScrollLeft(ref.current.scrollLeft);
@@ -428,7 +430,7 @@ function RelatedProducts(props) {
           promiseArray.push(
             axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}/styles`, options)
               .then(({ data }) => {
-                relatedProductsStyles[data.product_id] = data.results[0];
+                relatedProductsStyles[data.product_id] = data.results;
               })
               .catch((err) => console.log('error in getting single style obj when getting related products: ', err)),
           );
@@ -487,11 +489,13 @@ function RelatedProducts(props) {
       {endReached !== 'left' && endReached !== 'both'
       && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
       <RelatedProductsListWrapper ref={ref}>
-        <RelatedProductsList>
-          {relatedProductsArray.map((item) => (
-            <ProductCard item={item} key={item.id} />
-          ))}
-        </RelatedProductsList>
+        {relatedProductsArray !== null && relatedProductsStylesObj !== null && (
+          <RelatedProductsList>
+            {relatedProductsArray.map((item) => (
+              <ProductCard item={item} key={item.id} styles={relatedProductsStylesObj[item.id]} />
+            ))}
+          </RelatedProductsList>
+        )}
       </RelatedProductsListWrapper>
       {endReached !== 'right' && endReached !== 'both'
       && <RelatedArrowButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
