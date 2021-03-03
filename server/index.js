@@ -43,6 +43,8 @@ app.get('/products/20111', (req, res) => {
     .catch((err) => {
       throw err;
     });
+});
+
 app.get('/related-products', (req, res) => {
   const options = {
     headers: {
