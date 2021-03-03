@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
-import config from '../../../config';
 
 // TO-DOS:
 // get the productID of the current page from alex's overview component where he stores the id?
