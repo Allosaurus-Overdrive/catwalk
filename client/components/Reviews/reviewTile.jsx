@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import axios from 'axios';
 import exampleReviews from './sampleData';
 import ReviewIndividualTile from './reviewIndividualTile';
+import AddReview from './addReview';
 
 const tileBox = {
   border: '1px solid black',
@@ -19,21 +20,16 @@ function ReviewTile() {
     <div style={tileBox}>
       <ul>
         {showMore
-          ? exampleReviews.results.map((review) =>
-            <ReviewIndividualTile key={review.review_id} review={review} />)
-          : exampleReviews.results.slice(0, 2).map((review) =>
-            <ReviewIndividualTile key={review.review_id} review={review} />)}
+          ? exampleReviews.results.map((review) => <ReviewIndividualTile key={review.review_id} review={review} />)
+          : exampleReviews.results.slice(0, 2).map((review) => <ReviewIndividualTile key={review.review_id} review={review} />)}
       </ul>
-      <button type="button" onClick={() => setMore(true)}>
+      <button type="button" onClick={() => setMore(true)} style={{ margin: '1.5em' }}>
         More Reviews
       </button>
-      <button type="button">
-        Add Review
-      </button>
+      <br />
+      <AddReview />
     </div>
   );
 }
 
 export default ReviewTile;
-
-// modal component for add review
