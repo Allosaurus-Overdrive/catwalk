@@ -1,233 +1,16 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 
 // TO-DOS:
 // get the productID of the current page from alex's overview component where he stores the id?
 // import the ratings star function from sheeba
-// store state of
+// make comparison modal inside single product card
 
-const exampleGetProduct = {
-  id: 20111,
-  campus: 'hr-sea',
-  name: 'Murl Dress',
-  slogan: 'Non ducimus maxime.',
-  description: 'Distinctio nostrum odit mollitia qui. Officia veritatis a aut velit et laudantium. Repellendus sint voluptatem et.',
-  category: 'Dress',
-  default_price: 817.00,
-  created_at: '2021-02-24T19:34:41.281Z',
-  updated_at: '2021-02-24T19:34:41.281Z',
-  features: [
-    {
-      feature: 'Cut',
-      value: 'Skinny',
-    },
-    {
-      feature: 'Fair Trade Certified',
-      value: null,
-    },
-    {
-      feature: 'Non-GMO',
-      value: null,
-    },
-    {
-      feature: 'Lens',
-      value: '"100% UV Protective"',
-    },
-  ],
-};
-
-const exampleGetStyles = {
-  product_id: 20111,
-  results: [
-    {
-      style_id: 110038,
-      name: 'Azure',
-      original_price: 817.00,
-      sale_price: null,
-      'default?': true,
-      photos: [
-        {
-          thumbnail_url: 'https://images.unsplash.com/photo-1556304653-cba65c59b3c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
-          url: 'https://images.unsplash.com/photo-1519330377309-9ee1c6783348?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
-        },
-      ],
-      skus: {
-        638588: {
-          quantity: 0,
-          size: 'XS',
-        },
-        638589: {
-          quantity: 31,
-          size: 'S',
-        },
-        638590: {
-          quantity: 47,
-          size: 'M',
-        },
-        638591: {
-          quantity: 24,
-          size: 'L',
-        },
-        638592: {
-          quantity: 25,
-          size: 'XL',
-        },
-        638593: {
-          quantity: 58,
-          size: 'XXL',
-        },
-      },
-    },
-  ],
-};
-
-const exampleProducts = [
-  {
-    id: 20111,
-    campus: 'hr-sea',
-    name: 'Murl Dress',
-    slogan: 'Non ducimus maxime.',
-    description: 'Distinctio nostrum odit mollitia qui. Officia veritatis a aut velit et laudantium. Repellendus sint voluptatem et.',
-    category: 'Dress',
-    default_price: 817.00,
-    created_at: '2021-02-24T19:34:41.281Z',
-    updated_at: '2021-02-24T19:34:41.281Z',
-    features: [
-      {
-        feature: 'Cut',
-        value: 'Skinny',
-      },
-      {
-        feature: 'Fair Trade Certified',
-        value: null,
-      },
-      {
-        feature: 'Non-GMO',
-        value: null,
-      },
-      {
-        feature: 'Lens',
-        value: '"100% UV Protective"',
-      },
-    ],
-  },
-  {
-    id: 20222,
-    campus: 'hr-sea',
-    name: 'Another Shirt',
-    slogan: 'Non ducimus maxime.',
-    description: 'Distinctio nostrum odit mollitia qui. Officia veritatis a aut velit et laudantium. Repellendus sint voluptatem et.',
-    category: 'Top',
-    default_price: 820.00,
-    created_at: '2021-02-24T19:34:41.281Z',
-    updated_at: '2021-02-24T19:34:41.281Z',
-    features: [
-      {
-        feature: 'Cut',
-        value: 'Skinny',
-      },
-      {
-        feature: 'Fair Trade Certified',
-        value: null,
-      },
-      {
-        feature: 'Non-GMO',
-        value: null,
-      },
-      {
-        feature: 'Lens',
-        value: '"100% UV Protective"',
-      },
-    ],
-  },
-  {
-    id: 20333,
-    campus: 'hr-sea',
-    name: 'Some Pants',
-    slogan: 'Non ducimus maxime.',
-    description: 'Distinctio nostrum odit mollitia qui. Officia veritatis a aut velit et laudantium. Repellendus sint voluptatem et.',
-    category: 'Bottom',
-    default_price: 820.00,
-    created_at: '2021-02-24T19:34:41.281Z',
-    updated_at: '2021-02-24T19:34:41.281Z',
-    features: [
-      {
-        feature: 'Cut',
-        value: 'Skinny',
-      },
-      {
-        feature: 'Fair Trade Certified',
-        value: null,
-      },
-      {
-        feature: 'Non-GMO',
-        value: null,
-      },
-      {
-        feature: 'Lens',
-        value: '"100% UV Protective"',
-      },
-    ],
-  },
-  {
-    id: 20555,
-    campus: 'hr-sea',
-    name: 'A Purse',
-    slogan: 'Non ducimus maxime.',
-    description: 'Distinctio nostrum odit mollitia qui. Officia veritatis a aut velit et laudantium. Repellendus sint voluptatem et.',
-    category: 'Accessory',
-    default_price: 820.00,
-    created_at: '2021-02-24T19:34:41.281Z',
-    updated_at: '2021-02-24T19:34:41.281Z',
-    features: [
-      {
-        feature: 'Cut',
-        value: 'Skinny',
-      },
-      {
-        feature: 'Fair Trade Certified',
-        value: null,
-      },
-      {
-        feature: 'Non-GMO',
-        value: null,
-      },
-      {
-        feature: 'Lens',
-        value: '"100% UV Protective"',
-      },
-    ],
-  },
-  {
-    id: 20666,
-    campus: 'hr-sea',
-    name: 'A Wallet',
-    slogan: 'Non ducimus maxime.',
-    description: 'Distinctio nostrum odit mollitia qui. Officia veritatis a aut velit et laudantium. Repellendus sint voluptatem et.',
-    category: 'Accessory',
-    default_price: 820.00,
-    created_at: '2021-02-24T19:34:41.281Z',
-    updated_at: '2021-02-24T19:34:41.281Z',
-    features: [
-      {
-        feature: 'Cut',
-        value: 'Skinny',
-      },
-      {
-        feature: 'Fair Trade Certified',
-        value: null,
-      },
-      {
-        feature: 'Non-GMO',
-        value: null,
-      },
-      {
-        feature: 'Lens',
-        value: '"100% UV Protective"',
-      },
-    ],
-  },
-];
+// need to get this somehow from alex's component.
+// or if he sets 20111 as his default, then we can just always start with this;
+const productOverviewId = 20111;
 
 //  //  //  //  //  //  //  //  //  //  //  //
 // RELATED PRODUCT CARD STYLED COMPONENTS  //
@@ -292,12 +75,34 @@ const RelatedName = styled.h3`
   margin-block-end: 0.5em;
 `;
 
+const RelatedSalePrice = styled.h3`
+  display: inline-block;
+  font-weight: 800;
+  font-size: 70%;
+  color: red;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+`;
+
 const RelatedPrice = styled.h3`
+  display: inline;
   font-weight: 100;
   font-size: 70%;
+  text-decoration: ${(props) => (props.sale ? 'line-through' : 'none')};
   color: grey;
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
+`;
+
+const StyledModal = Modal.styled`
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  opacity: ${(props) => props.opacity};
+  transition : all 0.3s ease-in-out;
 `;
 
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -342,24 +147,91 @@ const RelatedArrowButton = styled.button`
   cursor: pointer;
 `;
 
+const FadingBackground = styled(BaseModalBackground)`
+  opacity: ${(props) => props.opacity};
+  transition: all 0.3s ease-in-out;
+`;
+
 //  //  //  //  //  //  //  //  //  //  //  ////
 // RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
 //  //  //  //  //  //  //  //  //  //  //  //
 
 function ProductCard(props) {
+  const [isSale, useIsSale] = useState([false]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+
+  const toggleModal = () => {
+    setOpacity(0);
+    setIsOpen(!isOpen);
+  };
+
+  const afterOpen = () => {
+    setTimeout(() => {
+      setOpacity(1);
+    }, 100);
+  };
+
+  function beforeClose() {
+    return new Promise((resolve) => {
+      setOpacity(0);
+      setTimeout(resolve, 300);
+    });
+  }
+
+  const salePrice = () => {
+    if (props.styles[0].sale_price) {
+      useIsSale([true, props.styles[0].sale_price]);
+    }
+  };
+
+  useEffect(() => {
+    salePrice();
+  }, []);
+
   return (
     <RelatedCardWrapper className="related-card-wrapper">
-      <RelatedIcon className="far fa-star" />
-      <RelatedImage className="related-image" src={exampleGetStyles.results[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
+      <RelatedIcon className="far fa-star" onClick={toggleModal} />
+      <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
       <RelatedOverview className="related-overview">
         <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
         <RelatedName className="related-name">{props.item.name}</RelatedName>
-        <RelatedPrice className="related-price">
-          $
-          {exampleGetStyles.results[0].original_price}
-        </RelatedPrice>
+        {!!isSale[0] && (
+        <div>
+          <RelatedSalePrice className="related-sale-price">
+            $
+            {props.styles[0].sale_price}
+            &nbsp;
+            &nbsp;
+          </RelatedSalePrice>
+          <RelatedPrice sale className="related-price">
+            $
+            {props.styles[0].original_price}
+          </RelatedPrice>
+        </div>
+        )}
+        {!isSale[0] && (
+          <RelatedPrice className="related-price">
+            $
+            {props.styles[0].original_price}
+          </RelatedPrice>
+        )}
         <div className="related-rating">*****</div>
       </RelatedOverview>
+      <ModalProvider backgroundComponent={FadingBackground}>
+        <StyledModal
+          isOpen={isOpen}
+          afterOpen={afterOpen}
+          beforeClose={beforeClose}
+          onBackgroundClick={toggleModal}
+          onEscapeKeydown={toggleModal}
+          opacity={opacity}
+          backgroundProps={{ opacity }}
+        >
+          <span>I am a modal!</span>
+          <button type="button" onClick={toggleModal}>Close me</button>
+        </StyledModal>
+      </ModalProvider>
     </RelatedCardWrapper>
   );
 }
@@ -374,12 +246,34 @@ function RelatedProducts(props) {
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
   const [endReached, setEndReached] = useState('left');
+  const [relatedProductsArray, setRelatedProductsArray] = useState(null);
+  const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState(null);
 
   useEffect(() => {
     setScrollLeft(ref.current.scrollLeft);
     setScrollWidth(ref.current.scrollWidth);
     setClientWidth(ref.current.clientWidth);
   });
+
+  // need to add get related products on component did mount
+
+  const getRelatedProducts = () => {
+    axios.get('/related-products', {params: {id: productOverviewId}})
+      .then(({data}) => {
+        setRelatedProductsArray(data);
+      })
+      .catch((err) => console.log(err));
+
+    axios.get('/related-styles', {params: {id: productOverviewId}})
+      .then(({data}) => {
+        setRelatedProductStylesObj(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getRelatedProducts();
+  }, []);
 
   const scroll = (scrollOffset) => {
     let currentScrollLeft;
@@ -404,7 +298,7 @@ function RelatedProducts(props) {
     setClientWidth(ref.current.clientWidth);
 
     const atLeftEnd = (scrollOffset < 0 && currentScrollLeft === 0);
-    const atRightEnd = (currentScrollLeft === exampleProducts.length * 222) && (scrollOffset > 0);
+    const atRightEnd = (currentScrollLeft === relatedProductsArray.length * 222) && (scrollOffset > 0);
 
     if (atLeftEnd) {
       setEndReached('left');
@@ -415,6 +309,8 @@ function RelatedProducts(props) {
     } else {
       setEndReached('middle');
     }
+
+    return scrollOffset;
   };
 
   return (
@@ -422,11 +318,13 @@ function RelatedProducts(props) {
       {endReached !== 'left' && endReached !== 'both'
       && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
       <RelatedProductsListWrapper ref={ref}>
-        <RelatedProductsList>
-          {exampleProducts.map((item) => (
-            <ProductCard item={item} key={item.id} />
-          ))}
-        </RelatedProductsList>
+        {relatedProductsArray !== null && relatedProductsStylesObj !== null && (
+          <RelatedProductsList>
+            {relatedProductsArray.map((item) => (
+              <ProductCard item={item} key={item.id} styles={relatedProductsStylesObj[item.id]} />
+            ))}
+          </RelatedProductsList>
+        )}
       </RelatedProductsListWrapper>
       {endReached !== 'right' && endReached !== 'both'
       && <RelatedArrowButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
@@ -434,5 +332,12 @@ function RelatedProducts(props) {
   );
 }
 
+// DELETE THIS
+function testFunc(a, b) {
+  return a - b;
+}
 // export whole list of related products at the end, update the export
-export default RelatedProducts;
+export default {
+  RelatedProducts,
+  testFunc,
+};
