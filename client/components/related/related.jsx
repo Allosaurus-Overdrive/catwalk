@@ -6,10 +6,10 @@ import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 // TO-DOS:
 // get the productID of the current page from alex's overview component where he stores the id?
 // import the ratings star function from sheeba
-// make comparison modal inside single product card
 
 // need to get this somehow from alex's component.
 // or if he sets 20111 as his default, then we can just always start with this;
+// set this in the state of the product carousel functional component. refactor if needed
 const productOverviewId = 20111;
 
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -95,14 +95,58 @@ const RelatedPrice = styled.h3`
 `;
 
 const StyledModal = Modal.styled`
-  width: 20rem;
-  height: 20rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 40rem;
+  height: 30rem;
+  display: inline-block;
   background-color: white;
   opacity: ${(props) => props.opacity};
   transition : all 0.3s ease-in-out;
+  position: relative;
+`;
+
+const FadingBackground = styled(BaseModalBackground)`
+  opacity: ${(props) => props.opacity};
+  transition: all 0.3s ease-in-out;
+`;
+
+//  //  //  //  //  //  //  //  //  //
+// RELATED MODAL STYLED COMPONENTS  //
+//  //  //  //  //  //  //  //  //  //
+
+const ModalTitle = styled.h3`
+  font-weight: 100;
+  font-size: 80%;
+  color: grey;
+  display: block;
+  text-transform: uppercase;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+`;
+
+const ModalCloseButton = styled.button`
+  font-weight: 100;
+  font-size: 80%;
+  display: inline-block;
+  position: absolute;
+  border-style: solid;
+  border-color: grey;
+  border-width: 1px;
+  right: 1.5rem;
+  top: 1.5rem;
+`;
+
+const ModalTable = styled.table`
+  display: inline-block;
+  border-style: solid;
+`;
+
+const ModalHeaderTitle = styled.h3`
+  display: inline-block;
+  font-weight: 400;
+  font-size: 100%;
+  float: ${(props) => (props.new ? 'right' : 'left')};
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 `;
 
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -147,10 +191,22 @@ const RelatedArrowButton = styled.button`
   cursor: pointer;
 `;
 
-const FadingBackground = styled(BaseModalBackground)`
-  opacity: ${(props) => props.opacity};
-  transition: all 0.3s ease-in-out;
-`;
+//  //  //  //  //  //  //  //  //  //  //  ////
+// RELATED PRODUCT MODAL FUNCTIONAL COMPONENT /
+//  //  //  //  //  //  //  //  //  //  //  //
+
+function ModalContent(props) {
+  return (
+    <div>
+      <ModalTitle>Comparing</ModalTitle>
+      <ModalHeaderTitle>Current Product Name</ModalHeaderTitle>
+      <ModalHeaderTitle new>New Product Name</ModalHeaderTitle>
+      {/* <ModalTable>
+
+      </ModalTable> */}
+    </div>
+  );
+}
 
 //  //  //  //  //  //  //  //  //  //  //  ////
 // RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
@@ -218,20 +274,18 @@ function ProductCard(props) {
         )}
         <div className="related-rating">*****</div>
       </RelatedOverview>
-      <ModalProvider backgroundComponent={FadingBackground}>
-        <StyledModal
-          isOpen={isOpen}
-          afterOpen={afterOpen}
-          beforeClose={beforeClose}
-          onBackgroundClick={toggleModal}
-          onEscapeKeydown={toggleModal}
-          opacity={opacity}
-          backgroundProps={{ opacity }}
-        >
-          <span>I am a modal!</span>
-          <button type="button" onClick={toggleModal}>Close me</button>
-        </StyledModal>
-      </ModalProvider>
+      <StyledModal
+        isOpen={isOpen}
+        afterOpen={afterOpen}
+        beforeClose={beforeClose}
+        onBackgroundClick={toggleModal}
+        onEscapeKeydown={toggleModal}
+        opacity={opacity}
+        backgroundProps={{ opacity }}
+      >
+        <ModalContent />
+        <ModalCloseButton type="button" onClick={toggleModal}>CLOSE</ModalCloseButton>
+      </StyledModal>
     </RelatedCardWrapper>
   );
 }
@@ -319,11 +373,13 @@ function RelatedProducts(props) {
       && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
       <RelatedProductsListWrapper ref={ref}>
         {relatedProductsArray !== null && relatedProductsStylesObj !== null && (
-          <RelatedProductsList>
-            {relatedProductsArray.map((item) => (
-              <ProductCard item={item} key={item.id} styles={relatedProductsStylesObj[item.id]} />
-            ))}
-          </RelatedProductsList>
+          <ModalProvider backgroundComponent={FadingBackground}>
+            <RelatedProductsList>
+              {relatedProductsArray.map((item) => (
+                <ProductCard item={item} key={item.id} styles={relatedProductsStylesObj[item.id]} />
+              ))}
+            </RelatedProductsList>
+          </ModalProvider>
         )}
       </RelatedProductsListWrapper>
       {endReached !== 'right' && endReached !== 'both'
