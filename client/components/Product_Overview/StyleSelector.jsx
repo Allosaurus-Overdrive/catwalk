@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import config from '../../../server/config';
 
 const options = {
@@ -8,6 +9,13 @@ const options = {
   },
 };
 
+const RoundImg = styled.img`
+  border: solid black;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+`;
+
 const StyleSelector = () => {
   const [thumbnail, setThumbnail] = useState('');
 
@@ -15,13 +23,18 @@ const StyleSelector = () => {
     .then((response) => (
       setThumbnail(response.data.results[0].photos[0].thumbnail_url)
     ))
+    .catch((err) => {
+      throw err;
+    });
 
-  getThumbnail();
+  useEffect(() => {
+    getThumbnail();
+  });
 
   return (
-  <div>
-    <button type="button" className="style">{thumbnail}</button>
-  </div>
+    <div>
+      <RoundImg className="thumbnail" src={thumbnail} alt="" />
+    </div>
   );
 };
 
