@@ -5,7 +5,7 @@ const axios = require('axios');
 const config = require('./config');
 
 const PORT = 3000;
-const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
+const PUBLIC_DIR = path.resolve(__dirname, '..', 'public')
 
 const app = express();
 
@@ -43,6 +43,8 @@ app.get('/products/20111', (req, res) => {
     .catch((err) => {
       throw err;
     });
+});
+
 app.get('/related-products', (req, res) => {
   const options = {
     headers: {
@@ -105,4 +107,4 @@ app.get('/related-styles', (req, res) => {
 
 app.listen(PORT, () => {
   // console.log(`server listening on localhost: ${PORT}`);
-});
+})
