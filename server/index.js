@@ -105,6 +105,7 @@ app.get('/related-styles', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
+<<<<<<< HEAD
 app.get('/reviews/:id', (req, res) => {
   const { id } = req.params;
   const options = {
@@ -123,8 +124,21 @@ app.get('/reviews/:id', (req, res) => {
       console.log(err);
       res.sendStatus(400);
     });
+=======
+app.get('/product-features', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const productOverviewId = req.query.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
+    .then(({ data }) => { res.send(data.features); })
+    .catch(() => res.sendStatus(400));
+>>>>>>> axios request for product features working
 });
 
 app.listen(PORT, () => {
-  // console.log(`server listening on localhost: ${PORT}`);
+  console.log(`server listening on localhost: ${PORT}`);
 });
