@@ -241,19 +241,18 @@ const RelatedArrowButton = styled.button`
 //   for key in allfeaturesobj, push [key, key.current, key.clicked] into a new array
 //   now can map over this array for rendering
 
-
 function ModalContent(props) {
-  // get current prooduct features
+  const [currentFeatures, setCurrentFeatures] = useState(props.currentFeatures);
+  const [clickedFeatures, setClickedFeatures] = useState(props.clickedFeatures);
 
-  axios.get('/product-features', { params: { id: productOverviewId } })
-    .then(({ data }) => console.log(data))
-    .catch((err) => console.log(err));
-
+  // trigger rerender upon currentproductfeatures updating
   return (
     <div>
       <ModalTitle>Comparing</ModalTitle>
       <ModalHeaderTitle>Current Product Name</ModalHeaderTitle>
       <ModalHeaderTitle new>New Product Name</ModalHeaderTitle>
+      <p>{currentFeatures[0].feature}</p>
+      <p>{clickedFeatures[0].feature}</p>
       {/* <ModalTable>
 
       </ModalTable> */}
@@ -336,7 +335,7 @@ function ProductCard(props) {
         opacity={opacity}
         backgroundProps={{ opacity }}
       >
-        <ModalContent />
+        <ModalContent clickedFeatures={props.item.features} currentFeatures={props.currentFeatures} />
         <ModalCloseButton type="button" onClick={toggleModal}>CLOSE</ModalCloseButton>
       </StyledModal>
     </RelatedCardWrapper>
@@ -355,6 +354,7 @@ function RelatedProducts(props) {
   const [endReached, setEndReached] = useState('left');
   const [relatedProductsArray, setRelatedProductsArray] = useState(null);
   const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState(null);
+  const [currentProductFeatures, setCurrentProductFeatures] = useState(null);
 
   useEffect(() => {
     setScrollLeft(ref.current.scrollLeft);
@@ -362,18 +362,23 @@ function RelatedProducts(props) {
     setClientWidth(ref.current.clientWidth);
   });
 
-  // need to add get related products on component did mount
-
+  // Get related product, all styles of related products, and current product features
   const getRelatedProducts = () => {
-    axios.get('/related-products', {params: {id: productOverviewId}})
+    axios.get('/related-products', { params: { id: productOverviewId } })
       .then(({data}) => {
         setRelatedProductsArray(data);
       })
       .catch((err) => console.log(err));
 
-    axios.get('/related-styles', {params: {id: productOverviewId}})
+    axios.get('/related-styles', { params: { id: productOverviewId } })
       .then(({data}) => {
         setRelatedProductStylesObj(data);
+      })
+      .catch((err) => console.log(err));
+
+    axios.get('/product-features', { params: { id: productOverviewId } })
+      .then(({ data }) => {
+        setCurrentProductFeatures(data);
       })
       .catch((err) => console.log(err));
   };
@@ -425,11 +430,19 @@ function RelatedProducts(props) {
       {endReached !== 'left' && endReached !== 'both'
       && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
       <RelatedProductsListWrapper ref={ref}>
-        {relatedProductsArray !== null && relatedProductsStylesObj !== null && (
+        {relatedProductsArray !== null
+        && relatedProductsStylesObj !== null
+        && currentProductFeatures !== null
+        && (
           <ModalProvider backgroundComponent={FadingBackground}>
             <RelatedProductsList>
               {relatedProductsArray.map((item) => (
-                <ProductCard item={item} key={item.id} styles={relatedProductsStylesObj[item.id]} />
+                <ProductCard
+                  item={item}
+                  key={item.id}
+                  styles={relatedProductsStylesObj[item.id]}
+                  currentFeatures={currentProductFeatures}
+                />
               ))}
             </RelatedProductsList>
           </ModalProvider>
