@@ -5,7 +5,7 @@ const axios = require('axios');
 const config = require('./config');
 
 const PORT = 3000;
-const PUBLIC_DIR = path.resolve(__dirname, '..', 'public')
+const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
 
 const app = express();
 
@@ -107,4 +107,4 @@ app.get('/related-styles', (req, res) => {
 
 app.listen(PORT, () => {
   // console.log(`server listening on localhost: ${PORT}`);
-})
+});
