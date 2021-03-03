@@ -50,13 +50,9 @@
     "react-dom": "^17.0.1",
     "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",
-<<<<<<< HEAD
     "styled-components": "^5.2.1",
-    "styled-react-modal": "^2.0.1"
-=======
-    "request": "^2.88.2",
-    "styled-components": "^5.2.1"
->>>>>>> initial framework and individual tile setup
+    "styled-react-modal": "^2.0.1",
+    "request": "^2.88.2"
   },
   "jest": {
     "moduleNameMapper": {
