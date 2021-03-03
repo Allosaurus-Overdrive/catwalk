@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import config from '../../../config';
+import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
+// import config from '../../../config';
 
 // TO-DOS:
 // get the productID of the current page from alex's overview component where he stores the id?
@@ -94,6 +95,17 @@ const RelatedPrice = styled.h3`
   margin-block-end: 0.5em;
 `;
 
+const StyledModal = Modal.styled`
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  opacity: ${(props) => props.opacity};
+  transition : all 0.3s ease-in-out;
+`;
+
 //  //  //  //  //  //  //  //  //  //  //  //
 // RELATED PRODUCT LIST STYLED COMPONENTS  //
 //  //  //  //  //  //  //  //  //  //  ////
@@ -136,14 +148,37 @@ const RelatedArrowButton = styled.button`
   cursor: pointer;
 `;
 
+const FadingBackground = styled(BaseModalBackground)`
+  opacity: ${(props) => props.opacity};
+  transition: all 0.3s ease-in-out;
+`;
+
 //  //  //  //  //  //  //  //  //  //  //  ////
 // RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
 //  //  //  //  //  //  //  //  //  //  //  //
 
-//exampleGetStyles.results[0].photos[0].thumbnail_url
-
 function ProductCard(props) {
   const [isSale, useIsSale] = useState([false]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+
+  const toggleModal = () => {
+    setOpacity(0);
+    setIsOpen(!isOpen);
+  };
+
+  const afterOpen = () => {
+    setTimeout(() => {
+      setOpacity(1);
+    }, 100);
+  };
+
+  function beforeClose() {
+    return new Promise((resolve) => {
+      setOpacity(0);
+      setTimeout(resolve, 300);
+    });
+  }
 
   const salePrice = () => {
     if (props.styles[0].sale_price) {
@@ -157,7 +192,7 @@ function ProductCard(props) {
 
   return (
     <RelatedCardWrapper className="related-card-wrapper">
-      <RelatedIcon className="far fa-star" />
+      <RelatedIcon className="far fa-star" onClick={toggleModal} />
       <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
       <RelatedOverview className="related-overview">
         <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
@@ -184,6 +219,20 @@ function ProductCard(props) {
         )}
         <div className="related-rating">*****</div>
       </RelatedOverview>
+      <ModalProvider backgroundComponent={FadingBackground}>
+        <StyledModal
+          isOpen={isOpen}
+          afterOpen={afterOpen}
+          beforeClose={beforeClose}
+          onBackgroundClick={toggleModal}
+          onEscapeKeydown={toggleModal}
+          opacity={opacity}
+          backgroundProps={{ opacity }}
+        >
+          <span>I am a modal!</span>
+          <button type="button" onClick={toggleModal}>Close me</button>
+        </StyledModal>
+      </ModalProvider>
     </RelatedCardWrapper>
   );
 }
@@ -319,6 +368,7 @@ function RelatedProducts(props) {
   );
 }
 
+// DELETE THIS
 function testFunc(a, b) {
   return a - b;
 }
