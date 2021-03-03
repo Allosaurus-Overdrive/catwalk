@@ -296,6 +296,8 @@ function RelatedProducts(props) {
     } else {
       setEndReached('middle');
     }
+
+    return scrollOffset;
   };
 
   return (
@@ -317,5 +319,11 @@ function RelatedProducts(props) {
   );
 }
 
+function testFunc(a, b) {
+  return a - b;
+}
 // export whole list of related products at the end, update the export
-export default RelatedProducts;
+export default {
+  RelatedProducts,
+  testFunc,
+};
