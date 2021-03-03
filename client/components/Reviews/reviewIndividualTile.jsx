@@ -1,34 +1,36 @@
 import React from 'react';
 import moment from 'moment';
+
 const tileBox = {
-  border: '1px solid black',
-  margin: '2em',
+  border: '1px black',
+  float: 'center',
+  padding: '2em',
+  lineHeight: '2.5em',
+  font: 'Georgia',
 };
 
 function ReviewIndividualTile(props) {
+  const { review } = props;
   return (
     <div style={tileBox} className="review-entry">
-      <span>
-        {props.review.rating}
-        --------------------
+      <span style={{ padding: '15px' }}>
+        <i className="far fa-star">{review.rating}</i>
       </span>
-      <span>
-        {props.review.reviewer_name}
-        ,
-        {moment(props.review.date).format('LL')}
+      <span style={{ float: 'right', fontSize: '12px', wordSpacing: '2px' }}>
+        {review.reviewer_name}, { moment(review.date).format('LL')}
       </span>
       <div>
-        <strong>{props.review.summary}</strong>
+        <strong>{review.summary}</strong>
+      </div>
+      <div style={{ lineHeight: '1em' }}>
+        {review.body}
       </div>
       <div>
-        {props.review.body}
+        {review.recommend ? <i className="far fa-check-circle"><em>I recommend this product</em></i> : null}
       </div>
-      <div>
-        {props.review.recommend ? <i className="far fa-check-circle">I recommend this product</i>: null}
-      </div>
-      <div>
+      <div style={{ fontSize: '14px' }}>
         Helpful?
-        {props.review.helpfulness ? `Yes (${props.review.helpfulness})`: 'No'}
+        {review.helpfulness ? ` Yes(${review.helpfulness})` : 'No'}
       </div>
     </div>
   );

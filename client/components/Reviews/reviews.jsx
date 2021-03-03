@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReviewTile from './reviewTile';
 
-const Reviews = () => {
-  const [count, setCount] = useState(0);
-
+function Reviews() {
   return (
     <div>
       <div>
-        {count}
-        reviews, sorted by
+        Rating Section
       </div>
-      <div> Rating Section </div>
       <div>
         Product Breakdown
       </div>
+      <form style={{ float: 'center', fontSize: '18px' }}>
+        <label className="review-sort"><strong>x Number of Reviews Sorted By</strong> </label>
+        <select id="search-select">
+          <option value="relevance">Relevance</option>
+          <option value="helpfulness">Helpful</option>
+          <option value="newest">Newest</option>
+        </select>
+      </form>
       <ReviewTile />
-      <button type="button" onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
     </div>
   );
-};
+}
 
 export default Reviews;

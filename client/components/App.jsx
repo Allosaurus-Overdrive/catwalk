@@ -11,7 +11,6 @@ import Reviews from './Reviews/reviews';
 
 const App = () => (
   <div>
-    <p>Hello world!</p>
     <Reviews />
 >>>>>>> initial framework and individual tile setup
   </div>

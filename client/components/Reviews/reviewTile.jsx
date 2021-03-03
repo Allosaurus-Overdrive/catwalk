@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import axios from 'axios';
 import exampleReviews from './sampleData';
 import ReviewIndividualTile from './reviewIndividualTile';
 
 const tileBox = {
   border: '1px solid black',
+  float: 'center',
   margin: '2em',
+  height: '400px',
+  width: '700px',
+  overflowY: 'scroll',
 };
 
 function ReviewTile() {
+  const [showMore, setMore] = useState(false);
+
   return (
     <div style={tileBox}>
       <ul>
-        {exampleReviews.results.map((review) => (
-          <ReviewIndividualTile key={review.review_id} review={review} />
-        ))}
+        {showMore
+          ? exampleReviews.results.map((review) =>
+            <ReviewIndividualTile key={review.review_id} review={review} />)
+          : exampleReviews.results.slice(0, 2).map((review) =>
+            <ReviewIndividualTile key={review.review_id} review={review} />)}
       </ul>
-      <button type="button">
+      <button type="button" onClick={() => setMore(true)}>
         More Reviews
       </button>
       <button type="button">
@@ -28,15 +36,4 @@ function ReviewTile() {
 
 export default ReviewTile;
 
-// use toggle function to display 2 vs all reviews, maybe have to use count or limit?
 // modal component for add review
-/* for each tile, access
--Star Rating
--Date of Review
--Review Summary(60 chars and in bold)
--Review Body
--Recommend
--Reviewer name
--Response to Review
--Rating Helpfulness
-*/
