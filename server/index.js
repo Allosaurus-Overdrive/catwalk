@@ -5,7 +5,7 @@ const axios = require('axios');
 const config = require('../config.js');
 
 const PORT = 3000;
-const PUBLIC_DIR = path.resolve(__dirname, '..', 'public')
+const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
 
 const app = express();
 
@@ -79,6 +79,19 @@ app.get('/related-styles', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
+app.get('/product-features', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const productOverviewId = req.query.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
+    .then(({ data }) => { res.send(data.features); })
+    .catch(() => res.sendStatus(400));
+});
+
 app.listen(PORT, () => {
-  // console.log(`server listening on localhost: ${PORT}`);
+  console.log(`server listening on localhost: ${PORT}`);
 });

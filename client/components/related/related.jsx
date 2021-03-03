@@ -10,7 +10,7 @@ import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 // need to get this somehow from alex's component.
 // or if he sets 20111 as his default, then we can just always start with this;
 // set this in the state of the product carousel functional component. refactor if needed
-const productOverviewId = 20111;
+let productOverviewId = 20111;
 
 //  //  //  //  //  //  //  //  //  //  //  //
 // RELATED PRODUCT CARD STYLED COMPONENTS  //
@@ -52,6 +52,7 @@ const RelatedIcon = styled.i`
   opacity: 1;
   &:hover{
     color: gold;
+    cursor: pointer;
   }
 `;
 
@@ -123,6 +124,15 @@ const ModalTitle = styled.h3`
   margin-top: 1.5rem;
 `;
 
+const ModalHeaderTitle = styled.h3`
+  display: inline-block;
+  font-weight: 400;
+  font-size: 100%;
+  float: ${(props) => (props.new ? 'right' : 'left')};
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+`;
+
 const ModalCloseButton = styled.button`
   font-weight: 100;
   font-size: 80%;
@@ -136,17 +146,15 @@ const ModalCloseButton = styled.button`
 `;
 
 const ModalTable = styled.table`
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 80%;
   display: inline-block;
   border-style: solid;
 `;
 
-const ModalHeaderTitle = styled.h3`
-  display: inline-block;
-  font-weight: 400;
-  font-size: 100%;
-  float: ${(props) => (props.new ? 'right' : 'left')};
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+const ModalTableRow = styled.tr`
+  color: gray;
 `;
 
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -195,7 +203,52 @@ const RelatedArrowButton = styled.button`
 // RELATED PRODUCT MODAL FUNCTIONAL COMPONENT /
 //  //  //  //  //  //  //  //  //  //  //  //
 
+// make sure that the current product features are already set in state before rendering
+// maybe having a loading tag if it ends up loading slowly
+
+// get the current product (and store its features in state)
+//   need an axios request on client and then on backend
+// pass the product features of the clicked modal down from where ModalContent is mounted in the card component (props.item.features)
+//   this is synchronous so I'll get this clicked product info before the current product info
+// the features come as an array of objects
+//   each obj has the feature name and the value (a value or null)
+//   if null, display checkmark
+//   if value, display value
+// iterate over the array and for each obj, return:
+//   first add the obj.feature to a set (initialize empty set before this)
+//   new table row
+//   first cell is html checkmark symbol if obj.value === null, print the value if it's !== null
+//   second cell is just obj.feature
+//   third cell....
+//     initialize the cell as empty
+//     iterate through array of features for the clicked product
+//     if obj.feature !== undefined in any of the objs in the array, return checkmark or value for the 3rd cell
+
+// another method:
+// async function to get the current product features and load into state
+// await for the response
+// await for the response to load into state
+// iterate over both features arrays and load each featureobj.feature into a set object
+// to create a thruple:
+//   iterate over the set objectt with a forEach
+//   check in each feature array to see if it exists and load the value (the time complexity is immense)
+
+// have an allfeatures array of {featurename: {current: value, clicked: value}, featurename: {}, etc}
+// this prevents duplicates cuz the featurename is the key
+// iterate over the current product features, for each item in the array, allfeatures[obj.feature].current = obj.value (and convert null to true)
+// iterate over the clicked product features, do the same as above. allfeatures[obj.feature].clicked = obj.value
+// iterate over the obj, turn it into an array
+//   for key in allfeaturesobj, push [key, key.current, key.clicked] into a new array
+//   now can map over this array for rendering
+
+
 function ModalContent(props) {
+  // get current prooduct features
+
+  axios.get('/product-features', { params: { id: productOverviewId } })
+    .then(({ data }) => console.log(data))
+    .catch((err) => console.log(err));
+
   return (
     <div>
       <ModalTitle>Comparing</ModalTitle>
