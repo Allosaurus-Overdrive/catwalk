@@ -29,7 +29,6 @@ const StyleSelector = () => {
 
   useEffect(() => {
     getThumbnail();
-    //,,,,,
   });
 
   return (
