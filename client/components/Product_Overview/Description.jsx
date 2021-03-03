@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import config from '../../../server/config';
-
-const options = {
-  headers: {
-    Authorization: `${config.TOKEN}`,
-  },
-};
 
 const DescriptionGrid = styled.div`
   display: grid;
@@ -28,7 +21,7 @@ const Description = () => {
   const [slogan, setSlogan] = useState('');
   const [features, setFeatures] = useState([]);
 
-  const getDescription = () => axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/20111', options)
+  const getDescription = () => axios.get('/products/20111')
     .then((response) => {
       setSlogan(response.data.slogan);
       setDescription(response.data.description);
