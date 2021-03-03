@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
-// import config from '../../../config';
+import config from '../../../config';
 
 // TO-DOS:
 // get the productID of the current page from alex's overview component where he stores the id?
@@ -259,52 +259,17 @@ function RelatedProducts(props) {
   // need to add get related products on component did mount
 
   const getRelatedProducts = () => {
-    const relatedProductObjs = [];
-    const relatedProductsStyles = {};
-
-    const options = {
-      headers: {
-        Authorization: config.TOKEN,
-      },
-    };
-
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/related`, options)
-      .then(({ data }) => {
-        const promiseArray = [];
-
-        for (let i = 0; i < data.length; i++) {
-          promiseArray.push(
-            axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}`, options)
-              .then(({ data }) => relatedProductObjs.push(data))
-              .catch((err) => console.log('error in getting single product obj when getting related products: ', err)),
-          );
-        }
-
-        Promise.all(promiseArray)
-          .then(() => setRelatedProductsArray(relatedProductObjs))
-          .catch((err) => console.log('error in resolving promise.all: ', err));
+    axios.get('/related-products', {params: {id: productOverviewId}})
+      .then(({data}) => {
+        setRelatedProductsArray(data);
       })
-      .catch((err) => console.log('err in getting related products: ', err));
+      .catch((err) => console.log(err));
 
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/related`, options)
-      .then(({ data }) => {
-        const promiseArray = [];
-
-        for (let i = 0; i < data.length; i++) {
-          promiseArray.push(
-            axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}/styles`, options)
-              .then(({ data }) => {
-                relatedProductsStyles[data.product_id] = data.results;
-              })
-              .catch((err) => console.log('error in getting single style obj when getting related products: ', err)),
-          );
-        }
-
-        Promise.all(promiseArray)
-          .then(() => setRelatedProductStylesObj(relatedProductsStyles))
-          .catch((err) => console.log('error in resolving promise.all: ', err));
+    axios.get('/related-styles', {params: {id: productOverviewId}})
+      .then(({data}) => {
+        setRelatedProductStylesObj(data);
       })
-      .catch((err) => console.log('err in getting related products styles: ', err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
