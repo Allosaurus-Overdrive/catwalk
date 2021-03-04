@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+// **Styling Tempelates**//
+
 const RoundImg = styled.img`
   border: solid black;
   border-radius: 50%;
@@ -9,12 +11,13 @@ const RoundImg = styled.img`
   width: 75px;
 `;
 
+// **Functionality Section** //
+
 const StyleSelector = () => {
   const [thumbnail, setThumbnail] = useState([]);
 
   const getThumbnail = () => axios.get('/products/20111/styles')
     .then(({ data }) => (
-
       setThumbnail(data.results)
     ))
     .catch((err) => {
@@ -23,7 +26,7 @@ const StyleSelector = () => {
 
   useEffect(() => {
     getThumbnail();
-  });
+  }, []);
 
   return (
     <div>

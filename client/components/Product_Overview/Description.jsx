@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+// **Styling Templates** //
+
 const DescriptionGrid = styled.div`
   display: grid;
   grid-tempelate-colums: 2fr 1fr;
@@ -15,6 +17,14 @@ const Column1 = styled.div`
 const Column2 = styled.div`
   grid-column: 2/3;
 `;
+
+const FeatureStyle = styled.div`
+  margin: 10px 5px 10px 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+`;
+
+// **Functionality Section** //
 
 const Description = () => {
   const [description, setDescription] = useState('');
@@ -33,7 +43,7 @@ const Description = () => {
 
   useEffect(() => {
     getDescription();
-  });
+  }, []);
 
   return (
     <DescriptionGrid>
@@ -43,10 +53,10 @@ const Description = () => {
       </Column1>
       <Column2>
         {features.map((feature) => (
-          <div key={feature.feature}>
+          <FeatureStyle key={feature.feature}>
             {feature.feature}
             {feature.value}
-          </div>
+          </FeatureStyle>
         ))}
       </Column2>
     </DescriptionGrid>
