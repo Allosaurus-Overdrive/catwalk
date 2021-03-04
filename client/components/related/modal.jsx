@@ -81,8 +81,7 @@ const ModalTableRow = styled.tr`
 //   now can map over this array for rendering
 
 function ModalContent(props) {
-  const [currentFeatures, setCurrentFeatures] = useState(props.currentFeatures);
-  const [clickedFeatures, setClickedFeatures] = useState(props.clickedFeatures);
+  const [allFeatures, setAllFeatures] = useState(null);
 
   // trigger rerender upon currentproductfeatures updating
   const getFeaturesArray = () => {
@@ -121,6 +120,8 @@ function ModalContent(props) {
       allFeaturesArray.push([entry[1].current, entry[0], entry[1].clicked]);
     });
 
+    setAllFeatures(allFeaturesArray);
+
     console.log('current: ', current)
     console.log('clicked: ', clicked)
     console.log('obj: ', allFeaturesObj)
@@ -136,13 +137,21 @@ function ModalContent(props) {
       <ModalTitle>Comparing</ModalTitle>
       <ModalHeaderTitle>Current Product Name</ModalHeaderTitle>
       <ModalHeaderTitle new>New Product Name</ModalHeaderTitle>
-      <p>{currentFeatures[0].feature}</p>
-      <p>{clickedFeatures[0].feature}</p>
-      {/* <ModalTable>
-
-      </ModalTable> */}
+      {allFeatures !== null && (
+      <ModalTable>
+        <tbody>
+          {allFeatures.map((featureRow) => (
+            <tr key={JSON.stringify(featureRow)}>
+              {featureRow[0] === true ? <td>&#x2713;</td> : <td>{featureRow[0]}</td>}
+              <td>{featureRow[1]}</td>
+              {featureRow[2] === true ? <td>&#x2713;</td> : <td>{featureRow[2]}</td>}
+            </tr>
+          ))}
+        </tbody>
+      </ModalTable>
+      )}
     </div>
   );
-};
+}
 
 export default ModalContent;
