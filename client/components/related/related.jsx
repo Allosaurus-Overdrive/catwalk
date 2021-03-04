@@ -22,6 +22,14 @@ const RelatedProductsWrapper = styled.section`
   margin-right: 10px;
 `;
 
+const RelatedProductsTitle = styled.h3`
+  color: grey;
+  font-weight: 100;
+  font-size: 90%;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 1.5rem;
+`;
+
 const RelatedProductsListWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   display: inline-flex;
@@ -50,6 +58,7 @@ const RelatedArrowButton = styled.button`
   border-style: none;
   height: 287px;
   width: 50px;
+  margin-left: 1.5rem;
   margin-block-start: 1em;
   margin-block-end: 1em;
   cursor: pointer;
@@ -145,6 +154,7 @@ function RelatedProducts(props) {
 
   return (
     <RelatedProductsWrapper>
+      <RelatedProductsTitle>RELATED PRODUCTS</RelatedProductsTitle>
       {endReached !== 'left' && endReached !== 'both'
       && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
       <RelatedProductsListWrapper ref={ref}>
