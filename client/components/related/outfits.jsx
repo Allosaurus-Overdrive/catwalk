@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
-import ProductCard from './relatedcard';
+import OutfitCard from './outfitcard';
 import { productOverviewId,
   RelatedProducts,
   RelatedProductsWrapper,
@@ -10,6 +9,7 @@ import { productOverviewId,
   RelatedProductsListWrapper,
   RelatedProductsList,
   RelatedArrowButton } from './related';
+import { RelatedCardWrapper } from './relatedcard';
 
 // the Add to Outfit static card should be rendered in the html statically, after the list from localstorage
 
@@ -19,8 +19,8 @@ const Outfits = (props) => {
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
   const [endReached, setEndReached] = useState('left');
-  const [relatedProductsArray, setRelatedProductsArray] = useState(null);
-  const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState(null);
+  const [outfitsArray, setOutfitsArray] = useState([]);
+  const [outfitsStylesObj, setOutfitsStylesObj] = useState(null);
   const [currentProductData, setCurrentProductData] = useState(null);
 
   useEffect(() => {
@@ -30,29 +30,58 @@ const Outfits = (props) => {
   });
 
   // Get related product, all styles of related products, and current product features
-  const getRelatedProducts = () => {
-    axios.get('/related-products', { params: { id: productOverviewId } })
-      .then(({data}) => {
-        setRelatedProductsArray(data);
-      })
-      .catch((err) => console.log(err));
-
+  const getYourOutfits = () => {
+    // have to pass in product ids of stored outfits
+    // store an array out outfits to render... maybe in state?
     axios.get('/related-styles', { params: { id: productOverviewId } })
       .then(({data}) => {
-        setRelatedProductStylesObj(data);
+        setOutfitsStylesObj(data);
       })
       .catch((err) => console.log(err));
 
+
+  };
+
+  const storeOutfit = ()  => {
+    // store the product id of the current page you're on
+
+  };
+
+  // useEffect(() => {
+  //   getYourOutfits();
+  // }, []);
+
+  const onAddCardClickHandler = () => {
     axios.get('/product-features', { params: { id: productOverviewId } })
       .then(({ data }) => {
-        setCurrentProductData(data);
+        const newOutfitsArray = outfitsArray;
+        let duplicate = false;
+
+        newOutfitsArray.forEach((outfit) => {
+          if (outfit.id === data.id) {
+            duplicate = true;
+          }
+        });
+
+        if (!duplicate) {
+          newOutfitsArray.push(data);
+          setOutfitsArray(newOutfitsArray);
+          setCurrentProductData(data);
+        } else {
+          alert('This item is already saved in your outfits!');
+        }
+      })
+      .catch((err) => console.log(err));
+
+    axios.get('/outfit-styles', { params: { id: productOverviewId } })
+      .then(({ data }) => {
+        const newOutfitsStylesObj = outfitsStylesObj || {};
+        newOutfitsStylesObj[data.product_id] = data.results;
+
+        setOutfitsStylesObj(newOutfitsStylesObj);
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    getRelatedProducts();
-  }, []);
 
   const scroll = (scrollOffset) => {
     let currentScrollLeft;
@@ -77,7 +106,7 @@ const Outfits = (props) => {
     setClientWidth(ref.current.clientWidth);
 
     const atLeftEnd = (scrollOffset < 0 && currentScrollLeft === 0);
-    const atRightEnd = (currentScrollLeft === relatedProductsArray.length * 222) && (scrollOffset > 0);
+    const atRightEnd = (currentScrollLeft === (outfitsArray.length + 1) * 222) && (scrollOffset > 0);
 
     if (atLeftEnd) {
       setEndReached('left');
@@ -98,29 +127,30 @@ const Outfits = (props) => {
       {endReached !== 'left' && endReached !== 'both'
       && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
       <RelatedProductsListWrapper ref={ref}>
-        {relatedProductsArray !== null
-        && relatedProductsStylesObj !== null
+        {outfitsArray !== null
+        && outfitsStylesObj !== null
         && currentProductData !== null
         && (
-          <ModalProvider backgroundComponent={FadingBackground}>
-            <RelatedProductsList>
-              {relatedProductsArray.map((item) => (
-                <ProductCard
-                  item={item}
-                  key={item.id}
-                  styles={relatedProductsStylesObj[item.id]}
-                  currentFeatures={currentProductData.features}
-                  currentName={currentProductData.name}
-                />
-              ))}
-            </RelatedProductsList>
-          </ModalProvider>
+          <RelatedProductsList>
+            {outfitsArray.map((item) => (
+              <OutfitCard
+                item={item}
+                key={item.id}
+                styles={outfitsStylesObj[item.id]}
+                currentFeatures={currentProductData.features}
+                currentName={currentProductData.name}
+              />
+            ))}
+          </RelatedProductsList>
         )}
+        <RelatedCardWrapper onClick={onAddCardClickHandler}>
+          <p>Add Card</p>
+        </RelatedCardWrapper>
       </RelatedProductsListWrapper>
       {endReached !== 'right' && endReached !== 'both'
       && <RelatedArrowButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
     </RelatedProductsWrapper>
   );
-}
+};
 
 export default Outfits;

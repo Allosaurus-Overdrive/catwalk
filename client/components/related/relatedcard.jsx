@@ -100,18 +100,6 @@ const StyledModal = Modal.styled`
   border-color: black;
 `;
 
-// const ModalCloseButton = styled.button`
-//   font-weight: 100;
-//   font-size: 80%;
-//   display: inline-block;
-//   position: absolute;
-//   border-style: solid;
-//   border-color: grey;
-//   border-width: 1px;
-//   right: 1.5rem;
-//   top: 1.5rem;
-// `;
-
 //  //  //  //  //  //  //  //  //  //  //  ////
 // RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -199,4 +187,14 @@ function ProductCard(props) {
   );
 }
 
-export default ProductCard;
+export {
+  ProductCard,
+  RelatedCardWrapper,
+  RelatedImage,
+  RelatedIcon,
+  RelatedOverview,
+  RelatedCategory,
+  RelatedName,
+  RelatedSalePrice,
+  RelatedPrice,
+};
