@@ -85,6 +85,52 @@ function ModalContent(props) {
   const [clickedFeatures, setClickedFeatures] = useState(props.clickedFeatures);
 
   // trigger rerender upon currentproductfeatures updating
+  const getFeaturesArray = () => {
+    const current = props.currentFeatures;
+    const clicked = props.clickedFeatures;
+
+    const allFeaturesObj = {};
+
+    for (let i = 0; i < current.length; i++) {
+      if (allFeaturesObj[current[i].feature] === undefined) {
+        allFeaturesObj[current[i].feature] = {current: null, clicked: null}
+      }
+
+      if (current[i].value === null) {
+        allFeaturesObj[current[i].feature].current = true;
+      } else {
+        allFeaturesObj[current[i].feature].current = current[i].value.slice(1, -1);
+      }
+    }
+
+    for (let j = 0; j < clicked.length; j++) {
+      if (allFeaturesObj[clicked[j].feature] === undefined) {
+        allFeaturesObj[clicked[j].feature] = {current: null, clicked: null}
+      }
+
+      if (clicked[j].value === null) {
+        allFeaturesObj[clicked[j].feature].clicked = true;
+      } else {
+        allFeaturesObj[clicked[j].feature].clicked = clicked[j].value.slice(1, -1);
+      }
+    }
+
+    const allFeaturesArray = [];
+
+    Object.entries(allFeaturesObj).forEach((entry) => {
+      allFeaturesArray.push([entry[1].current, entry[0], entry[1].clicked]);
+    });
+
+    console.log('current: ', current)
+    console.log('clicked: ', clicked)
+    console.log('obj: ', allFeaturesObj)
+    console.log('arr: ', allFeaturesArray)
+  };
+
+  useEffect(() => {
+    getFeaturesArray();
+  }, []);
+
   return (
     <div>
       <ModalTitle>Comparing</ModalTitle>
