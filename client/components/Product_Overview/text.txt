@@ -1,0 +1,161 @@
+{
+    "product_id": "20111",
+    "results": [
+        {
+            "style_id": 110038,
+            "name": "Azure",
+            "original_price": "817.00",
+            "sale_price": null,
+            "default?": true,
+            "photos": [
+                {
+                    "thumbnail_url": "https://images.unsplash.com/photo-1556304653-cba65c59b3c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                    "url": "https://images.unsplash.com/photo-1519330377309-9ee1c6783348?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+                }
+            ],
+            "skus": {
+                "638588": {
+                    "quantity": 0,
+                    "size": "XS"
+                },
+                "638589": {
+                    "quantity": 31,
+                    "size": "S"
+                },
+                "638590": {
+                    "quantity": 47,
+                    "size": "M"
+                },
+                "638591": {
+                    "quantity": 24,
+                    "size": "L"
+                },
+                "638592": {
+                    "quantity": 25,
+                    "size": "XL"
+                },
+                "638593": {
+                    "quantity": 58,
+                    "size": "XXL"
+                }
+            }
+        },
+        {
+            "style_id": 110039,
+            "name": "Tan",
+            "original_price": "817.00",
+            "sale_price": null,
+            "default?": false,
+            "photos": [
+                {
+                    "thumbnail_url": "https://images.unsplash.com/photo-1519862170344-6cd5e49cb996?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                    "url": "https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1525&q=80"
+                }
+            ],
+            "skus": {
+                "638594": {
+                    "quantity": 15,
+                    "size": "XS"
+                },
+                "638595": {
+                    "quantity": 41,
+                    "size": "S"
+                },
+                "638596": {
+                    "quantity": 4,
+                    "size": "M"
+                },
+                "638597": {
+                    "quantity": 12,
+                    "size": "L"
+                },
+                "638598": {
+                    "quantity": 17,
+                    "size": "XL"
+                },
+                "638599": {
+                    "quantity": 2,
+                    "size": "XXL"
+                }
+            }
+        },
+        {
+            "style_id": 110040,
+            "name": "White",
+            "original_price": "817.00",
+            "sale_price": null,
+            "default?": false,
+            "photos": [
+                {
+                    "thumbnail_url": "https://images.unsplash.com/photo-1550188053-b4e1e8e4f94f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                    "url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=962&q=80"
+                }
+            ],
+            "skus": {
+                "638600": {
+                    "quantity": 55,
+                    "size": "XS"
+                },
+                "638601": {
+                    "quantity": 9,
+                    "size": "S"
+                },
+                "638602": {
+                    "quantity": 32,
+                    "size": "M"
+                },
+                "638603": {
+                    "quantity": 22,
+                    "size": "L"
+                },
+                "638604": {
+                    "quantity": 1,
+                    "size": "XL"
+                },
+                "638605": {
+                    "quantity": 44,
+                    "size": "XXL"
+                }
+            }
+        },
+        {
+            "style_id": 110041,
+            "name": "Cyan",
+            "original_price": "817.00",
+            "sale_price": null,
+            "default?": false,
+            "photos": [
+                {
+                    "thumbnail_url": "https://images.unsplash.com/photo-1530821875964-91927b611bad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                    "url": "https://images.unsplash.com/photo-1541006008768-d181e7f9f3d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1568&q=80"
+                }
+            ],
+            "skus": {
+                "638606": {
+                    "quantity": 57,
+                    "size": "XS"
+                },
+                "638607": {
+                    "quantity": 14,
+                    "size": "S"
+                },
+                "638608": {
+                    "quantity": 56,
+                    "size": "M"
+                },
+                "638609": {
+                    "quantity": 21,
+                    "size": "L"
+                },
+                "638610": {
+                    "quantity": 41,
+                    "size": "XL"
+                },
+                "638611": {
+                    "quantity": 48,
+                    "size": "XXL"
+                }
+            }
+        }
+    ]
+}
