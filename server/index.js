@@ -15,8 +15,38 @@ app.use(morgan('dev'));
 
 app.use(express.static(PUBLIC_DIR));
 
-app.get('/', (req, res) => {
-  res.send('hello from server');
+app.get('/qa/questions/:productId', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { productId } = req.params;
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, options)
+    .then(({ data }) => {
+      res.status(200).send(data);
+    }).catch((err) => {
+      console.log('there was an error getting questions based on product id', err);
+    });
+});
+
+app.get('/qa/questions/:questionId/answers', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { questionId } = req.params;
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/answers`, options)
+    .then(({ data }) => {
+      res.status(200).send(data);
+    }).catch((err) => {
+      console.log('there was an error at the server getting answers', err);
+    });
 });
 
 const options = {
@@ -63,7 +93,7 @@ app.get('/related-products', (req, res) => {
     .then(({ data }) => {
       const promiseArray = [];
 
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i += 1) {
         promiseArray.push(
           axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}`, options)
             .then(({ data }) => relatedProductObjs.push(data))
@@ -92,7 +122,7 @@ app.get('/related-styles', (req, res) => {
     .then(({ data }) => {
       const promiseArray = [];
 
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i += 1) {
         promiseArray.push(
           axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}/styles`, options)
             .then(({ data }) => {

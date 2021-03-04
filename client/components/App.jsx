@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductOverview from './Product_Overview/ProductOverview';
@@ -31,5 +32,15 @@ const App = () => {
     </div>
   );
 };
+=======
+import React from 'react';
+import Questions from './questionsAndanswers/Questions';
+
+const App = () => (
+  <div>
+    <Questions />
+  </div>
+);
+>>>>>>> e5916ed (created basic html layout, fetched data from api is being displayed, photos have been conditionally added to answers)
 
 export default App;
