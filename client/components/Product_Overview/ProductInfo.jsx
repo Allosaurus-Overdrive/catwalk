@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// **Styling Tempelates**//
+
+// **Functionality Section** //
+
 const ProductInfo = () => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
@@ -18,13 +22,16 @@ const ProductInfo = () => {
 
   useEffect(() => {
     getInfo();
-  });
+  }, []);
 
   return (
     <div>
       <div>{category}</div>
       <div>{name}</div>
-      <div>{price}</div>
+      <div>
+        $
+        {price}
+      </div>
     </div>
   );
 };
