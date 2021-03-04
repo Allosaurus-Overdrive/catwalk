@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const axios = require('axios');
-const config = require('./config');
+const config = require('../config.js');
 
 const PORT = 3000;
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
@@ -103,6 +103,26 @@ app.get('/related-styles', (req, res) => {
         .catch((err) => console.log('error in resolving promise.all: ', err));
     })
     .catch(() => res.sendStatus(400));
+});
+
+app.get('/reviews/:id', (req, res) => {
+  const { id } = req.params;
+  const options = {
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea',
+    headers: {
+      'User-Agent': 'request',
+      Authorization: `token ${config.TOKEN}`,
+    },
+  };
+  axios.get(`${options.url}/reviews/?product_id=${id}`, options)
+    .then(({ data }) => {
+      console.log(data);
+      res.send(data.results);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
 });
 
 app.listen(PORT, () => {
