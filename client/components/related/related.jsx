@@ -72,7 +72,7 @@ function RelatedProducts(props) {
   const [endReached, setEndReached] = useState('left');
   const [relatedProductsArray, setRelatedProductsArray] = useState(null);
   const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState(null);
-  const [currentProductFeatures, setCurrentProductFeatures] = useState(null);
+  const [currentProductData, setCurrentProductData] = useState(null);
 
   useEffect(() => {
     setScrollLeft(ref.current.scrollLeft);
@@ -96,7 +96,7 @@ function RelatedProducts(props) {
 
     axios.get('/product-features', { params: { id: productOverviewId } })
       .then(({ data }) => {
-        setCurrentProductFeatures(data);
+        setCurrentProductData(data);
       })
       .catch((err) => console.log(err));
   };
@@ -150,7 +150,7 @@ function RelatedProducts(props) {
       <RelatedProductsListWrapper ref={ref}>
         {relatedProductsArray !== null
         && relatedProductsStylesObj !== null
-        && currentProductFeatures !== null
+        && currentProductData !== null
         && (
           <ModalProvider backgroundComponent={FadingBackground}>
             <RelatedProductsList>
@@ -159,7 +159,8 @@ function RelatedProducts(props) {
                   item={item}
                   key={item.id}
                   styles={relatedProductsStylesObj[item.id]}
-                  currentFeatures={currentProductFeatures}
+                  currentFeatures={currentProductData.features}
+                  currentName={currentProductData.name}
                 />
               ))}
             </RelatedProductsList>

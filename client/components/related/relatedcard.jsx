@@ -88,26 +88,29 @@ const RelatedPrice = styled.h3`
 `;
 
 const StyledModal = Modal.styled`
-  width: 40rem;
-  height: 30rem;
+  width: 30rem;
+  height: 22rem;
   display: inline-block;
   background-color: white;
   opacity: ${(props) => props.opacity};
   transition : all 0.3s ease-in-out;
   position: relative;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
 `;
 
-const ModalCloseButton = styled.button`
-  font-weight: 100;
-  font-size: 80%;
-  display: inline-block;
-  position: absolute;
-  border-style: solid;
-  border-color: grey;
-  border-width: 1px;
-  right: 1.5rem;
-  top: 1.5rem;
-`;
+// const ModalCloseButton = styled.button`
+//   font-weight: 100;
+//   font-size: 80%;
+//   display: inline-block;
+//   position: absolute;
+//   border-style: solid;
+//   border-color: grey;
+//   border-width: 1px;
+//   right: 1.5rem;
+//   top: 1.5rem;
+// `;
 
 //  //  //  //  //  //  //  //  //  //  //  ////
 // RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
@@ -184,8 +187,13 @@ function ProductCard(props) {
         opacity={opacity}
         backgroundProps={{ opacity }}
       >
-        <ModalContent clickedFeatures={props.item.features} currentFeatures={props.currentFeatures} />
-        <ModalCloseButton type="button" onClick={toggleModal}>CLOSE</ModalCloseButton>
+        <ModalContent
+          clickedFeatures={props.item.features}
+          currentFeatures={props.currentFeatures}
+          clickedName={props.item.name}
+          currentName={props.currentName}
+        />
+        {/* <ModalCloseButton type="button" onClick={toggleModal}>CLOSE</ModalCloseButton> */}
       </StyledModal>
     </RelatedCardWrapper>
   );

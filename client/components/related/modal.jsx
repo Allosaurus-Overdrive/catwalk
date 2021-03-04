@@ -9,8 +9,8 @@ import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 
 const ModalTitle = styled.h3`
   font-weight: 100;
-  font-size: 80%;
-  color: grey;
+  font-size: 70%;
+  color: #747474;
   display: block;
   text-transform: uppercase;
   margin-left: 1.5rem;
@@ -18,24 +18,53 @@ const ModalTitle = styled.h3`
 `;
 
 const ModalHeaderTitle = styled.h3`
-  display: inline-block;
-  font-weight: 400;
-  font-size: 100%;
+  display: block;
+  color: #525252;
+  font-weight: 800;
+  font-size: 90%;
   float: ${(props) => (props.new ? 'right' : 'left')};
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+  margin: 0 1.5rem 1.5rem 1.5rem;
 `;
 
 const ModalTable = styled.table`
+  float: left;
+  table-layout: fixed;
+  width: 27rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 80%;
-  display: inline-block;
-  border-style: solid;
+  margin-left: 1.5rem;
+  border-collapse: separate;
+  border-spacing: 0 10px;
 `;
 
 const ModalTableRow = styled.tr`
+  margin-top: 5px;
+`;
+
+const ModalTableCell = styled.td`
+  text-align: ${(props) => {
+    if (props.left) {
+      return 'left';
+    }
+    if (props.right) {
+      return 'right';
+    }
+    return 'center';
+  }};
+  color: ${(props) => (props.center ? '#727272' : 'default')};
+`;
+
+const ModalTableBody = styled.tbody`
+  width: 100%;
+`;
+
+const ModalTableCaption = styled.caption`
+  position: absolute;
+  bottom: 1.5rem;
+  font-size: 50%;
   color: gray;
+  text-align: center;
 `;
 
 //  //  //  //  //  //  //  //  //  //  //  ////
@@ -44,41 +73,6 @@ const ModalTableRow = styled.tr`
 
 // make sure that the current product features are already set in state before rendering
 // maybe having a loading tag if it ends up loading slowly
-
-// get the current product (and store its features in state)
-//   need an axios request on client and then on backend
-// pass the product features of the clicked modal down from where ModalContent is mounted in the card component (props.item.features)
-//   this is synchronous so I'll get this clicked product info before the current product info
-// the features come as an array of objects
-//   each obj has the feature name and the value (a value or null)
-//   if null, display checkmark
-//   if value, display value
-// iterate over the array and for each obj, return:
-//   first add the obj.feature to a set (initialize empty set before this)
-//   new table row
-//   first cell is html checkmark symbol if obj.value === null, print the value if it's !== null
-//   second cell is just obj.feature
-//   third cell....
-//     initialize the cell as empty
-//     iterate through array of features for the clicked product
-//     if obj.feature !== undefined in any of the objs in the array, return checkmark or value for the 3rd cell
-
-// another method:
-// async function to get the current product features and load into state
-// await for the response
-// await for the response to load into state
-// iterate over both features arrays and load each featureobj.feature into a set object
-// to create a thruple:
-//   iterate over the set objectt with a forEach
-//   check in each feature array to see if it exists and load the value (the time complexity is immense)
-
-// have an allfeatures array of {featurename: {current: value, clicked: value}, featurename: {}, etc}
-// this prevents duplicates cuz the featurename is the key
-// iterate over the current product features, for each item in the array, allfeatures[obj.feature].current = obj.value (and convert null to true)
-// iterate over the clicked product features, do the same as above. allfeatures[obj.feature].clicked = obj.value
-// iterate over the obj, turn it into an array
-//   for key in allfeaturesobj, push [key, key.current, key.clicked] into a new array
-//   now can map over this array for rendering
 
 function ModalContent(props) {
   const [allFeatures, setAllFeatures] = useState(null);
@@ -121,11 +115,6 @@ function ModalContent(props) {
     });
 
     setAllFeatures(allFeaturesArray);
-
-    console.log('current: ', current)
-    console.log('clicked: ', clicked)
-    console.log('obj: ', allFeaturesObj)
-    console.log('arr: ', allFeaturesArray)
   };
 
   useEffect(() => {
@@ -135,19 +124,31 @@ function ModalContent(props) {
   return (
     <div>
       <ModalTitle>Comparing</ModalTitle>
-      <ModalHeaderTitle>Current Product Name</ModalHeaderTitle>
-      <ModalHeaderTitle new>New Product Name</ModalHeaderTitle>
+      <ModalHeaderTitle>{props.currentName}</ModalHeaderTitle>
+      <ModalHeaderTitle new>{props.clickedName}</ModalHeaderTitle>
       {allFeatures !== null && (
       <ModalTable>
-        <tbody>
+        {/* <thead>
+          <tr>
+            <th>{props.currentName}</th>
+            <th>  </th>
+            <th>{props.clickedName}</th>
+          </tr>
+        </thead> */}
+        <ModalTableBody>
           {allFeatures.map((featureRow) => (
             <tr key={JSON.stringify(featureRow)}>
-              {featureRow[0] === true ? <td>&#x2713;</td> : <td>{featureRow[0]}</td>}
-              <td>{featureRow[1]}</td>
-              {featureRow[2] === true ? <td>&#x2713;</td> : <td>{featureRow[2]}</td>}
+              {featureRow[0] === true
+                ? <ModalTableCell left>&#x2713;</ModalTableCell>
+                : <ModalTableCell left>{featureRow[0]}</ModalTableCell>}
+              <ModalTableCell center>{featureRow[1]}</ModalTableCell>
+              {featureRow[2] === true
+                ? <ModalTableCell right>&#x2713;</ModalTableCell>
+                : <ModalTableCell right>{featureRow[2]}</ModalTableCell>}
             </tr>
           ))}
-        </tbody>
+        </ModalTableBody>
+        <ModalTableCaption>Comparing the features of {props.currentName} and {props.clickedName}</ModalTableCaption>
       </ModalTable>
       )}
     </div>
