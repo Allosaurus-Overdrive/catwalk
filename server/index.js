@@ -105,6 +105,7 @@ app.get('/related-styles', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
+<<<<<<< HEAD
 app.get('/reviews/:id', (req, res) => {
   const { id } = req.params;
   const options = {
@@ -125,6 +126,8 @@ app.get('/reviews/:id', (req, res) => {
     });
 });
 
+=======
+>>>>>>> 5b4ab06d8ba6b0820569a0b3bd76d7ebc8d3f494
 app.get('/product-features', (req, res) => {
   const options = {
     headers: {

@@ -13,9 +13,55 @@ import ProductCard from './relatedcard';
 // set this in the state of the product carousel functional component. refactor if needed
 let productOverviewId = 20111;
 
+<<<<<<< HEAD
 //  //  //  //  //  //  //  //  //  //
 // RELATED MODAL STYLED COMPONENTS  //
 //  //  //  //  //  //  //  //  //  //
+=======
+//  //  //  //  //  //  //  //  //  //  //  //
+// RELATED PRODUCT CARD STYLED COMPONENTS  //
+//  //  //  //  //  //  //  //  //  //  ////
+
+const RelatedCardWrapper = styled.li`
+  font-family: 'Roboto', sans-serif;
+  display: inline-block;
+  width: 200px;
+  height: 300px;
+  background: white;
+  margin: auto 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0;
+  transform: scale(0.95);
+  transition: box-shadow 0.5s, transform 0.5s;
+  &:hover{
+    transform: scale(1);
+    box-shadow: 5px 20px 30px rgba(0,0,0,0.2);
+  }
+`;
+
+const RelatedImage = styled.img`
+  height: 67%;
+  width: 100%;
+  background: no-repeat center center;
+  object-fit: cover;
+`;
+
+const RelatedIcon = styled.i`
+  color: white;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  opacity: 1;
+  &:hover{
+    color: gold;
+    cursor: pointer;
+  }
+`;
+>>>>>>> 5b4ab06d8ba6b0820569a0b3bd76d7ebc8d3f494
 
 const ModalTitle = styled.h3`
   font-weight: 100;
@@ -44,6 +90,67 @@ const ModalTable = styled.table`
   border-style: solid;
 `;
 
+<<<<<<< HEAD
+=======
+const StyledModal = Modal.styled`
+  width: 40rem;
+  height: 30rem;
+  display: inline-block;
+  background-color: white;
+  opacity: ${(props) => props.opacity};
+  transition : all 0.3s ease-in-out;
+  position: relative;
+`;
+
+const FadingBackground = styled(BaseModalBackground)`
+  opacity: ${(props) => props.opacity};
+  transition: all 0.3s ease-in-out;
+`;
+
+//  //  //  //  //  //  //  //  //  //
+// RELATED MODAL STYLED COMPONENTS  //
+//  //  //  //  //  //  //  //  //  //
+
+const ModalTitle = styled.h3`
+  font-weight: 100;
+  font-size: 80%;
+  color: grey;
+  display: block;
+  text-transform: uppercase;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+`;
+
+const ModalHeaderTitle = styled.h3`
+  display: inline-block;
+  font-weight: 400;
+  font-size: 100%;
+  float: ${(props) => (props.new ? 'right' : 'left')};
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+`;
+
+const ModalCloseButton = styled.button`
+  font-weight: 100;
+  font-size: 80%;
+  display: inline-block;
+  position: absolute;
+  border-style: solid;
+  border-color: grey;
+  border-width: 1px;
+  right: 1.5rem;
+  top: 1.5rem;
+`;
+
+const ModalTable = styled.table`
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 80%;
+  display: inline-block;
+  border-style: solid;
+`;
+
+>>>>>>> 5b4ab06d8ba6b0820569a0b3bd76d7ebc8d3f494
 const ModalTableRow = styled.tr`
   color: gray;
 `;
@@ -88,11 +195,6 @@ const RelatedArrowButton = styled.button`
   margin-block-start: 1em;
   margin-block-end: 1em;
   cursor: pointer;
-`;
-
-const FadingBackground = styled(BaseModalBackground)`
-  opacity: ${(props) => props.opacity};
-  transition: all 0.3s ease-in-out;
 `;
 
 //  //  //  //  //  //  //  //  //  //  //  ////
@@ -153,6 +255,111 @@ function ModalContent(props) {
 
       </ModalTable> */}
     </div>
+  );
+}
+
+//  //  //  //  //  //  //  //  //  //  //  ////
+// RELATED PRODUCT MODAL FUNCTIONAL COMPONENT /
+//  //  //  //  //  //  //  //  //  //  //  //
+
+// make sure that the current product features are already set in state before rendering
+// maybe having a loading tag if it ends up loading slowly
+
+// get the current product (and store its features in state)
+//   need an axios request on client and then on backend
+// pass the product features of the clicked modal down from where ModalContent is mounted in the card component (props.item.features)
+//   this is synchronous so I'll get this clicked product info before the current product info
+// the features come as an array of objects
+//   each obj has the feature name and the value (a value or null)
+//   if null, display checkmark
+//   if value, display value
+// iterate over the array and for each obj, return:
+//   first add the obj.feature to a set (initialize empty set before this)
+//   new table row
+//   first cell is html checkmark symbol if obj.value === null, print the value if it's !== null
+//   second cell is just obj.feature
+//   third cell....
+//     initialize the cell as empty
+//     iterate through array of features for the clicked product
+//     if obj.feature !== undefined in any of the objs in the array, return checkmark or value for the 3rd cell
+
+// another method:
+// async function to get the current product features and load into state
+// await for the response
+// await for the response to load into state
+// iterate over both features arrays and load each featureobj.feature into a set object
+// to create a thruple:
+//   iterate over the set objectt with a forEach
+//   check in each feature array to see if it exists and load the value (the time complexity is immense)
+
+// have an allfeatures array of {featurename: {current: value, clicked: value}, featurename: {}, etc}
+// this prevents duplicates cuz the featurename is the key
+// iterate over the current product features, for each item in the array, allfeatures[obj.feature].current = obj.value (and convert null to true)
+// iterate over the clicked product features, do the same as above. allfeatures[obj.feature].clicked = obj.value
+// iterate over the obj, turn it into an array
+//   for key in allfeaturesobj, push [key, key.current, key.clicked] into a new array
+//   now can map over this array for rendering
+
+function ModalContent(props) {
+  const [currentFeatures, setCurrentFeatures] = useState(props.currentFeatures);
+  const [clickedFeatures, setClickedFeatures] = useState(props.clickedFeatures);
+
+  // trigger rerender upon currentproductfeatures updating
+  return (
+<<<<<<< HEAD
+    <div>
+      <ModalTitle>Comparing</ModalTitle>
+      <ModalHeaderTitle>Current Product Name</ModalHeaderTitle>
+      <ModalHeaderTitle new>New Product Name</ModalHeaderTitle>
+      <p>{currentFeatures[0].feature}</p>
+      <p>{clickedFeatures[0].feature}</p>
+      {/* <ModalTable>
+
+      </ModalTable> */}
+    </div>
+=======
+    <RelatedCardWrapper className="related-card-wrapper">
+      <RelatedIcon className="far fa-star" onClick={toggleModal} />
+      <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
+      <RelatedOverview className="related-overview">
+        <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
+        <RelatedName className="related-name">{props.item.name}</RelatedName>
+        {!!isSale[0] && (
+        <div>
+          <RelatedSalePrice className="related-sale-price">
+            $
+            {props.styles[0].sale_price}
+            &nbsp;
+            &nbsp;
+          </RelatedSalePrice>
+          <RelatedPrice sale className="related-price">
+            $
+            {props.styles[0].original_price}
+          </RelatedPrice>
+        </div>
+        )}
+        {!isSale[0] && (
+          <RelatedPrice className="related-price">
+            $
+            {props.styles[0].original_price}
+          </RelatedPrice>
+        )}
+        <div className="related-rating">*****</div>
+      </RelatedOverview>
+      <StyledModal
+        isOpen={isOpen}
+        afterOpen={afterOpen}
+        beforeClose={beforeClose}
+        onBackgroundClick={toggleModal}
+        onEscapeKeydown={toggleModal}
+        opacity={opacity}
+        backgroundProps={{ opacity }}
+      >
+        <ModalContent clickedFeatures={props.item.features} currentFeatures={props.currentFeatures} />
+        <ModalCloseButton type="button" onClick={toggleModal}>CLOSE</ModalCloseButton>
+      </StyledModal>
+    </RelatedCardWrapper>
+>>>>>>> 5b4ab06d8ba6b0820569a0b3bd76d7ebc8d3f494
   );
 }
 
