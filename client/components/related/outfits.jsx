@@ -15,10 +15,6 @@ import { RelatedCardWrapper } from './relatedcard';
 // YOUR OUTFITS STYLED COMPONENTS  //
 //  //  //  //  //  //  //  //  ////
 
-const OutfitCardWrapper = styled(RelatedCardWrapper)`
-  margin: 16px 10px;
-`;
-
 const OutfitIconWrapper = styled.div`
   height: 67%;
   width: 100%;
@@ -197,6 +193,12 @@ const Outfits = ({ productOverviewId }) => {
         // && outfitsStylesObj[productOverviewId]
         && (
           <RelatedProductsList>
+            <RelatedCardWrapper onClick={onAddCardClickHandler}>
+              <OutfitIconWrapper>
+                <OutfitPlusIcon className="fas fa-plus-circle fa-7x" />
+              </OutfitIconWrapper>
+              <OutfitAddText>Add To Your Outfits</OutfitAddText>
+            </RelatedCardWrapper>
             {outfitsArray.map((item) => (
               <OutfitCard
                 item={item}
@@ -209,12 +211,6 @@ const Outfits = ({ productOverviewId }) => {
             ))}
           </RelatedProductsList>
         )}
-        <OutfitCardWrapper onClick={onAddCardClickHandler}>
-          <OutfitIconWrapper>
-            <OutfitPlusIcon className="fas fa-plus-circle fa-7x" />
-          </OutfitIconWrapper>
-          <OutfitAddText>Add To Your Outfits</OutfitAddText>
-        </OutfitCardWrapper>
       </RelatedProductsListWrapper>
       {endReached !== 'right' && endReached !== 'both'
       && <RelatedArrowButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
