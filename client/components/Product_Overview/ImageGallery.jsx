@@ -29,11 +29,11 @@ const Arrow2 = styled.div`
 
 // **Functionality Section** //
 
-const ImageGallery = () => {
+const ImageGallery = ({ productOverviewId }) => {
   const [image, setImage] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
 
-  const getImages = () => axios.get('/products/20111/styles')
+  const getImages = () => axios.get('/styles', { params: { id: productOverviewId } })
     .then((response) => (
       response.data.results.map((style) => (
         setImage(image => [...image, style.photos[0].url])
@@ -45,7 +45,7 @@ const ImageGallery = () => {
 
   useEffect(() => {
     getImages();
-  }, []);
+  }, [productOverviewId]);
 
   // **Arrow for Carousel**//
   const ArrowLeft = ({ direction, clickFunction, glyph }) => (

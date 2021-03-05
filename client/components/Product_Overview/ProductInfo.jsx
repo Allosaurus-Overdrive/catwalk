@@ -5,12 +5,12 @@ import axios from 'axios';
 
 // **Functionality Section** //
 
-const ProductInfo = () => {
+const ProductInfo = ({ productOverviewId }) => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState();
 
-  const getInfo = () => axios.get('/products/20111')
+  const getInfo = () => axios.get('/products', { params: { id: productOverviewId } })
     .then((response) => {
       setName(response.data.name);
       setCategory(response.data.category);
@@ -22,7 +22,7 @@ const ProductInfo = () => {
 
   useEffect(() => {
     getInfo();
-  }, []);
+  }, [productOverviewId]);
 
   return (
     <div>

@@ -13,10 +13,10 @@ const RoundImg = styled.img`
 
 // **Functionality Section** //
 
-const StyleSelector = () => {
+const StyleSelector = ({ productOverviewId }) => {
   const [thumbnail, setThumbnail] = useState([]);
 
-  const getThumbnail = () => axios.get('/products/20111/styles')
+  const getThumbnail = () => axios.get('/styles', { params: { id: productOverviewId } })
     .then(({ data }) => (
       setThumbnail(data.results)
     ))
@@ -26,7 +26,7 @@ const StyleSelector = () => {
 
   useEffect(() => {
     getThumbnail();
-  }, []);
+  }, [productOverviewId]);
 
   return (
     <div>

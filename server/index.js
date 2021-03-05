@@ -25,8 +25,10 @@ const options = {
   },
 };
 
-app.get('/products/20111/styles', (req, res) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/20111/styles', options)
+app.get('/styles', (req, res) => {
+  const productOverviewId = req.query.id;
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/styles`, options)
     .then(({ data }) => {
       res.send(data);
     })
@@ -35,8 +37,10 @@ app.get('/products/20111/styles', (req, res) => {
     });
 });
 
-app.get('/products/20111', (req, res) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/20111', options)
+app.get('/products', (req, res) => {
+  const productOverviewId = req.query.id;
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
     .then(({ data }) => {
       res.send(data);
     })
