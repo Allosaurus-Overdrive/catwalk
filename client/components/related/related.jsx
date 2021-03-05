@@ -11,7 +11,7 @@ import { ProductCard } from './relatedcard';
 // need to get this somehow from alex's component.
 // or if he sets 20111 as his default, then we can just always start with this;
 // set this in the state of the product carousel functional component. refactor if needed
-let productOverviewId = 20111;
+// let productOverviewId = 20111;
 
 //  //  //  //  //  //  //  //  //  //  //  //
 // RELATED PRODUCT LIST STYLED COMPONENTS  //
@@ -73,12 +73,13 @@ const FadingBackground = styled(BaseModalBackground)`
 // RELATED PRODUCT LIST FUNCTIONAL COMPONENT  /
 //  //  //  //  //  //  //  //  //  //  //  //
 
-function RelatedProducts(props) {
+function RelatedProducts({ productOverviewId, productClickHandler }) {
   const ref = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
   const [endReached, setEndReached] = useState('left');
+  const [currentProductId, setCurrentProductId] = useState(productOverviewId);
   const [relatedProductsArray, setRelatedProductsArray] = useState(null);
   const [relatedProductsStylesObj, setRelatedProductStylesObj] = useState(null);
   const [currentProductData, setCurrentProductData] = useState(null);
@@ -100,6 +101,7 @@ function RelatedProducts(props) {
     axios.get('/related-styles', { params: { id: productOverviewId } })
       .then(({data}) => {
         setRelatedProductStylesObj(data);
+        console.log(data);
       })
       .catch((err) => console.log(err));
 
@@ -112,7 +114,7 @@ function RelatedProducts(props) {
 
   useEffect(() => {
     getRelatedProducts();
-  }, []);
+  }, [productOverviewId]);
 
   const scroll = (scrollOffset) => {
     let currentScrollLeft;
@@ -171,6 +173,7 @@ function RelatedProducts(props) {
                   styles={relatedProductsStylesObj[item.id]}
                   currentFeatures={currentProductData.features}
                   currentName={currentProductData.name}
+                  productClickHandler={productClickHandler}
                 />
               ))}
             </RelatedProductsList>
@@ -189,7 +192,6 @@ function testFunc(a, b) {
 }
 // export whole list of related products at the end, update the export
 export {
-  productOverviewId,
   RelatedProducts,
   RelatedProductsWrapper,
   RelatedProductsTitle,

@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import OutfitCard from './outfitcard';
-import { productOverviewId,
-  RelatedProductsWrapper,
+import { RelatedProductsWrapper,
   RelatedProductsTitle,
   RelatedProductsListWrapper,
   RelatedProductsList,
@@ -45,8 +44,9 @@ const OutfitAddText = styled.h3`
 
 // the Add to Outfit static card should be rendered in the html statically, after the list from localstorage
 
-const Outfits = (props) => {
+const Outfits = ({ productOverviewId }) => {
   const ref = useRef(null);
+  const [currentProductId, setCurrentProductId] = useState(productOverviewId);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
