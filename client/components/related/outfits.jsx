@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import OutfitCard from './outfitcard';
 import { productOverviewId,
-  RelatedProducts,
   RelatedProductsWrapper,
   RelatedProductsTitle,
   RelatedProductsListWrapper,
@@ -53,7 +52,7 @@ const Outfits = (props) => {
   const [clientWidth, setClientWidth] = useState(0);
   const [endReached, setEndReached] = useState('left');
   const [outfitsArray, setOutfitsArray] = useState([]);
-  const [outfitsStylesObj, setOutfitsStylesObj] = useState(null);
+  const [outfitsStylesObj, setOutfitsStylesObj] = useState({});
   const [currentProductData, setCurrentProductData] = useState(null);
 
   useEffect(() => {
@@ -62,33 +61,34 @@ const Outfits = (props) => {
     setClientWidth(ref.current.clientWidth);
   });
 
-  // Get related product, all styles of related products, and current product features
   const getYourOutfits = () => {
-    // have to pass in product ids of stored outfits
-    // store an array out outfits to render... maybe in state?
-    axios.get('/related-styles', { params: { id: productOverviewId } })
-      .then(({data}) => {
-        setOutfitsStylesObj(data);
-      })
+    axios.get('/product-features', { params: { id: productOverviewId } })
+      .then(({ data }) => { setCurrentProductData(data); })
       .catch((err) => console.log(err));
 
-
+    const storedOutfits = JSON.parse(localStorage.getItem('outfits'));
+    const storedStyles = JSON.parse(localStorage.getItem('styles'));
+    if (storedOutfits) {
+      setOutfitsArray(storedOutfits);
+      console.log(storedOutfits);
+      setOutfitsStylesObj(storedStyles);
+      console.log(storedStyles);
+    }
   };
 
-  const storeOutfit = ()  => {
-    // store the product id of the current page you're on
-
-  };
-
-  // useEffect(() => {
-  //   getYourOutfits();
-  // }, []);
+  useEffect(() => {
+    getYourOutfits();
+    console.log(outfitsArray, outfitsStylesObj)
+  }, []);
 
   const onAddCardClickHandler = () => {
     axios.get('/product-features', { params: { id: productOverviewId } })
       .then(({ data }) => {
         const newOutfitsArray = outfitsArray;
+        const newOutfitsStylesObj = outfitsStylesObj || {};
         let duplicate = false;
+
+        setCurrentProductData(data);
 
         newOutfitsArray.forEach((outfit) => {
           if (outfit.id === data.id) {
@@ -106,10 +106,17 @@ const Outfits = (props) => {
 
         axios.get('/outfit-styles', { params: { id: productOverviewId } })
           .then(({ data }) => {
-            const newOutfitsStylesObj = outfitsStylesObj || {};
             newOutfitsStylesObj[data.product_id] = data.results;
-
             setOutfitsStylesObj(newOutfitsStylesObj);
+
+            return {
+              outfitInfo: newOutfitsArray,
+              outfitStyles: newOutfitsStylesObj,
+            };
+          })
+          .then(({ outfitInfo, outfitStyles }) => {
+            localStorage.setItem('outfits', JSON.stringify(outfitInfo));
+            localStorage.setItem('styles', JSON.stringify(outfitStyles));
           })
           .catch((err) => console.log(err));
       })
@@ -163,6 +170,7 @@ const Outfits = (props) => {
         {outfitsArray !== null
         && outfitsStylesObj !== null
         && currentProductData !== null
+        && outfitsStylesObj[productOverviewId] !== undefined
         && (
           <RelatedProductsList>
             {outfitsArray.map((item) => (

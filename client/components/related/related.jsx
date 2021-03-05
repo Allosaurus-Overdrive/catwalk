@@ -11,7 +11,7 @@ import { ProductCard } from './relatedcard';
 // need to get this somehow from alex's component.
 // or if he sets 20111 as his default, then we can just always start with this;
 // set this in the state of the product carousel functional component. refactor if needed
-let productOverviewId = 20111;
+let productOverviewId = 21032;
 
 //  //  //  //  //  //  //  //  //  //  //  //
 // RELATED PRODUCT LIST STYLED COMPONENTS  //
