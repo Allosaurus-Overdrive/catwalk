@@ -5,8 +5,8 @@ import Related from './related/related';
 
 const App = () => (
   <div>
-    <Related />
     <ProductOverview />
+    <Related.RelatedProducts />
     <Reviews />
   </div>
 );
