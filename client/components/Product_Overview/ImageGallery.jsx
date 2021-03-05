@@ -1,9 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import ImageSlide from './ImageSlide';
 
 // **Styling Templates** //
+
+const ImagePos = styled.div`
+  height: 700px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr;
+`;
+
+const Arrow1 = styled.div`
+  grid-column: 1;
+  place-self: center;
+`;
+
+const ImageStyle = styled.div`
+  grid-column: 2;
+  place-self: center;
+`;
+
+const Arrow2 = styled.div`
+  grid-column: 3;
+  place-self: center;
+`;
 
 // **Functionality Section** //
 
@@ -14,7 +36,6 @@ const ImageGallery = () => {
   const getImages = () => axios.get('/products/20111/styles')
     .then((response) => (
       response.data.results.map((style) => (
-        console.log(style),
         setImage(image => [...image, style.photos[0].url])
       ))
     ))
@@ -27,7 +48,7 @@ const ImageGallery = () => {
   }, []);
 
   // **Arrow for Carousel**//
-  const ArrowLeft = ({ direction, clickFunction, glyph, isEdge }) => (
+  const ArrowLeft = ({ direction, clickFunction, glyph }) => (
     <div
       className={`slide-arrow${direction}`}
       onClick={clickFunction}
@@ -61,25 +82,31 @@ const ImageGallery = () => {
   };
 
   return (
-    <div className="carousel">
+    <ImagePos className="carousel">
       {currentImage !== 0
       && (
-        <ArrowLeft
-          direction="left"
-          clickFunction={previousSlide}
-          glyph="&#9664;"
-        />
+        <Arrow1>
+          <ArrowLeft
+            direction="left"
+            clickFunction={previousSlide}
+            glyph="&#9664;"
+          />
+        </Arrow1>
       )}
-      <ImageSlide url={image[currentImage]} />
+      <ImageStyle>
+        <ImageSlide url={image[currentImage]} />
+      </ImageStyle>
       {currentImage !== image.length - 1
       && (
-        <ArrowRight
-          direction="right"
-          clickFunction={nextSlide}
-          glyph="&#9654;"
-        />
+        <Arrow2>
+          <ArrowRight
+            direction="right"
+            clickFunction={nextSlide}
+            glyph="&#9654;"
+          />
+        </Arrow2>
       )}
-    </div>
+    </ImagePos>
   );
 };
 

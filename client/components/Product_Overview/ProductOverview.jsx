@@ -9,15 +9,16 @@ import Description from './Description';
 // **Styling Tempelates** //
 
 const Layout = styled.div`
-  height: 100%;
+  height: 850px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: 2fr 1fr;
   grid-column-gap: 15px;
   grid-row-gap: 15px;
 `;
 
 const Column1Row1 = styled.div`
+  height: 700px;
   grid-column: 1;
   place-self: center;
   background-color: light gray;
