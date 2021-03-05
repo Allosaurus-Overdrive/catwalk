@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
+import Modal from 'styled-react-modal';
 import ModalContent from './modal';
 
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -26,6 +25,7 @@ const RelatedCardWrapper = styled.li`
   &:hover{
     transform: scale(1);
     box-shadow: 5px 20px 30px rgba(0,0,0,0.2);
+    cursor: pointer;
   }
 `;
 
@@ -100,18 +100,6 @@ const StyledModal = Modal.styled`
   border-color: black;
 `;
 
-// const ModalCloseButton = styled.button`
-//   font-weight: 100;
-//   font-size: 80%;
-//   display: inline-block;
-//   position: absolute;
-//   border-style: solid;
-//   border-color: grey;
-//   border-width: 1px;
-//   right: 1.5rem;
-//   top: 1.5rem;
-// `;
-
 //  //  //  //  //  //  //  //  //  //  //  ////
 // RELATED PRODUCT CARD FUNCTIONAL COMPONENT  /
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -140,7 +128,7 @@ function ProductCard(props) {
   }
 
   const salePrice = () => {
-    if (props.styles[0].sale_price) {
+    if (props.styles && props.styles[0].sale_price) {
       useIsSale([true, props.styles[0].sale_price]);
     }
   };
@@ -152,32 +140,36 @@ function ProductCard(props) {
   return (
     <RelatedCardWrapper className="related-card-wrapper">
       <RelatedIcon className="far fa-star" onClick={toggleModal} />
-      <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
-      <RelatedOverview className="related-overview">
-        <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
-        <RelatedName className="related-name">{props.item.name}</RelatedName>
-        {!!isSale[0] && (
-        <div>
-          <RelatedSalePrice className="related-sale-price">
-            $
-            {props.styles[0].sale_price}
-            &nbsp;
-            &nbsp;
-          </RelatedSalePrice>
-          <RelatedPrice sale className="related-price">
-            $
-            {props.styles[0].original_price}
-          </RelatedPrice>
-        </div>
-        )}
-        {!isSale[0] && (
-          <RelatedPrice className="related-price">
-            $
-            {props.styles[0].original_price}
-          </RelatedPrice>
-        )}
-        <div className="related-rating">*****</div>
-      </RelatedOverview>
+      {props.styles && (
+        <>
+          <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
+          <RelatedOverview className="related-overview">
+            <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
+            <RelatedName className="related-name" onClick={() => props.productClickHandler(props.item.id)}>{props.item.name}</RelatedName>
+            {!!isSale[0] && (
+            <div>
+              <RelatedSalePrice className="related-sale-price">
+                $
+                {props.styles[0].sale_price}
+                &nbsp;
+                &nbsp;
+              </RelatedSalePrice>
+              <RelatedPrice sale className="related-price">
+                $
+                {props.styles[0].original_price}
+              </RelatedPrice>
+            </div>
+            )}
+            {!isSale[0] && (
+              <RelatedPrice className="related-price">
+                $
+                {props.styles[0].original_price}
+              </RelatedPrice>
+            )}
+            <div className="related-rating">*****</div>
+          </RelatedOverview>
+        </>
+      )}
       <StyledModal
         isOpen={isOpen}
         afterOpen={afterOpen}
@@ -193,10 +185,19 @@ function ProductCard(props) {
           clickedName={props.item.name}
           currentName={props.currentName}
         />
-        {/* <ModalCloseButton type="button" onClick={toggleModal}>CLOSE</ModalCloseButton> */}
       </StyledModal>
     </RelatedCardWrapper>
   );
 }
 
-export default ProductCard;
+export {
+  ProductCard,
+  RelatedCardWrapper,
+  RelatedImage,
+  RelatedIcon,
+  RelatedOverview,
+  RelatedCategory,
+  RelatedName,
+  RelatedSalePrice,
+  RelatedPrice,
+};

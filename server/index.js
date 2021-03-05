@@ -125,14 +125,15 @@ app.get('/reviews/:id', (req, res) => {
 });
 
 app.get('/product-features', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
   const productOverviewId = req.query.id;
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
+    .then(({ data }) => { res.send(data); })
+    .catch(() => res.sendStatus(400));
+});
+
+app.get('/outfit-styles', (req, res) => {
+  const productOverviewId = req.query.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/styles`, options)
     .then(({ data }) => { res.send(data); })
     .catch(() => res.sendStatus(400));
 });
