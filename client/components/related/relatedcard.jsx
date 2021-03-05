@@ -26,6 +26,7 @@ const RelatedCardWrapper = styled.li`
   &:hover{
     transform: scale(1);
     box-shadow: 5px 20px 30px rgba(0,0,0,0.2);
+    cursor: pointer;
   }
 `;
 
