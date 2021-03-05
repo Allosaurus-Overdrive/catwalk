@@ -44,20 +44,20 @@ const Row2 = styled.div`
 
 // **Functionality Section** //
 
-const ProductOverview = () => (
+const ProductOverview = ({ productOverviewId }) => (
   <Layout>
     <Column1Row1>
-      <ImageGallery />
+      <ImageGallery productOverviewId={productOverviewId} />
     </Column1Row1>
     <ProductInfoPos>
-      <ProductInfo />
+      <ProductInfo productOverviewId={productOverviewId} />
     </ProductInfoPos>
     <Buttons>
-      <StyleSelector />
-      <AddToCart />
+      <StyleSelector productOverviewId={productOverviewId}/>
+      <AddToCart productOverviewId={productOverviewId}/>
     </Buttons>
     <Row2>
-      <Description />
+      <Description productOverviewId={productOverviewId}/>
     </Row2>
   </Layout>
 );

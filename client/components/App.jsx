@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <div>
-      <ProductOverview />
+      <ProductOverview productOverviewId={productOverviewId} />
       <RelatedProducts
         productOverviewId={productOverviewId}
         productClickHandler={productClickHandler}

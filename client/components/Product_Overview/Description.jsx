@@ -26,12 +26,12 @@ const FeatureStyle = styled.div`
 
 // **Functionality Section** //
 
-const Description = () => {
+const Description = ({ productOverviewId }) => {
   const [description, setDescription] = useState('');
   const [slogan, setSlogan] = useState('');
   const [features, setFeatures] = useState([]);
 
-  const getDescription = () => axios.get('/products/20111')
+  const getDescription = () => axios.get('/products', { params: { id: productOverviewId } })
     .then((response) => {
       setSlogan(response.data.slogan);
       setDescription(response.data.description);
@@ -43,7 +43,7 @@ const Description = () => {
 
   useEffect(() => {
     getDescription();
-  }, []);
+  }, [productOverviewId]);
 
   return (
     <DescriptionGrid>
