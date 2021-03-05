@@ -20,8 +20,10 @@ function ReviewTile() {
     <div style={tileBox}>
       <ul>
         {showMore
-          ? exampleReviews.results.map((review) => <ReviewIndividualTile key={review.review_id} review={review} />)
-          : exampleReviews.results.slice(0, 2).map((review) => <ReviewIndividualTile key={review.review_id} review={review} />)}
+          ? exampleReviews.results.map((review) =>
+            <ReviewIndividualTile key={review.review_id} review={review} />)
+          : exampleReviews.results.slice(0, 2).map((review) =>
+            <ReviewIndividualTile key={review.review_id} review={review} />)}
       </ul>
       <button type="button" onClick={() => setMore(true)} style={{ margin: '1.5em' }}>
         More Reviews
