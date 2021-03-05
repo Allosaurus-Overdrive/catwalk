@@ -70,15 +70,12 @@ const Outfits = (props) => {
     const storedStyles = JSON.parse(localStorage.getItem('styles'));
     if (storedOutfits) {
       setOutfitsArray(storedOutfits);
-      console.log(storedOutfits);
       setOutfitsStylesObj(storedStyles);
-      console.log(storedStyles);
     }
   };
 
   useEffect(() => {
     getYourOutfits();
-    console.log(outfitsArray, outfitsStylesObj)
   }, []);
 
   const onAddCardClickHandler = () => {
@@ -117,6 +114,7 @@ const Outfits = (props) => {
           .then(({ outfitInfo, outfitStyles }) => {
             localStorage.setItem('outfits', JSON.stringify(outfitInfo));
             localStorage.setItem('styles', JSON.stringify(outfitStyles));
+            getYourOutfits();
           })
           .catch((err) => console.log(err));
       })
@@ -170,7 +168,7 @@ const Outfits = (props) => {
         {outfitsArray !== null
         && outfitsStylesObj !== null
         && currentProductData !== null
-        && outfitsStylesObj[productOverviewId] !== undefined
+        // && outfitsStylesObj[productOverviewId]
         && (
           <RelatedProductsList>
             {outfitsArray.map((item) => (
