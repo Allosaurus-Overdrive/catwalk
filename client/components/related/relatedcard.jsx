@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
+import Modal from 'styled-react-modal';
 import ModalContent from './modal';
 
 //  //  //  //  //  //  //  //  //  //  //  //
@@ -186,7 +185,6 @@ function ProductCard(props) {
           clickedName={props.item.name}
           currentName={props.currentName}
         />
-        {/* <ModalCloseButton type="button" onClick={toggleModal}>CLOSE</ModalCloseButton> */}
       </StyledModal>
     </RelatedCardWrapper>
   );

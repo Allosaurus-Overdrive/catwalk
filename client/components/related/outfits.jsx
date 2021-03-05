@@ -2,12 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import OutfitCard from './outfitcard';
-import { RelatedProductsWrapper,
+import {
+  RelatedProductsWrapper,
   RelatedProductsTitle,
   RelatedProductsListWrapper,
   RelatedProductsList,
-  RelatedArrowButton } from './related';
+  RelatedArrowButton,
+} from './related';
 import { RelatedCardWrapper } from './relatedcard';
+
+//  //  //  //  //  //  //  //  //  //
+// YOUR OUTFITS STYLED COMPONENTS  //
+//  //  //  //  //  //  //  //  ////
 
 const OutfitCardWrapper = styled(RelatedCardWrapper)`
   margin: 16px 10px;
@@ -42,11 +48,12 @@ const OutfitAddText = styled.h3`
   text-align: center;
 `;
 
-// the Add to Outfit static card should be rendered in the html statically, after the list from localstorage
+//  //  //  //  //  //  //  //  //  ////
+// YOUR OUTFITS FUNCTIONAL COMPONENTS /
+//  //  //  //  //  //  //  //  //  //
 
 const Outfits = ({ productOverviewId }) => {
   const ref = useRef(null);
-  const [currentProductId, setCurrentProductId] = useState(productOverviewId);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [scrollWidth, setScrollWidth] = useState(0);
   const [clientWidth, setClientWidth] = useState(0);
@@ -162,8 +169,6 @@ const Outfits = ({ productOverviewId }) => {
   const handleOutfitDeleteClick = (id) => {
     const storedOutfits = JSON.parse(localStorage.getItem('outfits'));
     const storedStyles = JSON.parse(localStorage.getItem('styles'));
-
-    console.log(storedOutfits, storedStyles);
 
     storedOutfits.forEach((outfit, index) => {
       if (outfit.id === id) {

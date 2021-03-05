@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import Modal, { ModalProvider, BaseModalBackground } from 'styled-react-modal';
+import { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 import { ProductCard } from './relatedcard';
 
 // TO-DOS:
@@ -101,7 +101,6 @@ function RelatedProducts({ productOverviewId, productClickHandler }) {
     axios.get('/related-styles', { params: { id: productOverviewId } })
       .then(({data}) => {
         setRelatedProductStylesObj(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
 
