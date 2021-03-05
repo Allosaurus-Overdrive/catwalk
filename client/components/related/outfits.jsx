@@ -159,6 +159,27 @@ const Outfits = ({ productOverviewId }) => {
     return scrollOffset;
   };
 
+  const handleOutfitDeleteClick = (id) => {
+    const storedOutfits = JSON.parse(localStorage.getItem('outfits'));
+    const storedStyles = JSON.parse(localStorage.getItem('styles'));
+
+    console.log(storedOutfits, storedStyles);
+
+    storedOutfits.forEach((outfit, index) => {
+      if (outfit.id === id) {
+        storedOutfits.splice(index, 1);
+      }
+    });
+
+    delete storedStyles[id];
+
+    localStorage.setItem('outfits', JSON.stringify(storedOutfits));
+    localStorage.setItem('styles', JSON.stringify(storedStyles));
+
+    setOutfitsArray(storedOutfits);
+    setOutfitsStylesObj(storedStyles);
+  };
+
   return (
     <RelatedProductsWrapper>
       <RelatedProductsTitle>YOUR OUTFITS</RelatedProductsTitle>
@@ -178,6 +199,7 @@ const Outfits = ({ productOverviewId }) => {
                 styles={outfitsStylesObj[item.id]}
                 currentFeatures={currentProductData.features}
                 currentName={currentProductData.name}
+                handleOutfitDeleteClick={handleOutfitDeleteClick}
               />
             ))}
           </RelatedProductsList>
