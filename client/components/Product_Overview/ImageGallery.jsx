@@ -8,8 +8,18 @@ import ImageSlide from './ImageSlide';
 const ImagePos = styled.div`
   height: 700px;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
   grid-template-rows: 1fr;
+`;
+
+const ThumbnailStyle = styled.img`
+  grid-column: 2;
+  width: 75px;
+`;
+
+const ThumbnailPos = styled.div`
+  grid-column: 2;
+  display: grid;
 `;
 
 const Arrow1 = styled.div`
@@ -18,27 +28,31 @@ const Arrow1 = styled.div`
 `;
 
 const ImageStyle = styled.div`
-  grid-column: 2;
+  grid-column: 3;
   place-self: center;
 `;
 
 const Arrow2 = styled.div`
-  grid-column: 3;
+  grid-column: 4;
   place-self: center;
 `;
 
 // **Functionality Section** //
 
 const ImageGallery = ({ productOverviewId }) => {
-  const [image, setImage] = useState([]);
+  const [bigImage, setBigImage] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
 
   const getImages = () => axios.get('/styles', { params: { id: productOverviewId } })
     .then((response) => (
+      (setBigImage(() => []),
+      setThumbnail(() => []),
       response.data.results.map((style) => (
-        setImage(image => [...image, style.photos[0].url])
-      ))
-    ))
+        (setBigImage((arr) => [...arr, style.photos[0].url]),
+        setThumbnail((thumbnail) => [...thumbnail, style.photos[0].thumbnail_url])
+        )))
+      )))
     .catch((err) => {
       throw err;
     });
@@ -93,10 +107,15 @@ const ImageGallery = ({ productOverviewId }) => {
           />
         </Arrow1>
       )}
+      <ThumbnailPos>
+        {thumbnail.map((pic, idx) => (
+          <ThumbnailStyle src={pic} alt="" onClick={() => { setCurrentImage(idx); }} />
+        ))}
+      </ThumbnailPos>
       <ImageStyle>
-        <ImageSlide url={image[currentImage]} />
+        <ImageSlide url={bigImage[currentImage]} />
       </ImageStyle>
-      {currentImage !== image.length - 1
+      {currentImage !== bigImage.length - 1
       && (
         <Arrow2>
           <ArrowRight
