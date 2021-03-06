@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-syntax */
 import React from 'react';
-import styled from 'styled-components';
 import metaData from './sampleRatingsData';
 import ProgressBar from './progressBar';
 import StarRating from './StarRating';
@@ -19,7 +18,6 @@ function Ratings() {
   const avgRating = Number((weightedAvg).toFixed(1));
 
   const indiRatings = Object.values(scores);
-  console.log(indiRatings);
   // calculate and create new array for average rating for each star display
   const starPercentArray = [];
   for (const score in scores) {
@@ -27,18 +25,10 @@ function Ratings() {
     const starPercent = Math.round((starValue / total) * 100);
     starPercentArray.push(starPercent);
   }
-  // const styleRating = styled.div`
-  //   display: grid;
-  // `;
-  // const numStyle = styled.div`
-  //   grid-column: 1;
-  // `;
-  // const displayStyle = styled.div`
-  //   grid-column: 2;
-  // `;
+
   return (
     <div>
-      <span style={{ fontSize: '60px', fontWeight: '3em', display: 'inline-flex', flexDirection: 'row', justifyContent: 'space-around', position: 'relative', left: '50px' }}>
+      <span style={{ fontSize: '60px', fontWeight: '3em', display: 'inline-flex', flexDirection: 'row', justifyContent: 'space-around', position: 'relative', left: '40px' }}>
         {avgRating}
         <br />
         <StarRating />
@@ -46,7 +36,7 @@ function Ratings() {
       <br />
       <br />
       <div style={{
-        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', left: '50px',
+        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', left: '40px',
       }}
       >
         {percent}
