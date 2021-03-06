@@ -61,7 +61,7 @@ const RelatedArrowButton = styled.button`
   position: absolute;
   font-size: 150%;
   ${(props) => (props.left ? 'left: -40px' : '')};
-  ${(props) => (props.right ? 'right: 0px' : '')};
+  ${(props) => (props.right ? 'right: -10px' : '')};
   margin: auto;
   padding: 0;
   border-style: none;
