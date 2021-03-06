@@ -129,8 +129,8 @@ function AddReview() {
 
   return (
     <div>
-      <button type="button" onClick={() => setModalIsOpen(true)} style={{ margin: '1.5em' }}>
-        Add Review
+      <button type="button" onClick={() => setModalIsOpen(true)} style={{ margin: '1.5em', position: 'relative', left: '200px', bottom: '88px', fontSize: '20px' }}>
+        Add Review +
       </button>
       <Modal
         isOpen={modalIsOpen}

@@ -3,9 +3,7 @@ import moment from 'moment';
 import { FaStar } from 'react-icons/fa';
 
 const tileBox = {
-  border: '1px black',
-  float: 'left',
-  padding: '2em',
+  borderBottom: '1px solid black',
   lineHeight: '2.5em',
   font: 'Georgia',
 };
@@ -17,17 +15,17 @@ function ReviewIndividualTile(props) {
       <span>
         {[...Array(5)].map((star, idx) => (
         <label key={idx} value={review.rating}>
-          <FaStar size={10} color={review.rating > idx ? '#ffc107' : 'lightgrey'} />
+          <FaStar size={13} color={review.rating > idx ? '#ffc107' : 'lightgrey'} />
           </label>
         ))}
       </span>
-      <span style={{ float: 'right', fontSize: '12px', wordSpacing: '2px' }}>
+      <span style={{ float: 'right', fontSize: '13px', wordSpacing: '2px' }}>
         {review.reviewer_name}, { moment(review.date).format('LL')}
       </span>
-      <div>
+      <div style={{ lineHeight: '1em' }}>
         <strong>{review.summary}</strong>
       </div>
-      <div style={{ lineHeight: '1em' }}>
+      <div style={{ lineHeight: '1.2em' }}>
         {review.body}
       </div>
       <div>

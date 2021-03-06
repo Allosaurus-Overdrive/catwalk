@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import React from 'react';
+import styled from 'styled-components';
 import metaData from './sampleRatingsData';
 import ProgressBar from './progressBar';
 import StarRating from './StarRating';
@@ -26,17 +27,26 @@ function Ratings() {
     const starPercent = Math.round((starValue / total) * 100);
     starPercentArray.push(starPercent);
   }
-
+  // const styleRating = styled.div`
+  //   display: grid;
+  // `;
+  // const numStyle = styled.div`
+  //   grid-column: 1;
+  // `;
+  // const displayStyle = styled.div`
+  //   grid-column: 2;
+  // `;
   return (
-    <div style={{ fontSize: '15px', fontWeight: '1em', display: 'inline' }}>
-      <span style={{ fontSize: '35px', fontWeight: '3em' }}>
+    <div>
+      <span style={{ fontSize: '60px', fontWeight: '3em', display: 'inline-flex', flexDirection: 'row', justifyContent: 'space-around', position: 'relative', left: '50px' }}>
         {avgRating}
+        <br />
         <StarRating />
       </span>
       <br />
       <br />
       <div style={{
-        font: 'Gerogia', fontSize: '18px', fontWeight: 'bold', color: 'teal', float: 'left',
+        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', left: '50px',
       }}
       >
         {percent}
@@ -46,17 +56,17 @@ function Ratings() {
       <div
         className="rating-display"
         style={{
-          float: 'center', margin: '2em', padding: '2em', width: '500px',
+          float: 'center', margin: '1em', padding: '1em', width: '400px', display: 'inline-flex', flexDirection: 'column-reverse', justifyContent: 'space-between',
         }}
       >
         {starPercentArray.map((percentStar, idx) => (
-          <fragment key={percentStar.id}>
-            <strong>
+          <span key={percentStar.id}>
+            <strong style={{ position: 'relative', right: '50px', top: '17px' }}>
               {idx === 0 ? `${idx + 1} star` : `${idx + 1} stars`}
             </strong>
-            <ProgressBar bgcolor="green" width="300px" completed={percentStar} />
-            <span style={{ fontWeight: '4em', margin: '2em' }}>{indiRatings[idx]}</span>
-          </fragment>
+            <ProgressBar bgcolor="green" completed={percentStar} />
+            <span style={{ fontWeight: '4em', position: 'relative', left: '370px', bottom: '16px' }}>{indiRatings[idx]}</span>
+          </span>
         ))}
       </div>
     </div>

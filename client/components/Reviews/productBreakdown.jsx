@@ -63,15 +63,23 @@ const Characteristics = () => {
     <div>
       <div
         className="quality"
-        style={{ margin: '2em', padding: '1em', width: '400px', height: '200px', inlineHeight: '2em' }}
+        style={{
+          float: 'center', margin: '1em', padding: '1em', width: '400px', display: 'inline-flex', flexDirection: 'column', justifyContent: 'space-between', lineHeight: '30px',
+        }}
+        // style={{ margin: '2em', padding: '1em', width: '400px', height: '200px' }}
       >
         {quals.map((quality, idx) => (
           <fragment key={quality.id}>
-            <strong style={{ padding: '1.5em' }}>{quality}</strong>
-            <ProgressBar bgcolor="grey" width="300px" completed={percentArr[idx]} />
-            {attributes[quality]['1']}
-            <span>.............................. </span>
-            {attributes[quality]['5']}
+            <span style={{ position: 'relative', top: '3px' }}>
+              <strong>{quality}</strong>
+            </span>
+            <ProgressBar bgcolor="grey" border-radius="0px" completed={percentArr[idx]} />
+            <span>
+              {attributes[quality]['1']}
+            </span>
+            <span style={{ position: 'relative', right: '40px', float: 'right' }}>
+              {attributes[quality]['5']}
+            </span>
           </fragment>
         ))}
       </div>

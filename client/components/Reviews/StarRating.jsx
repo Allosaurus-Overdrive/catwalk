@@ -12,7 +12,7 @@ function StarRating() {
   const avgRating = Number((weightedAvg).toFixed(1));
 
   return (
-    <div>
+    <div style={{position: 'relative', left: '20px', bottom: '24px' }}>
       {[...Array(5)].map((star, i) => (
         <label key={i}>
           <FaStar size={20} color={avgRating > i ? '#ffc107' : 'lightgrey'} />
