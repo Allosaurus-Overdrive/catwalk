@@ -29,7 +29,7 @@ const OutfitPlusIcon = styled.i`
   top: 45px;
   opacity: 1;
   &:hover{
-    color: gold;
+    color: palegoldenrod;
     cursor: pointer;
   }
 `;
@@ -186,7 +186,7 @@ const Outfits = ({ productOverviewId }) => {
       <RelatedProductsTitle>YOUR OUTFIT</RelatedProductsTitle>
       <div>
         {endReached !== 'left' && endReached !== 'both'
-        && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
+        && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}>‹</RelatedArrowButton>}
         <RelatedProductsListWrapper ref={ref}>
           {outfitsArray !== null
           && outfitsStylesObj !== null
@@ -214,7 +214,7 @@ const Outfits = ({ productOverviewId }) => {
           )}
         </RelatedProductsListWrapper>
         {endReached !== 'right' && endReached !== 'both'
-        && <RelatedArrowButton right className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
+        && <RelatedArrowButton right className="right" type="button" onClick={() => scroll(287)}>›</RelatedArrowButton>}
       </div>
     </RelatedProductsWrapper>
   );

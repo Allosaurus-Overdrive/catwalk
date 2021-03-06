@@ -60,8 +60,8 @@ const RelatedProductsList = styled.ul`
 const RelatedArrowButton = styled.button`
   position: absolute;
   font-size: 150%;
-  ${(props) => (props.left ? 'left: -40px' : '')};
-  ${(props) => (props.right ? 'right: -10px' : '')};
+  ${(props) => (props.left ? 'left: -50px' : '')};
+  ${(props) => (props.right ? 'right: -20px' : '')};
   margin: auto;
   padding: 0;
   border-style: none;
@@ -172,7 +172,7 @@ function RelatedProducts({ productOverviewId, productClickHandler }) {
       <RelatedProductsTitle>RELATED PRODUCTS</RelatedProductsTitle>
       <ButtonWrapper>
         {endReached !== 'left' && endReached !== 'both'
-        && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
+        && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}>‹</RelatedArrowButton>}
         <RelatedProductsListWrapper ref={ref}>
           {relatedProductsArray !== null
           && relatedProductsStylesObj !== null
@@ -195,7 +195,7 @@ function RelatedProducts({ productOverviewId, productClickHandler }) {
           )}
         </RelatedProductsListWrapper>
         {endReached !== 'right' && endReached !== 'both'
-        && <RelatedArrowButton right className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
+        && <RelatedArrowButton right className="right" type="button" onClick={() => scroll(287)}>›</RelatedArrowButton>}
       </ButtonWrapper>
     </RelatedProductsWrapper>
   );
