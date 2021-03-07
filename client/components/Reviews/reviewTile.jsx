@@ -4,6 +4,8 @@ import exampleReviews from './sampleData';
 import ReviewIndividualTile from './reviewIndividualTile';
 import AddReview from './addReview';
 
+console.log(exampleReviews.count);
+
 const tileBox = {
   padding: '1em',
   position: 'relative',
@@ -27,9 +29,10 @@ function ReviewTile() {
           : exampleReviews.results.slice(0, 2).map((review) =>
             <ReviewIndividualTile key={review.review_id} review={review} />)}
       </ul>
-      <button type="button" onClick={() => setMore(true)} style={{ margin: '1.5em', position: 'relative', left: '16px', fontSize: '20px' }}>
+      {exampleReviews.count > 2
+        ? (<button type="button" onClick={() => setMore(true)} style={{ margin: '1.5em', position: 'relative', left: '16px', fontSize: '20px' }}>
         More Reviews
-      </button>
+      </button>) : null}
       <br />
       <AddReview />
     </div>

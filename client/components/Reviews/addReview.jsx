@@ -145,10 +145,11 @@ function AddReview() {
         }
       >
         <form style={{ float: 'center' }}>
-          <h2>Please Write Your Review!</h2>
+          <h2>Write Your Review</h2>
+          <h3>About the [products/:product_id.name]</h3>
           <div>
-            <legend style={{ position: 'relative', right: '10px' }}>How Much Would You Rate This Product? </legend>
-            <div>
+            <legend style={{ position: 'relative' }}>How Much Would You Rate This Product? </legend>
+            <div style={{ position: 'relative', left: '20px' }}>
               {[...Array(5)].map((star, i) => {
                 const ratingValue = i + 1;
                 return (
