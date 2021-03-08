@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 // **Styling Templates** //
 
@@ -71,7 +70,10 @@ const AddToCart = ({ results }) => {
         <SelectStyle onChange={handleChange}>
           <option>Select Size</option>
           {Object.keys(results).map((size) => (
-            <option key={size} value={results[size].quantity}>{results[size].size}</option>
+            results[size].quantity !== 0
+            && (
+              <option key={size} value={results[size].quantity}>{results[size].size}</option>
+            )
           ))}
         </SelectStyle>
       </Column1Row1>
