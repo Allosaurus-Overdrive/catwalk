@@ -8,6 +8,7 @@ const DescriptionGrid = styled.div`
   display: grid;
   grid-tempelate-colums: 2fr 1fr;
   grid-template-rows: 1fr;
+  margin-top: 50px;
 `;
 
 const Column1 = styled.div`
@@ -16,6 +17,17 @@ const Column1 = styled.div`
 
 const Column2 = styled.div`
   grid-column: 2/3;
+`;
+
+const SloganStyle = styled.div`
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const DescriptionStyle = styled.div`
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 `;
 
 const FeatureStyle = styled.div`
@@ -48,14 +60,14 @@ const Description = ({ productOverviewId }) => {
   return (
     <DescriptionGrid>
       <Column1>
-        <div>{slogan}</div>
-        <div>{description}</div>
+        <SloganStyle>{slogan}</SloganStyle>
+        <DescriptionStyle>{description}</DescriptionStyle>
       </Column1>
       <Column2>
         {features.map((feature) => (
           <FeatureStyle key={feature.feature}>
-            {feature.feature}
-            {feature.value}
+            &#10003;
+            {`${feature.feature} ${feature.value}`}
           </FeatureStyle>
         ))}
       </Column2>
