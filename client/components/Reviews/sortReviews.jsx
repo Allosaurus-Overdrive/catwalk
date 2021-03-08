@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import metaData from './sampleRatingsData';
-
-// const yes = Number(metaData.recommended.true);
-// const no = Number(metaData.recommended.false);
-// const totalNumber = yes + no;
 
 function SortReviews({ productOverviewId }) {
   const [count, setCount] = useState('');
-
+  // const [sortId, setSortId] = useState('relevant');
   const getData = () => axios.get('/reviews', { params: { id: productOverviewId } })
     .then(({ data }) => {
       setCount(data.results.length);

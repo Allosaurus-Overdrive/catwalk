@@ -45,7 +45,7 @@ function Ratings({ productOverviewId }) {
   return (
     <div>
       <span style={{ fontSize: '60px', fontWeight: '3em', display: 'inline-flex', flexDirection: 'row', justifyContent: 'space-around', position: 'relative', left: '40px' }}>
-        {avgRating}
+        {Number.isNaN(avgRating) ? null : avgRating}
         <br />
         <StarRating />
       </span>
@@ -54,12 +54,13 @@ function Ratings({ productOverviewId }) {
       <div style={{
         font: 'Gerogia', fontSize: '24px', fontWeight: 'bold', position: 'relative', left: '40px',
       }}
-      >
-        Based on
-        {' '}
-        {total}
-        {' '}
-        reviews
+      > {Number.isNaN(total) ? `Based on Reviews` :
+        `Based on
+        ${' '}
+        ${total}
+        ${' '}
+        reviews`
+    }
       </div>
       <></>
       <div
@@ -82,8 +83,9 @@ function Ratings({ productOverviewId }) {
         font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', left: '40px',
       }}
       >
-        {percent}
-        % of reviewers recommend this product
+        {Number.isNaN(percent) ? null
+          : `${percent}
+        % of reviewers recommend this product`}
       </div>
     </div>
   );
