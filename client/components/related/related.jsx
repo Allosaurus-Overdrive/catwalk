@@ -20,6 +20,8 @@ import { ProductCard } from './relatedcard';
 const RelatedProductsWrapper = styled.section`
   margin-left: 10px;
   margin-right: 10px;
+  height: 366px;
+  position: relative;
 `;
 
 const RelatedProductsTitle = styled.h3`
@@ -28,17 +30,22 @@ const RelatedProductsTitle = styled.h3`
   font-size: 90%;
   font-family: 'Roboto', sans-serif;
   margin-left: 1.5rem;
+  margin-block-end: 0;
+`;
+
+const ButtonWrapper = styled.div`
+  position: relative;
 `;
 
 const RelatedProductsListWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   display: inline-flex;
   height: 350px;
-  width: 85%;
+  width: 98%;
   margin-left: 10px;
   margin-right: 10px;
   background: white;
-  position: relative;
+  position: absolute;
   overflow: hidden;
   white-space: nowrap;
   scroll-behavior: smooth;
@@ -51,17 +58,24 @@ const RelatedProductsList = styled.ul`
 `;
 
 const RelatedArrowButton = styled.button`
+  position: absolute;
   font-size: 150%;
-  float: ${(props) => (props.left ? 'left' : 'right')};
+  ${(props) => (props.left ? 'left: -50px' : '')};
+  ${(props) => (props.right ? 'right: -20px' : '')};
   margin: auto;
   padding: 0;
   border-style: none;
-  height: 287px;
+  height: 290px;
   width: 50px;
   margin-left: 1.5rem;
-  margin-block-start: 1em;
+  margin-top: 0.9em;
   margin-block-end: 1em;
   cursor: pointer;
+  background: linear-gradient(to ${(props) => (props.left ? 'right' : 'left')},  rgba(255, 255, 255, 1) 0%, rgba(233, 233, 233, 0) 100%);
+  z-index: 1;
+  &:focus{
+    outline: none
+  };
 `;
 
 const FadingBackground = styled(BaseModalBackground)`
@@ -156,31 +170,33 @@ function RelatedProducts({ productOverviewId, productClickHandler }) {
   return (
     <RelatedProductsWrapper>
       <RelatedProductsTitle>RELATED PRODUCTS</RelatedProductsTitle>
-      {endReached !== 'left' && endReached !== 'both'
-      && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
-      <RelatedProductsListWrapper ref={ref}>
-        {relatedProductsArray !== null
-        && relatedProductsStylesObj !== null
-        && currentProductData !== null
-        && (
-          <ModalProvider backgroundComponent={FadingBackground}>
-            <RelatedProductsList>
-              {relatedProductsArray.map((item) => (
-                <ProductCard
-                  item={item}
-                  key={item.id}
-                  styles={relatedProductsStylesObj[item.id]}
-                  currentFeatures={currentProductData.features}
-                  currentName={currentProductData.name}
-                  productClickHandler={productClickHandler}
-                />
-              ))}
-            </RelatedProductsList>
-          </ModalProvider>
-        )}
-      </RelatedProductsListWrapper>
-      {endReached !== 'right' && endReached !== 'both'
-      && <RelatedArrowButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
+      <ButtonWrapper>
+        {endReached !== 'left' && endReached !== 'both'
+        && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}>‹</RelatedArrowButton>}
+        <RelatedProductsListWrapper ref={ref}>
+          {relatedProductsArray !== null
+          && relatedProductsStylesObj !== null
+          && currentProductData !== null
+          && (
+            <ModalProvider backgroundComponent={FadingBackground}>
+              <RelatedProductsList>
+                {relatedProductsArray.map((item) => (
+                  <ProductCard
+                    item={item}
+                    key={item.id}
+                    styles={relatedProductsStylesObj[item.id]}
+                    currentFeatures={currentProductData.features}
+                    currentName={currentProductData.name}
+                    productClickHandler={productClickHandler}
+                  />
+                ))}
+              </RelatedProductsList>
+            </ModalProvider>
+          )}
+        </RelatedProductsListWrapper>
+        {endReached !== 'right' && endReached !== 'both'
+        && <RelatedArrowButton right className="right" type="button" onClick={() => scroll(287)}>›</RelatedArrowButton>}
+      </ButtonWrapper>
     </RelatedProductsWrapper>
   );
 }

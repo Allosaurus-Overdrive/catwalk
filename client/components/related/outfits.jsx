@@ -15,10 +15,6 @@ import { RelatedCardWrapper } from './relatedcard';
 // YOUR OUTFITS STYLED COMPONENTS  //
 //  //  //  //  //  //  //  //  ////
 
-const OutfitCardWrapper = styled(RelatedCardWrapper)`
-  margin: 16px 10px;
-`;
-
 const OutfitIconWrapper = styled.div`
   height: 67%;
   width: 100%;
@@ -33,7 +29,7 @@ const OutfitPlusIcon = styled.i`
   top: 45px;
   opacity: 1;
   &:hover{
-    color: gold;
+    color: palegoldenrod;
     cursor: pointer;
   }
 `;
@@ -187,37 +183,39 @@ const Outfits = ({ productOverviewId }) => {
 
   return (
     <RelatedProductsWrapper>
-      <RelatedProductsTitle>YOUR OUTFITS</RelatedProductsTitle>
-      {endReached !== 'left' && endReached !== 'both'
-      && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}> &#8592; </RelatedArrowButton>}
-      <RelatedProductsListWrapper ref={ref}>
-        {outfitsArray !== null
-        && outfitsStylesObj !== null
-        && currentProductData !== null
-        // && outfitsStylesObj[productOverviewId]
-        && (
-          <RelatedProductsList>
-            {outfitsArray.map((item) => (
-              <OutfitCard
-                item={item}
-                key={item.id}
-                styles={outfitsStylesObj[item.id]}
-                currentFeatures={currentProductData.features}
-                currentName={currentProductData.name}
-                handleOutfitDeleteClick={handleOutfitDeleteClick}
-              />
-            ))}
-          </RelatedProductsList>
-        )}
-        <OutfitCardWrapper onClick={onAddCardClickHandler}>
-          <OutfitIconWrapper>
-            <OutfitPlusIcon className="fas fa-plus-circle fa-7x" />
-          </OutfitIconWrapper>
-          <OutfitAddText>Add To Your Outfits</OutfitAddText>
-        </OutfitCardWrapper>
-      </RelatedProductsListWrapper>
-      {endReached !== 'right' && endReached !== 'both'
-      && <RelatedArrowButton className="right" type="button" onClick={() => scroll(287)}> &#8594; </RelatedArrowButton>}
+      <RelatedProductsTitle>YOUR OUTFIT</RelatedProductsTitle>
+      <div>
+        {endReached !== 'left' && endReached !== 'both'
+        && <RelatedArrowButton left className="left" type="button" onClick={() => scroll(-287)}>‹</RelatedArrowButton>}
+        <RelatedProductsListWrapper ref={ref}>
+          {outfitsArray !== null
+          && outfitsStylesObj !== null
+          && currentProductData !== null
+          // && outfitsStylesObj[productOverviewId]
+          && (
+            <RelatedProductsList>
+              <RelatedCardWrapper onClick={onAddCardClickHandler}>
+                <OutfitIconWrapper>
+                  <OutfitPlusIcon className="fas fa-plus-circle fa-7x" />
+                </OutfitIconWrapper>
+                <OutfitAddText>Add To Your Outfits</OutfitAddText>
+              </RelatedCardWrapper>
+              {outfitsArray.map((item) => (
+                <OutfitCard
+                  item={item}
+                  key={item.id}
+                  styles={outfitsStylesObj[item.id]}
+                  currentFeatures={currentProductData.features}
+                  currentName={currentProductData.name}
+                  handleOutfitDeleteClick={handleOutfitDeleteClick}
+                />
+              ))}
+            </RelatedProductsList>
+          )}
+        </RelatedProductsListWrapper>
+        {endReached !== 'right' && endReached !== 'both'
+        && <RelatedArrowButton right className="right" type="button" onClick={() => scroll(287)}>›</RelatedArrowButton>}
+      </div>
     </RelatedProductsWrapper>
   );
 };

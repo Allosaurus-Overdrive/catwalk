@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Modal from 'styled-react-modal';
 import ModalContent from './modal';
+import Ratings from './relatedratings';
 
 //  //  //  //  //  //  //  //  //  //  //  //
 // RELATED PRODUCT CARD STYLED COMPONENTS  //
@@ -166,7 +167,7 @@ function ProductCard(props) {
                 {props.styles[0].original_price}
               </RelatedPrice>
             )}
-            <div className="related-rating">*****</div>
+            <Ratings productOverviewId={props.item.id} />
           </RelatedOverview>
         </>
       )}

@@ -10,6 +10,7 @@ import {
   RelatedSalePrice,
   RelatedPrice,
 } from './relatedcard';
+import Ratings from './relatedratings';
 
 const OutfitIcon = styled(RelatedIcon)`
   top: 13px;
@@ -59,7 +60,7 @@ function OutfitCard(props) {
             {props.styles[0].original_price}
           </RelatedPrice>
         )}
-        <div className="related-rating">*****</div>
+        <Ratings productOverviewId={props.item.id} />
       </RelatedOverview>
     </RelatedCardWrapper>
   );
