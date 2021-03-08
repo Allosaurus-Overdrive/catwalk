@@ -60,7 +60,7 @@ const ButtonStyle = styled.button`
 const AddToCart = ({ results }) => {
   const [amount, setAmount] = useState('0');
   const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  let quantityVals = quantityOptions.slice(0, amount);
+  const quantityVals = quantityOptions.slice(0, amount);
 
   const handleChange = ((event) => {
     setAmount(event.target.value);
@@ -83,7 +83,7 @@ const AddToCart = ({ results }) => {
         <SelectStyle>
           <option>-</option>
           {quantityVals.map((quantity) => (
-            <option value="quantity">{quantity}</option>
+            <option value={quantity}>{quantity}</option>
           ))}
         </SelectStyle>
       </Column2Row1>

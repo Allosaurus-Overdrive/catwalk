@@ -10,7 +10,11 @@ import Description from './Description';
 // **Styling Tempelates** //
 
 const Layout = styled.div`
-  height: 850px;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 10px 10px 10px 10px;
+  height: 900px;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 2fr 1fr;
