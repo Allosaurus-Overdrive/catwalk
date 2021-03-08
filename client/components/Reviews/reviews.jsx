@@ -6,6 +6,7 @@ import Ratings from './ratingBreakdown';
 import SortReviews from './sortReviews';
 
 const GridLayout = styled.div`
+  font-family: 'Roboto', sans-serif;
   padding: 3em;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -13,6 +14,7 @@ const GridLayout = styled.div`
 `;
 
 const RatingsStyle = styled.div`
+  font-family: 'Roboto', sans-serif;
   grid-row: 1;
   grid-column: 1;
   position: relative;
@@ -20,6 +22,7 @@ const RatingsStyle = styled.div`
 `;
 
 const CharStyle = styled.div`
+  font-family: 'Roboto', sans-serif;
   grid-row: 2;
   grid-column: 1;
   position: relative;
@@ -27,6 +30,7 @@ const CharStyle = styled.div`
 `;
 
 const SortStyle = styled.div`
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
   position: relative;
   top: 25px;
@@ -35,6 +39,7 @@ const SortStyle = styled.div`
   grid-column: 2;
 `;
 const ReviewStyle = styled.div`
+  font-family: 'Roboto', sans-serif;
   grid-row: 2 / 3;
   grid-column: 2 / 3 / 4;
 `;
