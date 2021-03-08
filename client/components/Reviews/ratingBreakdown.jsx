@@ -47,7 +47,7 @@ function Ratings({ productOverviewId }) {
       <span style={{ fontSize: '60px', fontWeight: '3em', display: 'inline-flex', flexDirection: 'row', justifyContent: 'space-around', position: 'relative', left: '40px' }}>
         {Number.isNaN(avgRating) ? null : avgRating}
         <br />
-        <StarRating />
+        <StarRating avgRating={avgRating} />
       </span>
       <br />
       <br />

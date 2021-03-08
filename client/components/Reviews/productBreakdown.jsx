@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import metaData from './sampleRatingsData';
 import ProgressBar from './progressBar';
 
 const attributes = {
