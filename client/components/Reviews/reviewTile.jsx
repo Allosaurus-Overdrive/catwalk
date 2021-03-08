@@ -1,33 +1,50 @@
-import React, { useState } from 'react';
-// import axios from 'axios';
-import exampleReviews from './sampleData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ReviewIndividualTile from './reviewIndividualTile';
 import AddReview from './addReview';
 
 const tileBox = {
-  border: '1px solid black',
-  float: 'center',
-  margin: '2em',
-  height: '400px',
+  padding: '1em',
+  position: 'relative',
+  bottom: '300px',
+  right: '33px',
+  height: '1400px',
   width: '700px',
   overflowY: 'scroll',
+  fontSize: '19px',
 };
 
-function ReviewTile() {
+function ReviewTile({ productOverviewId }) {
   const [showMore, setMore] = useState(false);
+  const [reviewsData, setReviews] = useState([]);
+  const [count, setCount] = useState('');
+
+  const getData = () => axios.get('/reviews', { params: { id: productOverviewId } })
+    .then(({ data }) => {
+      setReviews(data.results);
+      setCount(data.results.length);
+    })
+    .catch((err) => {
+      console.log('metadata error', err);
+    });
+
+  useEffect(() => {
+    getData();
+  }, [productOverviewId]);
 
   return (
     <div style={tileBox}>
       <ul>
         {showMore
-          ? exampleReviews.results.map((review) =>
+          ? reviewsData.map((review) =>
             <ReviewIndividualTile key={review.review_id} review={review} />)
-          : exampleReviews.results.slice(0, 2).map((review) =>
+          : reviewsData.slice(0, 2).map((review) =>
             <ReviewIndividualTile key={review.review_id} review={review} />)}
       </ul>
-      <button type="button" onClick={() => setMore(true)} style={{ margin: '1.5em' }}>
+      {count > 2
+        ? (<button type="button" onClick={() => setMore(true)} style={{ margin: '1.5em', position: 'relative', left: '16px', fontSize: '20px' }}>
         More Reviews
-      </button>
+      </button>) : null}
       <br />
       <AddReview />
     </div>

@@ -129,8 +129,8 @@ function AddReview() {
 
   return (
     <div>
-      <button type="button" onClick={() => setModalIsOpen(true)} style={{ margin: '1.5em' }}>
-        Add Review
+      <button type="button" onClick={() => setModalIsOpen(true)} style={{ margin: '1.5em', position: 'relative', left: '200px', bottom: '88px', fontSize: '20px' }}>
+        Add Review +
       </button>
       <Modal
         isOpen={modalIsOpen}
@@ -139,16 +139,17 @@ function AddReview() {
          {
            overlay: { backgroundColor: 'grey' },
            content: {
-             color: 'teal', fontSize: '18px', textAlign: 'center', width: '900px', height: '500px',
+             backgroundColor: '#33FFD7', fontSize: '18px', textAlign: 'center', width: '1000px', height: '500px', justifyContent: 'space-between', lineHeight: '2em', color: '#C70039',
            },
          }
         }
       >
         <form style={{ float: 'center' }}>
-          <h2>Please Write Your Review!</h2>
+          <h2>Write Your Review</h2>
+          <h3>About the [products/:product_id.name]</h3>
           <div>
-            <legend>How Much Would You Rate This Product? </legend>
-            <div>
+            <legend style={{ position: 'relative' }}>How Much Would You Rate This Product? </legend>
+            <div style={{ position: 'relative', left: '20px' }}>
               {[...Array(5)].map((star, i) => {
                 const ratingValue = i + 1;
                 return (
@@ -170,10 +171,10 @@ function AddReview() {
                   </label>
                 );
               })}
-              <span style={{ padding: '2em' }}>{handleRating()}</span>
+              <span style={{ padding: '2em', marginTop: '1.5em' }}>{handleRating()}</span>
             </div>
           </div>
-          <div style={{ padding: '1.5em' }}>
+          <div style={{ padding: '2em', marginTop: '2em' }}>
             <legend>Do You Recommend? </legend>
             <input
               required
@@ -197,12 +198,14 @@ function AddReview() {
               No
             </label>
           </div>
-          <div style={{ margin: '2em' }}>
+          <div>
             <br />
-            <legend> Size </legend>
+            <legend style={{ position: 'relative', top: '44px', right: '15px' }}> Size </legend>
             <br />
             <div>
-              A size too small
+              <span style={{ float: 'left', position: 'relative', left: '170px' }}>
+                A size too small
+              </span>
               {[...Array(5)].map((star, i) => {
                 const sizeValue = i + 1;
                 return (
@@ -212,22 +215,24 @@ function AddReview() {
                       name="size"
                       value={sizeValue}
                       required
-                      style={{ width: 60 }}
+                      style={{ width: 60, float: 'center' }}
                       onClick={() => setSize(sizeValue)}
                     />
                   </label>
                 );
               })}
-              A size too big
-              <span style={{ padding: '2em', color: 'black', fontSize: '24px' }}>{handleSize()}</span>
+              <span style={{ float: 'right', position: 'relative', right: '240px' }}>A size too big</span>
+              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleSize()}</span>
             </div>
           </div>
-          <div style={{ margin: '2em' }}>
+          <div>
             <br />
-            <legend> Width </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Width </legend>
             <br />
             <div>
-              Too narrow
+              <span style={{ float: 'left', position: 'relative', left: '170px' }}>
+                Too narrow
+              </span>
               {[...Array(5)].map((star, i) => {
                 const widthValue = i + 1;
                 return (
@@ -237,22 +242,26 @@ function AddReview() {
                       name="width"
                       value={widthValue}
                       required
-                      style={{ width: 60 }}
+                      style={{ width: 60, float: 'center' }}
                       onClick={() => setWidth(widthValue)}
                     />
                   </label>
                 );
               })}
-              Too wide
-              <span style={{ padding: '2em', color: 'black', fontSize: '24px' }}>{handleWidth()}</span>
+              <span style={{ float: 'right', position: 'relative', right: '240px' }}>
+                Too wide
+              </span>
+              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleWidth()}</span>
             </div>
           </div>
-          <div style={{ margin: '2em' }}>
+          <div>
             <br />
-            <legend> Comfort </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Comfort </legend>
             <br />
             <div>
-              Uncomfortable
+              <span style={{ float: 'left', position: 'relative', left: '170px' }}>
+                Uncomfortable
+              </span>
               {[...Array(5)].map((star, i) => {
                 const comfortValue = i + 1;
                 return (
@@ -262,22 +271,26 @@ function AddReview() {
                       name="comfort"
                       value={comfortValue}
                       required
-                      style={{ width: 60 }}
+                      style={{ width: 60, float: 'center' }}
                       onClick={() => setComfort(comfortValue)}
                     />
                   </label>
                 );
               })}
-              Perfect
-              <span style={{ margin: '2em', border: '0.25 solid black', color: 'black', fontSize: '24px' }}>{handleComfort()}</span>
+              <span style={{ float: 'right', position: 'relative', right: '240px' }}>
+                Perfect
+              </span>
+              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleComfort()}</span>
             </div>
           </div>
-          <div style={{ margin: '2em' }}>
+          <div>
             <br />
-            <legend> Length </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Length </legend>
             <br />
             <div>
-              Runs short
+              <span style={{ float: 'left', position: 'relative', left: '170px' }}>
+                Runs short
+              </span>
               {[...Array(5)].map((star, i) => {
                 const lengthValue = i + 1;
                 return (
@@ -287,22 +300,26 @@ function AddReview() {
                       name="length"
                       value={lengthValue}
                       required
-                      style={{ width: 60 }}
+                      style={{ width: 60, float: 'center' }}
                       onClick={() => setLength(lengthValue)}
                     />
                   </label>
                 );
               })}
-              Runs long
-              <span style={{ margin: '2em', border: '0.25 solid black', color: 'black', fontSize: '24px' }}>{handleLength()}</span>
+              <span style={{ float: 'right', position: 'relative', right: '240px' }}>
+                Runs long
+              </span>
+              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleLength()}</span>
             </div>
           </div>
-          <div style={{ margin: '2em' }}>
+          <div>
             <br />
-            <legend> Fit </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Fit </legend>
             <br />
             <div>
-              Runs tight
+              <span style={{ float: 'left', position: 'relative', left: '170px' }}>
+                Runs tight
+              </span>
               {[...Array(5)].map((star, i) => {
                 const fitValue = i + 1;
                 return (
@@ -318,16 +335,20 @@ function AddReview() {
                   </label>
                 );
               })}
-              Runs big
-              <span style={{ margin: '2em', border: '0.25 solid black', color: 'black', fontSize: '24px' }}>{handleFit()}</span>
+              <span style={{ float: 'right', position: 'relative', right: '240px' }}>
+                Runs big
+              </span>
+              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleFit()}</span>
             </div>
           </div>
-          <div style={{ margin: '2em' }}>
+          <div>
             <br />
-            <legend> Quality </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Quality </legend>
             <br />
             <div>
-              Poor
+              <span style={{ float: 'left', position: 'relative', left: '170px' }}>
+                Poor
+              </span>
               {[...Array(5)].map((star, i) => {
                 const qualValue = i + 1;
                 return (
@@ -343,11 +364,13 @@ function AddReview() {
                   </label>
                 );
               })}
-              Perfect
-              <span style={{ margin: '2em', color: 'black', fontSize: '24px' }}>{handleQuality()}</span>
+              <span style={{ float: 'right', position: 'relative', right: '240px' }}>
+                Perfect
+              </span>
+              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleQuality()}</span>
             </div>
           </div>
-          <div style={{ padding: '1.5em' }}>
+          <div style={{ padding: '1.5em', marginTop: '4em' }}>
             <label htmlFor="Summary" title="ReviewSummary">
               Review Summary
             </label>

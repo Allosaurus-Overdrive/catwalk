@@ -1,5 +1,5 @@
-import React from 'react';
-import metaData from './sampleRatingsData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ProgressBar from './progressBar';
 
 const attributes = {
@@ -47,8 +47,24 @@ const attributes = {
   },
 };
 
-const Characteristics = () => {
-  const qualities = metaData.characteristics;
+const Characteristics = ({ productOverviewId }) => {
+  const [characteristics, setCharacteristics] = useState('');
+
+  const getMetaData = () => axios.get('/reviews/meta', { params: { id: productOverviewId } })
+    .then(({ data }) => {
+      setCharacteristics(data.characteristics);
+    })
+    .catch((err) => {
+      console.log('metadata error', err);
+    });
+
+  // console.log(mData);
+
+  useEffect(() => {
+    getMetaData();
+  }, [productOverviewId]);
+
+  const qualities = characteristics;
   const quals = Object.keys(qualities);
 
   const percentArr = [];
@@ -63,15 +79,22 @@ const Characteristics = () => {
     <div>
       <div
         className="quality"
-        style={{ margin: '2em', padding: '1em', width: '400px', height: '200px', inlineHeight: '2em' }}
+        style={{
+          float: 'center', margin: '1em', padding: '1em', width: '400px', display: 'inline-flex', flexDirection: 'column', justifyContent: 'space-between', lineHeight: '30px',
+        }}
       >
         {quals.map((quality, idx) => (
           <fragment key={quality.id}>
-            <strong style={{ padding: '1.5em' }}>{quality}</strong>
-            <ProgressBar bgcolor="grey" width="300px" completed={percentArr[idx]} />
-            {attributes[quality]['1']}
-            <span>.............................. </span>
-            {attributes[quality]['5']}
+            <span style={{ position: 'relative', top: '3px' }}>
+              <strong>{quality}</strong>
+            </span>
+            <ProgressBar bgcolor="grey" border-radius="0px" completed={percentArr[idx]} />
+            <span>
+              {attributes[quality]['1']}
+            </span>
+            <span style={{ position: 'relative', right: '40px', float: 'right' }}>
+              {attributes[quality]['5']}
+            </span>
           </fragment>
         ))}
       </div>

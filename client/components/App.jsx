@@ -20,7 +20,7 @@ const App = () => {
         productClickHandler={productClickHandler}
       />
       <Outfits productOverviewId={productOverviewId} />
-      <Reviews />
+      <Reviews productOverviewId={productOverviewId} />
     </div>
   );
 };
