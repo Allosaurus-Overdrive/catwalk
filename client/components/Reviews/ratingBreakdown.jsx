@@ -1,18 +1,39 @@
 /* eslint-disable no-restricted-syntax */
-import React from 'react';
-import metaData from './sampleRatingsData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+// import metaData from './sampleRatingsData';
 import ProgressBar from './progressBar';
 import StarRating from './StarRating';
 
-function Ratings() {
+function Ratings({ productOverviewId }) {
+  const [ratings, setRatings] = useState('');
+  const [recommend, setRecommend] = useState('');
+  const getMetaData = () => axios.get('/reviews/meta', { params: { id: productOverviewId } })
+    .then(({ data }) => {
+      setRatings(data.ratings);
+      setRecommend(data.recommended);
+    })
+    .catch((err) => {
+      console.log('metadata error', err);
+    });
+
+  // console.log(mData);
+
+  useEffect(() => {
+    getMetaData();
+  }, [productOverviewId]);
+
   // calculating percent of recommendations
-  const yes = Number(metaData.recommended.true);
-  const no = Number(metaData.recommended.false);
+  // const trial = Number(mData.true);
+  const yes = Number(recommend.true);
+  const no = Number(recommend.false);
   const total = yes + no;
   const percent = Math.round((yes / total) * 100);
 
+  // console.log(metaData.recommended);
+  console.log(yes);
   // calculating average rating for product
-  const scores = metaData.ratings;
+  const scores = ratings;
   const sum = 1 * (Number(scores['1'])) + 2 * (Number(scores['2'])) + 3 * (Number(scores['3'])) + 4 * (Number(scores['4'])) + 5 * (Number(scores['5']));
   const weightedAvg = (sum / total);
   const avgRating = Number((weightedAvg).toFixed(1));
@@ -36,11 +57,14 @@ function Ratings() {
       <br />
       <br />
       <div style={{
-        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', left: '40px',
+        font: 'Gerogia', fontSize: '24px', fontWeight: 'bold', position: 'relative', left: '40px',
       }}
       >
-        {percent}
-        % of reviewers recommend this product
+        Based on
+        {' '}
+        {total}
+        {' '}
+        reviews
       </div>
       <></>
       <div
@@ -58,6 +82,13 @@ function Ratings() {
             <span style={{ fontWeight: '4em', position: 'relative', left: '370px', bottom: '16px' }}>{indiRatings[idx]}</span>
           </span>
         ))}
+      </div>
+      <div style={{
+        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', left: '40px',
+      }}
+      >
+        {percent}
+        % of reviewers recommend this product
       </div>
     </div>
   );

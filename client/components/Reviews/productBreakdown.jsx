@@ -1,5 +1,6 @@
-import React from 'react';
-import metaData from './sampleRatingsData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+// import metaData from './sampleRatingsData';
 import ProgressBar from './progressBar';
 
 const attributes = {
@@ -47,8 +48,24 @@ const attributes = {
   },
 };
 
-const Characteristics = () => {
-  const qualities = metaData.characteristics;
+const Characteristics = ({ productOverviewId }) => {
+  const [characteristics, setCharacteristics] = useState('');
+
+  const getMetaData = () => axios.get('/reviews/meta', { params: { id: productOverviewId } })
+    .then(({ data }) => {
+      setCharacteristics(data.characteristics);
+    })
+    .catch((err) => {
+      console.log('metadata error', err);
+    });
+
+  // console.log(mData);
+
+  useEffect(() => {
+    getMetaData();
+  }, [productOverviewId]);
+
+  const qualities = characteristics;
   const quals = Object.keys(qualities);
 
   const percentArr = [];
@@ -66,7 +83,6 @@ const Characteristics = () => {
         style={{
           float: 'center', margin: '1em', padding: '1em', width: '400px', display: 'inline-flex', flexDirection: 'column', justifyContent: 'space-between', lineHeight: '30px',
         }}
-        // style={{ margin: '2em', padding: '1em', width: '400px', height: '200px' }}
       >
         {quals.map((quality, idx) => (
           <fragment key={quality.id}>

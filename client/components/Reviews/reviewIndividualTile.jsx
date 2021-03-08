@@ -12,12 +12,6 @@ function ReviewIndividualTile(props) {
   const { review } = props;
   const [yesCount, setYesCount] = useState(review.helpfulness);
   const [noCount, setNoCount] = useState(0);
-  const photoArr = [];
-  // for (let i = 0; i < review.photos.length; i++) {
-  //   let photo = photos[i].url;
-  //   photoArr.push(photo);
-  // }
-  // console.log(review.photos[1].url);
 
   return (
     <div style={tileBox} className="review-entry">

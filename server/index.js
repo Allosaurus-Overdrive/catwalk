@@ -109,28 +109,35 @@ app.get('/related-styles', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
-app.get('/reviews/:id', (req, res) => {
-  const { id } = req.params;
-  const options = {
-    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea',
-    headers: {
-      'User-Agent': 'request',
-      Authorization: `token ${config.TOKEN}`,
-    },
-  };
-  axios.get(`${options.url}/reviews/?product_id=${id}`, options)
+app.get('/reviews', (req, res) => {
+  const productOverviewId = req.query.id;
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/?product_id=${productOverviewId}&count=100&sort=relevant`, options)
     .then(({ data }) => {
-      res.send(data.results);
+      res.send(data);
     })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(400);
-    });
+    .catch(() => res.sendStatus(400));
+});
+
+app.get('/reviews/meta', (req, res) => {
+  const productOverviewId = req.query.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/meta/?product_id=${productOverviewId}`, options)
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch(() => res.sendStatus(400));
 });
 
 app.get('/product-features', (req, res) => {
   const productOverviewId = req.query.id;
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
+    .then(({ data }) => { res.send(data); })
+    .catch(() => res.sendStatus(400));
+});
+
+app.get('/trial', (req, res) => {
+  const productOverviewId = req.query.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/${productOverviewId}`, options)
     .then(({ data }) => { res.send(data); })
     .catch(() => res.sendStatus(400));
 });

@@ -14,13 +14,13 @@ const App = () => {
 
   return (
     <div>
-      <ProductOverview productOverviewId={productOverviewId} />
+      {/* <ProductOverview productOverviewId={productOverviewId} />
       <RelatedProducts
         productOverviewId={productOverviewId}
         productClickHandler={productClickHandler}
       />
-      <Outfits productOverviewId={productOverviewId} />
-      <Reviews />
+      <Outfits productOverviewId={productOverviewId} /> */}
+      <Reviews productOverviewId={productOverviewId} />
     </div>
   );
 };
