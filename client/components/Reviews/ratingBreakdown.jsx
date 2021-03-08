@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import metaData from './sampleRatingsData';
 import ProgressBar from './progressBar';
 import StarRating from './StarRating';
 
@@ -17,8 +16,6 @@ function Ratings({ productOverviewId }) {
       console.log('metadata error', err);
     });
 
-  // console.log(mData);
-
   useEffect(() => {
     getMetaData();
   }, [productOverviewId]);
@@ -30,8 +27,6 @@ function Ratings({ productOverviewId }) {
   const total = yes + no;
   const percent = Math.round((yes / total) * 100);
 
-  // console.log(metaData.recommended);
-  console.log(yes);
   // calculating average rating for product
   const scores = ratings;
   const sum = 1 * (Number(scores['1'])) + 2 * (Number(scores['2'])) + 3 * (Number(scores['3'])) + 4 * (Number(scores['4'])) + 5 * (Number(scores['5']));

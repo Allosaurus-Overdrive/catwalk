@@ -22,13 +22,11 @@ function ReviewTile({ productOverviewId }) {
   const getData = () => axios.get('/reviews', { params: { id: productOverviewId } })
     .then(({ data }) => {
       setReviews(data.results);
-      setCount(data.count);
+      setCount(data.results.length);
     })
     .catch((err) => {
       console.log('metadata error', err);
     });
-
-  console.log(reviewsData.slice(0, 2));
 
   useEffect(() => {
     getData();

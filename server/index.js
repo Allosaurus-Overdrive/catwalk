@@ -112,7 +112,7 @@ app.get('/related-styles', (req, res) => {
 app.get('/reviews', (req, res) => {
   const productOverviewId = req.query.id;
 
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/?product_id=${productOverviewId}&count=100&sort=relevant`, options)
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/?product_id=${productOverviewId}&count=100&sort=helpful`, options)
     .then(({ data }) => {
       res.send(data);
     })

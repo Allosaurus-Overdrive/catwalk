@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 import ReviewTile from './reviewTile';
 import Characteristics from './productBreakdown';
 import Ratings from './ratingBreakdown';
-import metaData from './sampleRatingsData';
-
-const yes = Number(metaData.recommended.true);
-const no = Number(metaData.recommended.false);
-const totalNumber = yes + no;
+import SortReviews from './sortReviews';
 
 const GridLayout = styled.div`
   padding: 3em;
@@ -45,59 +40,13 @@ const ReviewStyle = styled.div`
 `;
 
 function Reviews({ productOverviewId }) {
-  // const [reviewsData, setReviews] = useState([]);
-  // const [metaData, setmetaData] = useState([]);
-  // const [sortId, setSortId] = useState('relevant');
-  // const [count, setCount] = useState('');
-  // const getReviews = (productOverviewId, sortOption) => {
-  //   axios.get(`/reviews/${id}&sort=${sortOption}`)
-  //     .then((res) => (setProductReviewArray(res.data)))
-  //     .catch((err) => console.log('get reviews ', err));
-
-  // const updateData = () => {
-  //   axios.get('/reviews', { params: { id: productOverviewId, sortId } })
-  //     .then(({ data }) => {
-  //       setReviews(data.results);
-  //       // setCount(data.count);
-  //     })
-  //     .catch((err) => {
-  //       console.log('data error', err);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   updateData();
-  // }, [productOverviewId]);
-
-  // useEffect(() => {
-  //   updateData();
-  // }, [sortId]);
-
-  // const sortByType = (type) => {
-  //   setSortId(type);
-  // };
-
   return (
     //  <h3>RATINGS and REVIEWS</h3>
     <GridLayout>
       <RatingsStyle><Ratings productOverviewId={productOverviewId} /></RatingsStyle>
       <CharStyle><Characteristics productOverviewId={productOverviewId} /></CharStyle>
       <SortStyle>
-        <div>
-          <label htmlFor="review-sort">
-            <strong>
-              {totalNumber}
-              {' '}
-              reviews, sorted by
-              {' '}
-            </strong>
-          </label>
-          <select id="search-select">
-            <option value="relevant">relevant</option>
-            <option value="helpful">helpful</option>
-            <option value="newest">newest</option>
-          </select>
-        </div>
+        <SortReviews productOverviewId={productOverviewId} />
       </SortStyle>
       <ReviewStyle><ReviewTile productOverviewId={productOverviewId} /></ReviewStyle>
     </GridLayout>
