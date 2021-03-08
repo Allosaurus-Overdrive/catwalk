@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import ImageGallery from './ImageGallery';
 import ProductInfo from './ProductInfo';
@@ -42,22 +43,88 @@ const Row2 = styled.div`
 
 // **Functionality Section** //
 
-const ProductOverview = ({ productOverviewId }) => (
-  <Layout>
-    <Column1Row1>
-      <ImageGallery productOverviewId={productOverviewId} />
-    </Column1Row1>
-    <ProductInfoPos>
-      <ProductInfo productOverviewId={productOverviewId} />
-    </ProductInfoPos>
-    <Buttons>
-      <StyleSelector productOverviewId={productOverviewId} />
-      <AddToCart productOverviewId={productOverviewId} />
-    </Buttons>
-    <Row2>
-      <Description productOverviewId={productOverviewId} />
-    </Row2>
-  </Layout>
-);
+const ProductOverview = ({ productOverviewId }) => {
+  // **States**//
+  const [results, setResults] = useState({});
+  const [description, setDescription] = useState('');
+  const [slogan, setSlogan] = useState('');
+  const [features, setFeatures] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState();
+  const [bigImage, setBigImage] = useState([]);
+  const [galleryThumbnail, setGalleryThumbnail] = useState([]);
+  const [currentImage, setCurrentImage] = useState(0);
+
+  // **Axios Requests** //
+  const getProduct = () => axios.get('/products', { params: { id: productOverviewId } })
+    .then((response) => {
+      setSlogan(response.data.slogan);
+      setDescription(response.data.description);
+      setFeatures(response.data.features);
+      setName(response.data.name);
+      setCategory(response.data.category);
+      setPrice(response.data.default_price);
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+  const getStyle = () => axios.get('/styles', { params: {id: productOverviewId } })
+    .then(({ data }) => (
+      (setBigImage(() => []),
+      setThumbnail(() => []),
+      setResults(data.results[0].skus),
+      setThumbnail(data.results),
+      data.results.map((style) => (
+        (setBigImage((arr) => [...arr, style.photos[0].url]),
+        setGalleryThumbnail((arr) => [...arr, style.photos[0].thumbnail_url]))))
+      )))
+    .catch((err) => {
+      throw err;
+    });
+
+  // **Effect/ComponentDidMount** //
+  useEffect(() => {
+    getProduct();
+    getStyle();
+  }, [productOverviewId]);
+
+  // **Render**//
+  return (
+    <Layout>
+      <Column1Row1>
+        <ImageGallery
+          galleryThumbnail={galleryThumbnail}
+          bigImage={bigImage}
+          setCurrentImage={setCurrentImage}
+          currentImage={currentImage}
+        />
+      </Column1Row1>
+      <ProductInfoPos>
+        <ProductInfo
+          name={name}
+          category={category}
+          price={price}
+        />
+      </ProductInfoPos>
+      <Buttons>
+        <StyleSelector
+          thumbnail={thumbnail}
+          setCurrentImage={setCurrentImage}
+        />
+        <AddToCart results={results} />
+      </Buttons>
+      <Row2>
+        <Description
+          description={description}
+          slogan={slogan}
+          features={features}
+        />
+      </Row2>
+    </Layout>
+  );
+};
 
 export default ProductOverview;

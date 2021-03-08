@@ -44,27 +44,9 @@ const Arrow2 = styled.div`
 
 // **Functionality Section** //
 
-const ImageGallery = ({ productOverviewId }) => {
-  const [bigImage, setBigImage] = useState([]);
-  const [thumbnail, setThumbnail] = useState([]);
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const getImages = () => axios.get('/styles', { params: { id: productOverviewId } })
-    .then((response) => (
-      (setBigImage(() => []),
-      setThumbnail(() => []),
-      response.data.results.map((style) => (
-        (setBigImage((arr) => [...arr, style.photos[0].url]),
-        setThumbnail((arr) => [...arr, style.photos[0].thumbnail_url])
-        )))
-      )))
-    .catch((err) => {
-      throw err;
-    });
-
-  useEffect(() => {
-    getImages();
-  }, [productOverviewId]);
+const ImageGallery = ({ galleryThumbnail, bigImage, setCurrentImage, currentImage
+}) => {
+  // const [currentImage, setCurrentImage] = useState(0);
 
   // **Arrow for Carousel**//
   const ArrowLeft = ({ direction, clickFunction, glyph }) => (
@@ -113,7 +95,7 @@ const ImageGallery = ({ productOverviewId }) => {
         </Arrow1>
       )}
       <ThumbnailPos>
-        {thumbnail.map((pic, idx) => (
+        {galleryThumbnail.map((pic, idx) => (
           <ThumbnailStyle src={pic} alt="" onClick={() => { setCurrentImage(idx); }} />
         ))}
       </ThumbnailPos>

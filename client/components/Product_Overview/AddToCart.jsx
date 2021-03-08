@@ -58,26 +58,12 @@ const ButtonStyle = styled.button`
 
 // **Functionality Section** //
 
-const AddToCart = ({ productOverviewId }) => {
+const AddToCart = ({ results }) => {
   const [amount, setAmount] = useState('0');
-  const [results, setResults] = useState({});
-
-  const getResults = () => axios.get('/styles', { params: {id: productOverviewId } })
-    .then(({ data }) => (
-      setResults(data.results[0].skus)
-    ))
-    .catch((err) => {
-      throw err;
-    });
-
-  useEffect(() => {
-    getResults();
-  }, [productOverviewId]);
 
   const handleChange = ((event) => {
     setAmount(event.target.value);
   });
-  console.log(results)
 
   return (
     <CartGrid>
