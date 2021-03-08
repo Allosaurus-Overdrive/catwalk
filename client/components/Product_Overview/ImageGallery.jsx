@@ -8,22 +8,27 @@ import ImageSlide from './ImageSlide';
 const ImagePos = styled.div`
   height: 700px;
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 3fr 1fr;
   grid-template-rows: 1fr;
+  background-color: lightgray;
 `;
 
 const ThumbnailStyle = styled.img`
-  grid-column: 2;
+  grid-column: 1;
   width: 75px;
+  border: solid 2px;
+  margin: 10px 20px 10px 20px;
 `;
 
 const ThumbnailPos = styled.div`
-  grid-column: 2;
+  grid-column: 1;
+  grid-row: 1;
   display: grid;
 `;
 
 const Arrow1 = styled.div`
-  grid-column: 1;
+  grid-column: 2;
+  grid-row: 1;
   place-self: center;
 `;
 
@@ -50,7 +55,7 @@ const ImageGallery = ({ productOverviewId }) => {
       setThumbnail(() => []),
       response.data.results.map((style) => (
         (setBigImage((arr) => [...arr, style.photos[0].url]),
-        setThumbnail((thumbnail) => [...thumbnail, style.photos[0].thumbnail_url])
+        setThumbnail((arr) => [...arr, style.photos[0].thumbnail_url])
         )))
       )))
     .catch((err) => {

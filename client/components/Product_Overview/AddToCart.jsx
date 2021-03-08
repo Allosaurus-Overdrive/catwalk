@@ -39,7 +39,7 @@ const Column3Row2 = styled.div`
 const SelectStyle = styled.select`
   width: 100%;
   height: 50px;
-  margin: 2px 2px 2px 2px;
+  margin: 10px 10px 10px 10px;
   border: solid 1px;
   font-family: ‘Roboto’, sans-serif;
   font-size: 20px;
@@ -50,7 +50,7 @@ const ButtonStyle = styled.button`
   width: 100%;
   height: 50px;
   border: solid: 1px;
-  margin: 2px 2px 2px 2px;
+  margin: 10px 10px 10px 10px;
   font-family: ‘Roboto’, sans-serif;
   font-size: 20px;
   font-weight: bold;
@@ -77,19 +77,21 @@ const AddToCart = ({ productOverviewId }) => {
   const handleChange = ((event) => {
     setAmount(event.target.value);
   });
+  console.log(results)
 
   return (
     <CartGrid>
       <Column1Row1>
         <SelectStyle onChange={handleChange}>
+          <option>Select Size</option>
           {Object.keys(results).map((size) => (
             <option key={size} value={results[size].quantity}>{results[size].size}</option>
           ))}
-          {/* <option value="size">Select Size</option> */}
         </SelectStyle>
       </Column1Row1>
       <Column2Row1>
         <SelectStyle>
+          <option>-</option>
           <option value="quantity">{amount}</option>
         </SelectStyle>
       </Column2Row1>
@@ -97,7 +99,7 @@ const AddToCart = ({ productOverviewId }) => {
         <ButtonStyle type="submit">ADD TO BAG</ButtonStyle>
       </Column1Row2>
       <Column3Row2>
-        <ButtonStyle type="submit">Heart, Star, Plus thingy</ButtonStyle>
+        <ButtonStyle type="submit">Outfit Adder</ButtonStyle>
       </Column3Row2>
     </CartGrid>
   );
