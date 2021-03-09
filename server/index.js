@@ -97,11 +97,17 @@ app.get('/products', (req, res) => {
     .catch((err) => {
       throw err;
 <<<<<<< HEAD
+<<<<<<< HEAD
     });
 });
 
 =======
 >>>>>>> tried to fix
+=======
+    });
+});
+
+>>>>>>> fixed merge conflicts
 app.put('/qa/questions/:questionId/helpful', (req, res) => {
   const options = {
     headers: {
