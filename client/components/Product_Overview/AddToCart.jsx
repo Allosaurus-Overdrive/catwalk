@@ -59,17 +59,27 @@ const ButtonStyle = styled.button`
 // **Functionality Section** //
 
 const AddToCart = ({ results, productOverviewId }) => {
+  // **states and variables** //
   const [amount, setAmount] = useState('0');
+  const [sku, setSku] = useState();
+  const [number, setNumber] = useState(null);
   const [outfitsArray, setOutfitsArray] = useState([]);
   const [outfitsStylesObj, setOutfitsStylesObj] = useState({});
   const [currentProductData, setCurrentProductData] = useState(null);
   const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   const quantityVals = quantityOptions.slice(0, amount);
 
-  const handleChange = ((event) => {
-    setAmount(event.target.value);
+  // **methods** //
+  const handleSizeChange = ((event) => {
+    setAmount(event.target.value.slice(7, 9));
+    setSku(event.target.value.slice(0, 6));
   });
 
+  const handleQuantityChange = ((event) => {
+    setNumber(event.target.value);
+  })
+
+  // **Outfits Button Functionality **//
   const getYourOutfits = () => {
     axios.get('/product-features', { params: { id: productOverviewId } })
       .then(({ data }) => { setCurrentProductData(data); })
@@ -133,18 +143,24 @@ const AddToCart = ({ results, productOverviewId }) => {
   return (
     <CartGrid>
       <Column1Row1>
-        <SelectStyle onChange={handleChange}>
+        <SelectStyle onChange={handleSizeChange}>
           <option>Select Size</option>
           {Object.keys(results).map((size) => (
             results[size].quantity !== 0
             && (
-              <option key={size} value={results[size].quantity}>{results[size].size}</option>
+              <option
+                key={size}
+                value={[size, results[size].quantity]}
+                name={size}
+              >
+                {results[size].size}
+              </option>
             )
           ))}
         </SelectStyle>
       </Column1Row1>
       <Column2Row1>
-        <SelectStyle>
+        <SelectStyle onChange={handleQuantityChange}>
           <option>-</option>
           {quantityVals.map((quantity) => (
             <option value={quantity}>{quantity}</option>
@@ -152,7 +168,7 @@ const AddToCart = ({ results, productOverviewId }) => {
         </SelectStyle>
       </Column2Row1>
       <Column1Row2>
-        <ButtonStyle type="submit">ADD TO BAG</ButtonStyle>
+        <ButtonStyle type="submit" onClick={onAddCardClickHandler}>ADD TO BAG</ButtonStyle>
       </Column1Row2>
       <Column3Row2>
         <ButtonStyle type="submit" onClick={onAddCardClickHandler}>Outfit Adder</ButtonStyle>
