@@ -77,7 +77,11 @@ const AddToCart = ({ results, productOverviewId }) => {
 
   const handleQuantityChange = ((event) => {
     setNumber(event.target.value);
-  })
+  });
+
+  const addToCart = axios.post('/cart', {sku_id: sku, count: number})
+    .then((response) => { console.log(response); })
+    .catch((err) => { console.log(err); });
 
   // **Outfits Button Functionality **//
   const getYourOutfits = () => {
@@ -151,7 +155,6 @@ const AddToCart = ({ results, productOverviewId }) => {
               <option
                 key={size}
                 value={[size, results[size].quantity]}
-                name={size}
               >
                 {results[size].size}
               </option>

@@ -97,6 +97,10 @@ app.get('/products', (req, res) => {
     });
 });
 
+app.post('/cart', (req, res) => {
+  axiost.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/cart')
+})
+
 app.put('/qa/questions/:questionId/helpful', (req, res) => {
   const options = {
     headers: {
