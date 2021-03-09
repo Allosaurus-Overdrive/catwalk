@@ -26,6 +26,7 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
     "babel-loader": "^8.2.2",
+    "babel-plugin-styled-components": "^1.12.0",
     "css-loader": "^5.1.1",
     "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -47,11 +48,13 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
+    "prop-types": "^15.7.2",
     "rating": "^0.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-modal": "^3.12.1",
+    "react-moment": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-star-rating": "^1.4.2",
     "request": "^2.88.2",
@@ -64,5 +67,8 @@
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     }
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }

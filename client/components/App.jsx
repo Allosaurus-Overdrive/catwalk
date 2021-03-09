@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import ProductOverview from './Product_Overview/ProductOverview';
+import Questions from './questionsAndanswers/Questions';
 import Reviews from './Reviews/reviews';
 import { RelatedProducts } from './related/related';
 import Outfits from './related/outfits';
@@ -37,6 +38,7 @@ const App = () => {
         productOverviewId={productOverviewId}
         clickTracker={clickTracker}
       />
+      <Questions productOverviewId={productOverviewId} />
       <Reviews productOverviewId={productOverviewId} />
     </div>
   );
