@@ -171,18 +171,6 @@ app.get('/outfit-styles', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
-// const storeClick = (params, callback) => {
-//   const queryStr = 'INSERT INTO clicktracker (element, module) VALUES (?, ?)';
-
-//   db.query(queryStr, params, (err, data) => {
-//     if (err) {
-//       console.log('error in querying storeClick: ', err);
-//     } else {
-//       callback(null, data);
-//     }
-//   });
-// };
-
 app.post('/clicktracker', (req, res) => {
   const params = [req.body.element, req.body.modulecomponent];
   const queryStr = 'INSERT INTO clicktracker (element, module) VALUES (?, ?)';

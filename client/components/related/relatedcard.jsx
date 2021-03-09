@@ -26,7 +26,6 @@ const RelatedCardWrapper = styled.li`
   &:hover{
     transform: scale(1);
     box-shadow: 5px 20px 30px rgba(0,0,0,0.2);
-    cursor: pointer;
   }
 `;
 
@@ -67,6 +66,9 @@ const RelatedName = styled.h3`
   font-size: 100%;
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const RelatedSalePrice = styled.h3`
