@@ -169,7 +169,7 @@ const AddToCart = ({ results, productOverviewId }) => {
         </SelectStyle>
       </Column2Row1>
       <Column1Row2>
-        <ButtonStyle type="submit" onClick={onAddCardClickHandler}>ADD TO BAG</ButtonStyle>
+        <ButtonStyle type="submit">ADD TO BAG</ButtonStyle>
       </Column1Row2>
       <Column3Row2>
         <ButtonStyle type="submit" onClick={onAddCardClickHandler}>Outfit Adder</ButtonStyle>
