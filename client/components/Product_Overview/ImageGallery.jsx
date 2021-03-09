@@ -21,9 +21,11 @@ const ThumbnailStyle = styled.img`
 `;
 
 const ThumbnailPos = styled.div`
+  width: 150px;
   grid-column: 1;
   grid-row: 1;
   display: grid;
+  overflow-y: scroll;
 `;
 
 const Arrow1 = styled.div`

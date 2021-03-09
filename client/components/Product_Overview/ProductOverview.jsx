@@ -14,37 +14,54 @@ const Layout = styled.div`
   overflow-x: hidden;
   overflow-y: hidden;
   padding: 10px 10px 10px 10px;
-  height: 900px;
+  height: 1000px;
   display: grid;
   grid-template-columns: 1fr 3fr 2fr 1fr;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
 `;
 
 const Column1Row1 = styled.div`
   height: 700px;
   grid-column: 2;
+  grid-row: 2;
   place-self: center;
-  background-color: light gray;
+  background-color: lightgray;
   background-size: 100%;
 `;
 
 const Buttons = styled.div`
   grid-column: 3/4;
-  grid-row: 1;
+  grid-row: 2;
   align-self: end;
 `;
 
 const ProductInfoPos = styled.div`
   grid-column: 3/4;
-  grid-row: 1;
+  grid-row: 2;
   align-self: start;
 `;
 
 const Row2 = styled.div`
   grid-column: 2/5;
-  grid-row: 2
+  grid-row: 3;
 `;
 
+const TopBar = styled.div`
+  grid-row: 1;
+  grid-column: 2/4;
+  background-color: dimgray;
+  margin-bottom: 20px;
+  height: 75px;
+`;
+
+const TopText = styled.div`
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 25px;
+  margin-top: 20px;
+  text-decoration: underline;
+  margin-left: 15px;
+`;
 // **Functionality Section** //
 
 const ProductOverview = ({ productOverviewId }) => {
@@ -78,7 +95,7 @@ const ProductOverview = ({ productOverviewId }) => {
   const getStyle = () => axios.get('/styles', { params: {id: productOverviewId } })
     .then(({ data }) => (
       (setBigImage(() => []),
-      setThumbnail(() => []),
+      setGalleryThumbnail(() => []),
       setResults(data.results[0].skus),
       setThumbnail(data.results),
       data.results.map((style) => (
@@ -98,6 +115,9 @@ const ProductOverview = ({ productOverviewId }) => {
   // **Render**//
   return (
     <Layout>
+      <TopBar>
+        <TopText>Overdrive Outfits</TopText>
+      </TopBar>
       <Column1Row1>
         <ImageGallery
           galleryThumbnail={galleryThumbnail}
