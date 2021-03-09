@@ -387,8 +387,8 @@ function AddReview() {
             </label>
             <textarea
               placeholder="Why did you like the product or not?"
-              minLength={50}
-              maxLength={1000}
+              minLength="50"
+              maxLength="1000"
               required
               rows="4"
               value={body}

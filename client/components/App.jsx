@@ -8,7 +8,7 @@ const App = () => {
   const [productOverviewId, setProductOverviewId] = useState(20111);
 
   const productClickHandler = (clickedId) => {
-    console.log(clickedId);
+    // console.log(clickedId);
     setProductOverviewId(clickedId);
   };
 

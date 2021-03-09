@@ -1,27 +1,11 @@
 /* eslint-disable no-restricted-syntax */
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+// import axios from 'axios';
 import ProgressBar from './progressBar';
 import StarRating from './StarRating';
 
-function Ratings({ productOverviewId }) {
-  const [ratings, setRatings] = useState('');
-  const [recommend, setRecommend] = useState('');
-  const getMetaData = () => axios.get('/reviews/meta', { params: { id: productOverviewId } })
-    .then(({ data }) => {
-      setRatings(data.ratings);
-      setRecommend(data.recommended);
-    })
-    .catch((err) => {
-      console.log('metadata error', err);
-    });
-
-  useEffect(() => {
-    getMetaData();
-  }, [productOverviewId]);
-
+function Ratings({ ratings, recommend }) {
   // calculating percent of recommendations
-  // const trial = Number(mData.true);
   const yes = Number(recommend.true);
   const no = Number(recommend.false);
   const total = yes + no;
@@ -71,7 +55,7 @@ function Ratings({ productOverviewId }) {
       >
         {starPercentArray.map((percentStar, idx) => (
           <span key={percentStar.id}>
-            <strong style={{ position: 'relative', right: '50px', top: '17px' }}>
+            <strong style={{ position: 'relative', right: '60px', top: '17px' }}>
               {idx === 0 ? `${idx + 1} star` : `${idx + 1} stars`}
             </strong>
             <ProgressBar bgcolor="green" completed={percentStar} />

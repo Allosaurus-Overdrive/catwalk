@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import ReviewTile from './reviewTile';
 import Characteristics from './productBreakdown';
 import Ratings from './ratingBreakdown';
-import SortReviews from './sortReviews';
+// import SortReviews from './sortReviews';
 
 const GridLayout = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -45,15 +46,82 @@ const ReviewStyle = styled.div`
 `;
 
 function Reviews({ productOverviewId }) {
+  // const [showMore, setMore] = useState(false);
+  const [reviewsData, setReviews] = useState([]);
+  const [count, setCount] = useState('');
+  const [sortId, setSortId] = useState('relevant');
+  const [ratings, setRatings] = useState('');
+  const [recommend, setRecommend] = useState('');
+  const [characteristics, setCharacteristics] = useState('');
+
+  const getData = () => axios.get('/reviews', { params: { id: productOverviewId, sort: sortId } })
+    .then(({ data }) => {
+      setReviews(data.results);
+      setCount(data.results.length);
+      setSortId(sortId);
+    })
+    .catch((err) => {
+      console.log('metadata error', err);
+    });
+
+  useEffect(() => {
+    getData();
+  }, [productOverviewId, sortId]);
+
+  const getMetaData = () => axios.get('/reviews/meta', { params: { id: productOverviewId } })
+    .then(({ data }) => {
+      setRatings(data.ratings);
+      setRecommend(data.recommended);
+      setCharacteristics(data.characteristics);
+    })
+    .catch((err) => {
+      console.log('metadata error', err);
+    });
+
+  useEffect(() => {
+    getMetaData();
+  }, [productOverviewId]);
   return (
-    //  <h3>RATINGS and REVIEWS</h3>
+    // <h3>RATINGS and REVIEWS</h3>
     <GridLayout>
-      <RatingsStyle><Ratings productOverviewId={productOverviewId} /></RatingsStyle>
-      <CharStyle><Characteristics productOverviewId={productOverviewId} /></CharStyle>
+      <RatingsStyle>
+        <Ratings
+          productOverviewId={productOverviewId}
+          ratings={ratings}
+          recommend={recommend}
+        />
+      </RatingsStyle>
+      <CharStyle>
+        <Characteristics
+          productOverviewId={productOverviewId}
+          characteristics={characteristics}
+        />
+      </CharStyle>
       <SortStyle>
-        <SortReviews productOverviewId={productOverviewId} />
+        <div>
+          <label htmlFor="review-sort">
+            <strong>
+              {count}
+              {' '}
+              reviews, sorted by
+              {' '}
+            </strong>
+          </label>
+          <select onChange={(e) => setSortId(e.target.value)}>
+            <option value="relevant">relevant</option>
+            <option value="helpful">helpful</option>
+            <option value="newest">newest</option>
+          </select>
+        </div>
+        {/* <SortReviews productOverviewId={productOverviewId} /> */}
       </SortStyle>
-      <ReviewStyle><ReviewTile productOverviewId={productOverviewId} /></ReviewStyle>
+      <ReviewStyle>
+        <ReviewTile
+          productOverviewId={productOverviewId}
+          reviewsData={reviewsData}
+          count={count}
+        />
+      </ReviewStyle>
     </GridLayout>
   );
 }
