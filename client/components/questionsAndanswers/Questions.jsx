@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Search from './Search';
 import QListItem from './QListItem';
-// import sampleData from './sampleData';
+import AddQuestion from './AddQuestion';
 
-// const { results } = sampleData.sampleQuestions;
-// console.log(sampleData);
 const productId = 20111;
 
 export default function Questions() {
@@ -35,7 +33,7 @@ export default function Questions() {
       <div className="more-questions">
         <button type="button">More Answered Questions</button>
         {' '}
-        <button type="button">ADD A QUESTION +</button>
+        <AddQuestion />
       </div>
     </div>
   );

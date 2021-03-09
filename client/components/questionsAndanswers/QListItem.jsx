@@ -30,11 +30,12 @@ export default function QListItem({ question }) {
           <span>
             Helpful?
             {' '}
-            <a>
+            <button type="button">
               Yes (
               {question_helpfulness}
-              ) Add Answer
-            </a>
+              )
+            </button>
+            Add Answer
           </span>
         </span>
       </div>

@@ -52,6 +52,7 @@
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-modal": "^3.12.1",
+    "react-moment": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-star-rating": "^1.4.2",
     "request": "^2.88.2",

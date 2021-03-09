@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import React from 'react';
+import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import PhotoDisplay from './PhotoDisplay';
 
@@ -23,8 +24,8 @@ export default function AnswersListItem({ answer }) {
         <span>
           By
           {answerer_name}
-          ,
-          {date}
+          {' '}
+          <Moment format="MMMM DD, YYYY">{date}</Moment>
         </span>
         {' '}
         <span>
