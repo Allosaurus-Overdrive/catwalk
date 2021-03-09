@@ -66,7 +66,6 @@ app.get('/qa/questions/:questionId/answers', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 const options = {
   headers: {
     Authorization: config.TOKEN,
@@ -94,7 +93,9 @@ app.get('/products', (req, res) => {
     })
     .catch((err) => {
       throw err;
-=======
+    });
+});
+
 app.put('/qa/questions/:questionId/helpful', (req, res) => {
   const options = {
     headers: {
@@ -126,7 +127,6 @@ app.put('/qa/questions/:questionId/report', (req, res) => {
       res.status(204).end('NO CONTENT');
     }).catch((err) => {
       console.log('error reporting the question', err);
->>>>>>> 59692b0 (implemented helpful button click and report question)
     });
 });
 
