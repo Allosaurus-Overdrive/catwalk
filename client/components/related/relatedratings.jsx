@@ -20,7 +20,7 @@ function StarRating({ avgRating }) {
     <RatingStar>
       {[...Array(5)].map((star, i) => (
         <label key={i}>
-          <FaStar size={15} color={avgRating > i ? '#ffc107' : 'lightgrey'} />
+          <FaStar size={15} color={avgRating > (i + 0.5) ? '#ffc107' : 'lightgrey'} />
         </label>
       ))}
     </RatingStar>
