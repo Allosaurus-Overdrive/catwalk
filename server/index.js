@@ -96,9 +96,12 @@ app.get('/products', (req, res) => {
     })
     .catch((err) => {
       throw err;
+<<<<<<< HEAD
     });
 });
 
+=======
+>>>>>>> tried to fix
 app.put('/qa/questions/:questionId/helpful', (req, res) => {
   const options = {
     headers: {
