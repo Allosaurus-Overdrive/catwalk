@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
 import Moment from 'react-moment';
@@ -16,6 +17,7 @@ export default function AnswersListItem({ answer, refresh }) {
   } = answer;
 
   const [helpClick, setHelpClick] = useState(false);
+  const [reportClick, setReportClick] = useState(false);
 
   function handleHelpClick(e) {
     e.preventDefault();
@@ -26,6 +28,18 @@ export default function AnswersListItem({ answer, refresh }) {
         refresh();
       }).catch((err) => {
         console.log('error updating helpfulness for answer', err);
+      });
+  }
+
+  function handleReportClick(e) {
+    e.preventDefault();
+
+    axios.put(`/qa/answers/${answer_id}/report`)
+      .then(() => {
+        console.log('ANSWER REPORTED');
+        refresh();
+      }).catch((err) => {
+        console.log('error reporting answer', err);
       });
   }
 
@@ -55,7 +69,11 @@ export default function AnswersListItem({ answer, refresh }) {
           {helpfulness}
           )
         </button>
-        <button type="button">
+        <button
+          type="button"
+          onClick={(e) => { handleReportClick(e); setReportClick(true); }}
+          disabled={reportClick === true}
+        >
           Report
         </button>
         <PhotoDisplay photos={photos} />
@@ -65,6 +83,7 @@ export default function AnswersListItem({ answer, refresh }) {
 }
 
 AnswersListItem.propTypes = {
+  refresh: PropTypes.func.isRequired,
   answer: PropTypes.shape({
     answer_id: PropTypes.number.isRequired,
     body: PropTypes.string.isRequired,
