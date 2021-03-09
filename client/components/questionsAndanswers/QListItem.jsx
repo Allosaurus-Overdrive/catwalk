@@ -59,12 +59,6 @@ export default function QListItem(props) {
       });
   }
 
-  // CSS styling
-  // const Layout = styled.div`
-  // border: 3px,
-  // border-color: black
-  // `;
-
   return (
     <div className="question-layout">
       <div className="question">
