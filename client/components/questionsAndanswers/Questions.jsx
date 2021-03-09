@@ -7,12 +7,12 @@ import AddQuestion from './AddQuestion';
 
 const productId = 20111;
 
-export default function Questions() {
+export default function Questions({ productOverviewId }) {
   const [questions, setQuestions] = useState([]);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    axios.get(`/qa/questions/${productId}`)
+    axios.get(`/qa/questions/${productOverviewId}`)
       .then(({ data }) => {
         const { results } = data;
         setQuestions(results);
@@ -28,7 +28,7 @@ export default function Questions() {
   }
 
   function submitRefresh() {
-    axios.get(`/qa/questions/${productId}`)
+    axios.get(`/qa/questions/${productOverviewId}`)
       .then(({ data }) => {
         const { results } = data;
         setQuestions(results);
@@ -57,7 +57,7 @@ export default function Questions() {
       <div className="more-questions">
         <button type="button">More Answered Questions</button>
         {' '}
-        <AddQuestion product={productId} refresh={submitRefresh} />
+        <AddQuestion product={productOverviewId} refresh={submitRefresh} />
       </div>
     </div>
   );
