@@ -4,22 +4,13 @@ import axios from 'axios';
 import { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 import { ProductCard } from './relatedcard';
 
-// TO-DOS:
-// get the productID of the current page from alex's overview component where he stores the id?
-// import the ratings star function from sheeba
-
-// need to get this somehow from alex's component.
-// or if he sets 20111 as his default, then we can just always start with this;
-// set this in the state of the product carousel functional component. refactor if needed
-// let productOverviewId = 20111;
-
 //  //  //  //  //  //  //  //  //  //  //  //
 // RELATED PRODUCT LIST STYLED COMPONENTS  //
 //  //  //  //  //  //  //  //  //  //  ////
 
 const RelatedProductsWrapper = styled.section`
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 14.3%;
+  margin-right: 14.3%;
   height: 366px;
   position: relative;
 `;
@@ -206,7 +197,7 @@ function RelatedProducts({ productOverviewId, productClickHandler, clickTracker 
 function testFunc(a, b) {
   return a - b;
 }
-// export whole list of related products at the end, update the export
+
 export {
   RelatedProducts,
   RelatedProductsWrapper,
