@@ -1,13 +1,17 @@
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import AnswersListItem from './AnswersListItem';
 
-export default function QListItem({ question }) {
+export default function QListItem(props) {
+  const { question, refresh } = props;
   const { question_id, question_body, question_helpfulness } = question;
 
   const [answers, setAnswers] = useState([]);
+  const [helpClick, setHelpClick] = useState(false);
+  const [reportClick, setReportClick] = useState(false);
 
   useEffect(() => {
     axios.get(`/qa/questions/${question_id}/answers`)
@@ -18,6 +22,40 @@ export default function QListItem({ question }) {
         console.log('there was an error getting answers', err);
       });
   }, [question_id]);
+
+  function updateHelpfulness(e) {
+    e.preventDefault();
+
+    axios.put(`/qa/questions/${question_id}/helpful`)
+      .then(() => {
+        console.log('NO CONTENT');
+        refresh();
+      }).catch((err) => {
+        console.log('error updating helpfulness', err);
+      });
+  }
+
+  function reportQuestion(e) {
+    e.preventDefault();
+
+    axios.put(`qa/questions/${question_id}/report`)
+      .then(() => {
+        console.log('REPORTED');
+        refresh();
+      }).catch((err) => {
+        console.log('error reporting question', err);
+      });
+  }
+  // useEffect(() = > {
+
+  //   axios.put(`/qa/questions/${question_id}/helpful`)
+  //     .then(() => {
+  //       console.log('NO CONTENT');
+  //       refresh();
+  //     }).catch((err) => {
+  //       console.log('error updating helpfulness', err);
+  //     });
+  // }, [helpClick]);
 
   return (
     <div className="question-layout">
@@ -30,12 +68,26 @@ export default function QListItem({ question }) {
           <span>
             Helpful?
             {' '}
-            <button type="button">
+            <button
+              type="button"
+              onClick={(e) => { updateHelpfulness(e); setHelpClick(true); }}
+              disabled={helpClick === true}
+            >
               Yes (
               {question_helpfulness}
               )
             </button>
-            Add Answer
+            <button type="button">
+              Add Answer
+            </button>
+            {' '}
+            <button
+              type="button"
+              onClick={(e) => { reportQuestion(e); setReportClick(true); }}
+              disabled={reportClick === true}
+            >
+              Report
+            </button>
           </span>
         </span>
       </div>
@@ -49,6 +101,7 @@ export default function QListItem({ question }) {
 }
 
 QListItem.propTypes = {
+  refresh: PropTypes.func.isRequired,
   question: PropTypes.shape({
     question_id: PropTypes.number.isRequired,
     question_body: PropTypes.string.isRequired,

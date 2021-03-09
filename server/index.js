@@ -32,6 +32,23 @@ app.get('/qa/questions/:productId', (req, res) => {
     });
 });
 
+app.post('/qa/questions/:productId', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { productId } = req.params;
+
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, req.body, options)
+    .then(() => {
+      res.status(201).end('created');
+    }).catch((err) => {
+      console.log('error sending post request', err);
+    });
+});
+
 app.get('/qa/questions/:questionId/answers', (req, res) => {
   const options = {
     headers: {
@@ -49,6 +66,7 @@ app.get('/qa/questions/:questionId/answers', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 const options = {
   headers: {
     Authorization: config.TOKEN,
@@ -76,6 +94,39 @@ app.get('/products', (req, res) => {
     })
     .catch((err) => {
       throw err;
+=======
+app.put('/qa/questions/:questionId/helpful', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { questionId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/helpful`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error updating helpfulness', err);
+    });
+});
+
+app.put('/qa/questions/:questionId/report', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { questionId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/report`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error reporting the question', err);
+>>>>>>> 59692b0 (implemented helpful button click and report question)
     });
 });
 

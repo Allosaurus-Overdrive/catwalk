@@ -27,6 +27,16 @@ export default function Questions() {
     setSearch('');
   }
 
+  function submitRefresh() {
+    axios.get(`/qa/questions/${productId}`)
+      .then(({ data }) => {
+        const { results } = data;
+        setQuestions(results);
+      }).catch((err) => {
+        console.log('there was an error with the request', err);
+      });
+  }
+
   return (
     <div>
       <h4>Questions + Answers</h4>
@@ -38,16 +48,16 @@ export default function Questions() {
         />
       </div>
       <div className="Questions-list">
-        {questions.filter(({ question_body }) => (
-          question_body.toLowerCase().includes(search.substring(1).toLowerCase())
+        {questions.filter((question) => (
+          question.question_body.toLowerCase().includes(search.substring(1).toLowerCase())
         )).map((result) => (
-          <QListItem key={result.question_id} question={result} />
+          <QListItem key={result.question_id} question={result} refresh={submitRefresh} />
         ))}
       </div>
       <div className="more-questions">
         <button type="button">More Answered Questions</button>
         {' '}
-        <AddQuestion />
+        <AddQuestion product={productId} refresh={submitRefresh} />
       </div>
     </div>
   );
