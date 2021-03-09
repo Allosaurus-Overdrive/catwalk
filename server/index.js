@@ -130,6 +130,23 @@ app.put('/qa/questions/:questionId/report', (req, res) => {
     });
 });
 
+app.put('/qa/answers/:answerId/helpful', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { answerId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/answers/${answerId}/helpful`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error adding to answer helpfulness', err);
+    });
+});
+
 app.get('/related-products', (req, res) => {
   const options = {
     headers: {

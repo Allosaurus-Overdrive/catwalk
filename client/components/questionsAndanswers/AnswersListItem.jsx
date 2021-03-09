@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { useState } from 'react';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import PhotoDisplay from './PhotoDisplay';
 
-export default function AnswersListItem({ answer }) {
+export default function AnswersListItem({ answer, refresh }) {
   const {
     answer_id,
     body,
@@ -13,6 +14,20 @@ export default function AnswersListItem({ answer }) {
     helpfulness,
     photos,
   } = answer;
+
+  const [helpClick, setHelpClick] = useState(false);
+
+  function handleHelpClick(e) {
+    e.preventDefault();
+
+    axios.put(`/qa/answers/${answer_id}/helpful`)
+      .then(() => {
+        console.log('NO CONTENT');
+        refresh();
+      }).catch((err) => {
+        console.log('error updating helpfulness for answer', err);
+      });
+  }
 
   return (
     <div key={answer_id}>
@@ -29,10 +44,20 @@ export default function AnswersListItem({ answer }) {
         </span>
         {' '}
         <span>
-          Helpful? Yes(
-          {helpfulness}
-          ) Report
+          Helpful?
         </span>
+        <button
+          type="button"
+          onClick={(e) => { handleHelpClick(e); setHelpClick(true); }}
+          disabled={helpClick === true}
+        >
+          Yes(
+          {helpfulness}
+          )
+        </button>
+        <button type="button">
+          Report
+        </button>
         <PhotoDisplay photos={photos} />
       </div>
     </div>

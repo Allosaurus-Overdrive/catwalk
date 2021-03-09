@@ -57,6 +57,16 @@ export default function QListItem(props) {
   //     });
   // }, [helpClick]);
 
+  function answerRefresh() {
+    axios.get(`/qa/questions/${question_id}/answers`)
+      .then(({ data }) => {
+        const { results } = data;
+        setAnswers(results);
+      }).catch((err) => {
+        console.log('there was an error getting answers', err);
+      });
+  }
+
   return (
     <div className="question-layout">
       <div className="question">
@@ -93,7 +103,7 @@ export default function QListItem(props) {
       </div>
       <div className="answer">
         {answers.map((answer) => (
-          <AnswersListItem key={answer.answer_id} answer={answer} />
+          <AnswersListItem key={answer.answer_id} answer={answer} refresh={answerRefresh} />
         ))}
       </div>
     </div>
