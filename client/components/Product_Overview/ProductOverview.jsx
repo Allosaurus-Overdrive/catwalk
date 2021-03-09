@@ -118,7 +118,7 @@ const ProductOverview = ({ productOverviewId }) => {
           thumbnail={thumbnail}
           setCurrentImage={setCurrentImage}
         />
-        <AddToCart results={results} />
+        <AddToCart results={results} productOverviewId={productOverviewId} />
       </Buttons>
       <Row2>
         <Description

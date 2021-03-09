@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 // **Styling Templates** //
 
@@ -57,14 +58,77 @@ const ButtonStyle = styled.button`
 
 // **Functionality Section** //
 
-const AddToCart = ({ results }) => {
+const AddToCart = ({ results, productOverviewId }) => {
   const [amount, setAmount] = useState('0');
+  const [outfitsArray, setOutfitsArray] = useState([]);
+  const [outfitsStylesObj, setOutfitsStylesObj] = useState({});
+  const [currentProductData, setCurrentProductData] = useState(null);
   const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   const quantityVals = quantityOptions.slice(0, amount);
 
   const handleChange = ((event) => {
     setAmount(event.target.value);
   });
+
+  const getYourOutfits = () => {
+    axios.get('/product-features', { params: { id: productOverviewId } })
+      .then(({ data }) => { setCurrentProductData(data); })
+      .catch((err) => console.log(err));
+
+    const storedOutfits = JSON.parse(localStorage.getItem('outfits'));
+    const storedStyles = JSON.parse(localStorage.getItem('styles'));
+    if (storedOutfits) {
+      setOutfitsArray(storedOutfits);
+      setOutfitsStylesObj(storedStyles);
+    }
+  };
+
+  useEffect(() => {
+    getYourOutfits();
+  }, []);
+
+  const onAddCardClickHandler = () => {
+    axios.get('/product-features', { params: { id: productOverviewId } })
+      .then(({ data }) => {
+        const newOutfitsArray = outfitsArray;
+        const newOutfitsStylesObj = outfitsStylesObj || {};
+        let duplicate = false;
+
+        setCurrentProductData(data);
+
+        newOutfitsArray.forEach((outfit) => {
+          if (outfit.id === data.id) {
+            duplicate = true;
+          }
+        });
+
+        if (!duplicate) {
+          newOutfitsArray.push(data);
+          setOutfitsArray(newOutfitsArray);
+          setCurrentProductData(data);
+        } else {
+          alert('This item is already saved in your outfits!');
+        }
+
+        axios.get('/outfit-styles', { params: { id: productOverviewId } })
+          .then(({ data }) => {
+            newOutfitsStylesObj[data.product_id] = data.results;
+            setOutfitsStylesObj(newOutfitsStylesObj);
+
+            return {
+              outfitInfo: newOutfitsArray,
+              outfitStyles: newOutfitsStylesObj,
+            };
+          })
+          .then(({ outfitInfo, outfitStyles }) => {
+            localStorage.setItem('outfits', JSON.stringify(outfitInfo));
+            localStorage.setItem('styles', JSON.stringify(outfitStyles));
+            getYourOutfits();
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <CartGrid>
@@ -91,7 +155,7 @@ const AddToCart = ({ results }) => {
         <ButtonStyle type="submit">ADD TO BAG</ButtonStyle>
       </Column1Row2>
       <Column3Row2>
-        <ButtonStyle type="submit">Outfit Adder</ButtonStyle>
+        <ButtonStyle type="submit" onClick={onAddCardClickHandler}>Outfit Adder</ButtonStyle>
       </Column3Row2>
     </CartGrid>
   );
