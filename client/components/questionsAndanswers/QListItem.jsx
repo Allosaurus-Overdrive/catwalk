@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+// import styled from 'styled-components';
 import AnswersListItem from './AnswersListItem';
+// import AddAnswer from './AddAnswer';
 
 export default function QListItem(props) {
   const { question, refresh } = props;
@@ -41,21 +43,11 @@ export default function QListItem(props) {
     axios.put(`qa/questions/${question_id}/report`)
       .then(() => {
         console.log('REPORTED');
-        refresh();
+        // refresh();
       }).catch((err) => {
         console.log('error reporting question', err);
       });
   }
-  // useEffect(() = > {
-
-  //   axios.put(`/qa/questions/${question_id}/helpful`)
-  //     .then(() => {
-  //       console.log('NO CONTENT');
-  //       refresh();
-  //     }).catch((err) => {
-  //       console.log('error updating helpfulness', err);
-  //     });
-  // }, [helpClick]);
 
   function answerRefresh() {
     axios.get(`/qa/questions/${question_id}/answers`)
@@ -66,6 +58,12 @@ export default function QListItem(props) {
         console.log('there was an error getting answers', err);
       });
   }
+
+  // CSS styling
+  // const Layout = styled.div`
+  // border: 3px,
+  // border-color: black
+  // `;
 
   return (
     <div className="question-layout">

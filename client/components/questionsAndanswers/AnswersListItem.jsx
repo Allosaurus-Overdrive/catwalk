@@ -37,7 +37,7 @@ export default function AnswersListItem({ answer, refresh }) {
     axios.put(`/qa/answers/${answer_id}/report`)
       .then(() => {
         console.log('ANSWER REPORTED');
-        refresh();
+        // refresh();
       }).catch((err) => {
         console.log('error reporting answer', err);
       });

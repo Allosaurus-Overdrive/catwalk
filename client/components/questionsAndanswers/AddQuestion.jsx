@@ -30,6 +30,7 @@ export default function AddQuestion(props) {
       email,
       product_id: product,
     }).then(() => {
+      console.log('Added Question');
       refresh();
     }).catch((err) => console.log('error adding a question', err));
   }
@@ -47,6 +48,7 @@ export default function AddQuestion(props) {
       >
         <div className="modal-header">
           <h2>Ask a Question</h2>
+          <p>About the product_name</p>
           <button
             type="button"
             className="close-modal"
@@ -58,20 +60,37 @@ export default function AddQuestion(props) {
         <div className="modal-body">
           <form onSubmit={(e) => { handleSubmit(e); setModalStatus(false); }}>
             <label htmlFor="user-added-questions">
-              Name:
-              <input type="text" onChange={(e) => setName(e.target.value)} value={name} />
+              What is Your Nickname:
+              <input
+                type="text"
+                placeholder="jackson11!"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                maxLength="60"
+                required
+              />
+              For privacy reasons, do not use your full name or email address
             </label>
             <label htmlFor="user-added-questions">
-              Email:
-              <input type="text" onChange={(e) => setEmail(e.target.value)} value={email} />
+              Your Email:
+              <input
+                type="text"
+                placeholder="Why did you like the product or not?"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+              />
+              For authentication reasons, you will not be emailed
             </label>
             <label htmlFor="user-added-questions">
-              Question:
+              Your Question:
               <input
                 type="text"
                 placeholder="What are you curious about?"
                 onChange={(e) => setBody(e.target.value)}
+                maxLength="1000"
                 value={body}
+                required
               />
             </label>
             <input type="submit" value="Add" disabled={body.length === 0 || email.length === 0 || name.length === 0} />
