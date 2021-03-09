@@ -148,7 +148,7 @@ function AddReview() {
           <h2>Write Your Review</h2>
           <h3>About the [products/:product_id.name]</h3>
           <div>
-            <legend style={{ position: 'relative' }}>How Much Would You Rate This Product? </legend>
+            <legend style={{ position: 'relative' }}>How Much Would You Rate This Product?* </legend>
             <div style={{ position: 'relative', left: '20px' }}>
               {[...Array(5)].map((star, i) => {
                 const ratingValue = i + 1;
@@ -175,7 +175,7 @@ function AddReview() {
             </div>
           </div>
           <div style={{ padding: '2em', marginTop: '2em' }}>
-            <legend>Do You Recommend? </legend>
+            <legend>Do You Recommend?* </legend>
             <input
               required
               type="radio"
@@ -200,7 +200,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px', right: '15px' }}> Size </legend>
+            <legend style={{ position: 'relative', top: '44px', right: '15px' }}> Size* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -227,7 +227,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Width </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Width* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -256,7 +256,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Comfort </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Comfort* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -285,7 +285,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Length </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Length* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -314,7 +314,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Fit </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Fit* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -343,7 +343,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Quality </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Quality* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
