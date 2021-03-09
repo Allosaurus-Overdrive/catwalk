@@ -14,7 +14,7 @@ const tileBox = {
   fontSize: '19px',
 };
 
-function ReviewTile({ reviewsData, count }) {
+function ReviewTile({ reviewsData, count, productOverviewId, getData }) {
   const [showMore, setMore] = useState(false);
 
   return (
@@ -31,7 +31,7 @@ function ReviewTile({ reviewsData, count }) {
         More Reviews
       </button>) : null}
       <br />
-      <AddReview />
+      <AddReview productOverviewId={productOverviewId} getData={getData} />
     </div>
   );
 }

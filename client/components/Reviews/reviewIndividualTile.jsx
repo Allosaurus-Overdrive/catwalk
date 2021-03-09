@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import moment from 'moment';
 import { FaStar } from 'react-icons/fa';
 
@@ -11,7 +12,21 @@ const tileBox = {
 function ReviewIndividualTile(props) {
   const { review } = props;
   const [yesCount, setYesCount] = useState(review.helpfulness);
-  const [noCount, setNoCount] = useState(0);
+  const [helpful, setHelpful] = useState(false);
+
+  function handleYesClick() {
+    if (!helpful) {
+      setYesCount(yesCount + 1);
+      axios.put('/reviews/helpful', { id: review.review_id })
+        .then(() => setHelpful(true))
+        .catch((err) => console.log(err));
+    }
+  }
+  function handleNoClick() {
+    axios.put('/reviews/report', { id: review.review_id })
+      .then(() => console.log('removed item'))
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div style={tileBox} className="review-entry">
@@ -45,10 +60,9 @@ function ReviewIndividualTile(props) {
       </div>
       <div style={{ fontSize: '14px' }}>
         Helpful?
-        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', position: 'relative', left: '5px' }} onClick={() => (setYesCount(yesCount + 1))}> Yes </button>
+        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', position: 'relative', left: '5px' }} onClick={handleYesClick}> Yes </button>
         {yesCount === 0 ? null : `(${yesCount})`}
-        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', position: 'relative', left: '5px' }} onClick={() => (setNoCount(noCount + 1))}> No </button>
-        {noCount === 0 ? null : `(${noCount})`}
+        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', position: 'relative', left: '5px' }} onClick={handleNoClick}> Report </button>
       </div>
     </div>
   );

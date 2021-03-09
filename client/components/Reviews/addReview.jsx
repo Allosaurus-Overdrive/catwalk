@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
+import axios from 'axios';
 import Modal from 'react-modal';
 import { FaStar } from 'react-icons/fa';
 
 Modal.setAppElement('#app');
-function AddReview() {
+function AddReview({ productOverviewId, getData }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [recommend, setIsRecommended] = useState(undefined);
+  const [recommend, setIsRecommended] = useState();
   const [summary, setChangeSummary] = useState('');
   const [body, setChangeReview] = useState('');
   const [reviewerName, setNickname] = useState('');
@@ -21,9 +22,22 @@ function AddReview() {
   const [length, setLength] = useState(null);
   const [qual, setQual] = useState(null);
 
+  const postReviewObj = {
+    product_id: productOverviewId,
+    rating,
+    summary,
+    body,
+    recommend,
+    reviewer_name: reviewerName,
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setModalIsOpen(false);
+    axios.post('/reviews', postReviewObj)
+      .then(() => getData(productOverviewId))
+      .catch(() => console.log('error posting review'));
+    console.log(postReviewObj);
   };
   const onPhotoUpload = (event) => {
     setUploadPhoto(URL.createObjectURL(event.target.files[0]));
@@ -144,7 +158,11 @@ function AddReview() {
          }
         }
       >
-        <form style={{ float: 'center' }}>
+        <form style={{ float: 'center' }}
+          onSubmit={(event) => {
+            handleSubmit(event);
+          }}
+        >
           <h2>Write Your Review</h2>
           <h3>About the [products/:product_id.name]</h3>
           <div>
@@ -438,9 +456,6 @@ function AddReview() {
           </div>
           <button
             type="submit"
-            onSubmit={(event) => {
-              handleSubmit(event);
-            }}
           >
             Submit Review
           </button>

@@ -120,6 +120,7 @@ function Reviews({ productOverviewId }) {
         <ReviewTile
           productOverviewId={productOverviewId}
           reviewsData={reviewsData}
+          getData={getData}
           count={count}
         />
       </ReviewStyle>

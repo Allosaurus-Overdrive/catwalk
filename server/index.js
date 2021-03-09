@@ -109,6 +109,10 @@ app.get('/related-styles', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
+// =================
+// RATINGS & REVIEWS
+// =================
+
 app.get('/reviews', (req, res) => {
   const productOverviewId = req.query.id;
   const sortId = req.query.sort;
@@ -129,16 +133,32 @@ app.get('/reviews/meta', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
+app.put('/reviews/helpful', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/${req.body.id}/helpful`, { body: { review_id: req.body.id } }, options)
+    .then(() => res.send(204))
+    .catch(() => console.log('error in updating helpfulness'));
+});
+
+app.put('/reviews/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/${req.body.id}/report`, { body: { review_id: req.body.id } }, options)
+    .then(() => res.send(204))
+    .catch(() => console.log('report error'));
+});
+
+app.post('/reviews', (req, res) => {
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews', req.body, options)
+    .then(() => {
+      console.log('successful post');
+      res.send(201);
+    })
+    .catch((error) => console.log('server review post err', error));
+});
+// ======================================
+// ======================================
+
 app.get('/product-features', (req, res) => {
   const productOverviewId = req.query.id;
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
-    .then(({ data }) => { res.send(data); })
-    .catch(() => res.sendStatus(400));
-});
-
-app.get('/trial', (req, res) => {
-  const productOverviewId = req.query.id;
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/${productOverviewId}`, options)
     .then(({ data }) => { res.send(data); })
     .catch(() => res.sendStatus(400));
 });
