@@ -2,4 +2,3 @@ node_modules
 config.js
 bundle.js
 public/bundle.js
-package-lock.json
