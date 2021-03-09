@@ -113,6 +113,7 @@ function ProductCard(props) {
   const toggleModal = () => {
     setOpacity(0);
     setIsOpen(!isOpen);
+    props.clickTracker(`modal on product card id: ${props.item.id}`, 'Related Products');
   };
 
   const afterOpen = () => {
@@ -139,7 +140,7 @@ function ProductCard(props) {
   }, []);
 
   return (
-    <RelatedCardWrapper className="related-card-wrapper">
+    <RelatedCardWrapper className="related-card-wrapper" onClick={() => props.clickTracker(`product card id: ${props.item.id}`, 'Related Products')}>
       <RelatedIcon className="far fa-star" onClick={toggleModal} />
       {props.styles && (
         <>

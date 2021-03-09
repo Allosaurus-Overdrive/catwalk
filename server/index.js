@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 const axios = require('axios');
 const config = require('../config.js');
+const db = require('../database');
 
 const PORT = 3000;
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'public');
@@ -168,6 +169,31 @@ app.get('/outfit-styles', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/styles`, options)
     .then(({ data }) => { res.send(data); })
     .catch(() => res.sendStatus(400));
+});
+
+// const storeClick = (params, callback) => {
+//   const queryStr = 'INSERT INTO clicktracker (element, module) VALUES (?, ?)';
+
+//   db.query(queryStr, params, (err, data) => {
+//     if (err) {
+//       console.log('error in querying storeClick: ', err);
+//     } else {
+//       callback(null, data);
+//     }
+//   });
+// };
+
+app.post('/clicktracker', (req, res) => {
+  const params = [req.body.element, req.body.modulecomponent];
+  const queryStr = 'INSERT INTO clicktracker (element, module) VALUES (?, ?)';
+
+  db.query(queryStr, params, (err, data) => {
+    if (err) {
+      console.log('error in querying storeClick: ', err);
+    } else {
+      res.sendStatus(200);
+    }
+  });
 });
 
 app.listen(PORT, () => {

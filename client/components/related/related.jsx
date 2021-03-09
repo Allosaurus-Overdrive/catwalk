@@ -87,7 +87,7 @@ const FadingBackground = styled(BaseModalBackground)`
 // RELATED PRODUCT LIST FUNCTIONAL COMPONENT  /
 //  //  //  //  //  //  //  //  //  //  //  //
 
-function RelatedProducts({ productOverviewId, productClickHandler }) {
+function RelatedProducts({ productOverviewId, productClickHandler, clickTracker }) {
   const ref = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [scrollWidth, setScrollWidth] = useState(0);
@@ -188,6 +188,7 @@ function RelatedProducts({ productOverviewId, productClickHandler }) {
                     currentFeatures={currentProductData.features}
                     currentName={currentProductData.name}
                     productClickHandler={productClickHandler}
+                    clickTracker={clickTracker}
                   />
                 ))}
               </RelatedProductsList>
