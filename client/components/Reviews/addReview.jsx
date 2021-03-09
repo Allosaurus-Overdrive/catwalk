@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
+import axios from 'axios';
 import Modal from 'react-modal';
 import { FaStar } from 'react-icons/fa';
 
 Modal.setAppElement('#app');
-function AddReview() {
+function AddReview({ productOverviewId, getData }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [recommend, setIsRecommended] = useState(undefined);
+  const [recommend, setIsRecommended] = useState();
   const [summary, setChangeSummary] = useState('');
   const [body, setChangeReview] = useState('');
   const [reviewerName, setNickname] = useState('');
@@ -21,9 +22,22 @@ function AddReview() {
   const [length, setLength] = useState(null);
   const [qual, setQual] = useState(null);
 
+  const postReviewObj = {
+    product_id: productOverviewId,
+    rating,
+    summary,
+    body,
+    recommend,
+    reviewer_name: reviewerName,
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setModalIsOpen(false);
+    axios.post('/reviews', postReviewObj)
+      .then(() => getData(productOverviewId))
+      .catch(() => console.log('error posting review'));
+    console.log(postReviewObj);
   };
   const onPhotoUpload = (event) => {
     setUploadPhoto(URL.createObjectURL(event.target.files[0]));
@@ -144,11 +158,15 @@ function AddReview() {
          }
         }
       >
-        <form style={{ float: 'center' }}>
+        <form style={{ float: 'center' }}
+          onSubmit={(event) => {
+            handleSubmit(event);
+          }}
+        >
           <h2>Write Your Review</h2>
           <h3>About the [products/:product_id.name]</h3>
           <div>
-            <legend style={{ position: 'relative' }}>How Much Would You Rate This Product? </legend>
+            <legend style={{ position: 'relative' }}>How Much Would You Rate This Product?* </legend>
             <div style={{ position: 'relative', left: '20px' }}>
               {[...Array(5)].map((star, i) => {
                 const ratingValue = i + 1;
@@ -175,7 +193,7 @@ function AddReview() {
             </div>
           </div>
           <div style={{ padding: '2em', marginTop: '2em' }}>
-            <legend>Do You Recommend? </legend>
+            <legend>Do You Recommend?* </legend>
             <input
               required
               type="radio"
@@ -200,7 +218,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px', right: '15px' }}> Size </legend>
+            <legend style={{ position: 'relative', top: '44px', right: '15px' }}> Size* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -227,7 +245,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Width </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Width* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -256,7 +274,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Comfort </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Comfort* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -285,7 +303,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Length </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Length* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -314,7 +332,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Fit </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Fit* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -343,7 +361,7 @@ function AddReview() {
           </div>
           <div>
             <br />
-            <legend style={{ position: 'relative', top: '44px' }}> Quality </legend>
+            <legend style={{ position: 'relative', top: '44px' }}> Quality* </legend>
             <br />
             <div>
               <span style={{ float: 'left', position: 'relative', left: '170px' }}>
@@ -387,8 +405,8 @@ function AddReview() {
             </label>
             <textarea
               placeholder="Why did you like the product or not?"
-              minLength={50}
-              maxLength={1000}
+              minLength="50"
+              maxLength="1000"
               required
               rows="4"
               value={body}
@@ -438,9 +456,6 @@ function AddReview() {
           </div>
           <button
             type="submit"
-            onSubmit={(event) => {
-              handleSubmit(event);
-            }}
           >
             Submit Review
           </button>

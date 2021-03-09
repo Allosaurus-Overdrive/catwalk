@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+// import axios from 'axios';
 import ReviewIndividualTile from './reviewIndividualTile';
 import AddReview from './addReview';
 
@@ -14,23 +14,8 @@ const tileBox = {
   fontSize: '19px',
 };
 
-function ReviewTile({ productOverviewId }) {
+function ReviewTile({ reviewsData, count, productOverviewId, getData }) {
   const [showMore, setMore] = useState(false);
-  const [reviewsData, setReviews] = useState([]);
-  const [count, setCount] = useState('');
-
-  const getData = () => axios.get('/reviews', { params: { id: productOverviewId } })
-    .then(({ data }) => {
-      setReviews(data.results);
-      setCount(data.results.length);
-    })
-    .catch((err) => {
-      console.log('metadata error', err);
-    });
-
-  useEffect(() => {
-    getData();
-  }, [productOverviewId]);
 
   return (
     <div style={tileBox}>
@@ -46,7 +31,7 @@ function ReviewTile({ productOverviewId }) {
         More Reviews
       </button>) : null}
       <br />
-      <AddReview />
+      <AddReview productOverviewId={productOverviewId} getData={getData} />
     </div>
   );
 }

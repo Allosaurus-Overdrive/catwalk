@@ -47,23 +47,7 @@ const attributes = {
   },
 };
 
-const Characteristics = ({ productOverviewId }) => {
-  const [characteristics, setCharacteristics] = useState('');
-
-  const getMetaData = () => axios.get('/reviews/meta', { params: { id: productOverviewId } })
-    .then(({ data }) => {
-      setCharacteristics(data.characteristics);
-    })
-    .catch((err) => {
-      console.log('metadata error', err);
-    });
-
-  // console.log(mData);
-
-  useEffect(() => {
-    getMetaData();
-  }, [productOverviewId]);
-
+const Characteristics = ({ characteristics }) => {
   const qualities = characteristics;
   const quals = Object.keys(qualities);
 
