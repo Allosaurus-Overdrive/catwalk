@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import Search from './Search';
 import QListItem from './QListItem';
 import AddQuestion from './AddQuestion';
@@ -37,8 +38,13 @@ export default function Questions({ productOverviewId }) {
       });
   }
 
+  const Container = styled.div`
+  text-align: center;
+  width: auto;
+  `;
+
   return (
-    <div>
+    <Container>
       <h4>Questions + Answers</h4>
       <div>
         <Search
@@ -59,6 +65,6 @@ export default function Questions({ productOverviewId }) {
         {' '}
         <AddQuestion product={productOverviewId} refresh={submitRefresh} />
       </div>
-    </div>
+    </Container>
   );
 }
