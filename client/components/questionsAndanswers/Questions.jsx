@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Search from './Search';
@@ -8,6 +9,7 @@ const productId = 20111;
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     axios.get(`/qa/questions/${productId}`)
@@ -19,14 +21,26 @@ export default function Questions() {
       });
   }, [productId]);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setSearch('');
+  }
+
   return (
     <div>
       <h4>Questions + Answers</h4>
       <div>
-        <Search />
+        <Search
+          string={search}
+          submitSearch={handleSubmit}
+          searchTerm={(e) => setSearch(e.target.value)}
+        />
       </div>
       <div className="Questions-list">
-        {questions.map((result) => (
+        {questions.filter(({ question_body }) => (
+          question_body.toLowerCase().includes(search.substring(1).toLowerCase())
+        )).map((result) => (
           <QListItem key={result.question_id} question={result} />
         ))}
       </div>

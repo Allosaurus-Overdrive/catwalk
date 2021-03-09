@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Search() {
-  const [search, setSearch] = useState('');
+export default function Search(props) {
+  const { submitSearch, searchTerm, string } = props;
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    setSearch('');
-  }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={submitSearch}>
       <label htmlFor="questions">
         <input
           id="questions"
           type="text"
           placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
+          onChange={searchTerm}
+          value={string}
         />
       </label>
       <input type="submit" value="magnifying glass" />
     </form>
   );
 }
+
+Search.propTypes = {
+  submitSearch: PropTypes.func.isRequired,
+  searchTerm: PropTypes.func.isRequired,
+  string: PropTypes.string.isRequired,
+};
