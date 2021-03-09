@@ -16,32 +16,32 @@ const Layout = styled.div`
   padding: 10px 10px 10px 10px;
   height: 900px;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 3fr 2fr 1fr;
   grid-template-rows: 2fr 1fr;
 `;
 
 const Column1Row1 = styled.div`
   height: 700px;
-  grid-column: 1;
+  grid-column: 2;
   place-self: center;
   background-color: light gray;
   background-size: 100%;
 `;
 
 const Buttons = styled.div`
-  grid-column: 2/3;
+  grid-column: 3/4;
   grid-row: 1;
   align-self: end;
 `;
 
 const ProductInfoPos = styled.div`
-  grid-column: 2/3;
+  grid-column: 3/4;
   grid-row: 1;
   align-self: start;
 `;
 
 const Row2 = styled.div`
-  grid-column: 1/3;
+  grid-column: 2/5;
   grid-row: 2
 `;
 
