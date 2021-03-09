@@ -15,10 +15,58 @@ app.use(morgan('dev'));
 
 app.use(express.static(PUBLIC_DIR));
 
-app.get('/', (req, res) => {
-  res.send('hello from server');
+app.get('/qa/questions/:productId', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { productId } = req.params;
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, options)
+    .then(({ data }) => {
+      res.status(200).send(data);
+    }).catch((err) => {
+      console.log('there was an error getting questions based on product id', err);
+    });
 });
 
+app.post('/qa/questions/:productId', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { productId } = req.params;
+
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, req.body, options)
+    .then(() => {
+      res.status(201).end('created');
+    }).catch((err) => {
+      console.log('error sending post request', err);
+    });
+});
+
+app.get('/qa/questions/:questionId/answers', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { questionId } = req.params;
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/answers`, options)
+    .then(({ data }) => {
+      res.status(200).send(data);
+    }).catch((err) => {
+      console.log('there was an error at the server getting answers', err);
+    });
+});
+
+<<<<<<< HEAD
 const options = {
   headers: {
     Authorization: config.TOKEN,
@@ -46,6 +94,73 @@ app.get('/products', (req, res) => {
     })
     .catch((err) => {
       throw err;
+=======
+app.put('/qa/questions/:questionId/helpful', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { questionId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/helpful`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error updating helpfulness', err);
+    });
+});
+
+app.put('/qa/questions/:questionId/report', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { questionId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/report`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error reporting the question', err);
+>>>>>>> 59692b0 (implemented helpful button click and report question)
+    });
+});
+
+app.put('/qa/answers/:answerId/helpful', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { answerId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/answers/${answerId}/helpful`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error adding to answer helpfulness', err);
+    });
+});
+
+app.put('/qa/answers/:answerId/report', (req, res) => {
+  const options = {
+    headers: {
+      Authorization: config.TOKEN,
+    },
+  };
+
+  const { answerId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/answers/${answerId}/report`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error reporting answer at server', err);
     });
 });
 
@@ -63,7 +178,7 @@ app.get('/related-products', (req, res) => {
     .then(({ data }) => {
       const promiseArray = [];
 
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i += 1) {
         promiseArray.push(
           axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}`, options)
             .then(({ data }) => relatedProductObjs.push(data))
@@ -92,7 +207,7 @@ app.get('/related-styles', (req, res) => {
     .then(({ data }) => {
       const promiseArray = [];
 
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i += 1) {
         promiseArray.push(
           axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${data[i]}/styles`, options)
             .then(({ data }) => {

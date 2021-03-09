@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProductOverview from './Product_Overview/ProductOverview';
+import Questions from './questionsAndanswers/Questions';
 import Reviews from './Reviews/reviews';
 import { RelatedProducts } from './related/related';
 import Outfits from './related/outfits';
@@ -27,6 +28,7 @@ const App = () => {
         productClickHandler={productClickHandler}
       />
       <Outfits productOverviewId={productOverviewId} />
+      <Questions productOverviewId={productOverviewId} />
       <Reviews productOverviewId={productOverviewId} />
     </div>
   );
