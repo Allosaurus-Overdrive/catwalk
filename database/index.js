@@ -10,9 +10,9 @@ connection.connect(err => {
   if (err) {
     console.log('error connection to database: ', error);
     return;
-  } else {
-  console.log('connected as user: ', connection.user);
   }
+
+  console.log('connected as user: ', connection.user);
 });
 
 module.exports = connection;

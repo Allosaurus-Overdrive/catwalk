@@ -115,5 +115,5 @@ const ImageGallery = ({ galleryThumbnail, bigImage, setCurrentImage, currentImag
     </ImagePos>
   );
 };
-
+// overflow-y: 'scroll'
 export default ImageGallery;

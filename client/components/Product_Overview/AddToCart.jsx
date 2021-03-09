@@ -79,9 +79,7 @@ const AddToCart = ({ results, productOverviewId }) => {
     setNumber(event.target.value);
   });
 
-  const addToCart = axios.post('/cart', {sku_id: sku, count: number})
-    .then((response) => { console.log(response); })
-    .catch((err) => { console.log(err); });
+
 
   // **Outfits Button Functionality **//
   const getYourOutfits = () => {
