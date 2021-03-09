@@ -6,12 +6,14 @@ import Modal from 'react-modal';
 import { FaStar } from 'react-icons/fa';
 
 Modal.setAppElement('#app');
-function AddReview({ productOverviewId, getData }) {
+function AddReview({ productOverviewId }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [recommend, setIsRecommended] = useState();
   const [summary, setChangeSummary] = useState('');
   const [body, setChangeReview] = useState('');
-  const [reviewerName, setNickname] = useState('');
+  // eslint-disable-next-line camelcase
+  const [reviewer_name, setNickname] = useState('');
+  const [email, setEmail] = useState('');
   const [photos, setUploadPhoto] = useState(null);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
@@ -28,17 +30,20 @@ function AddReview({ productOverviewId, getData }) {
     summary,
     body,
     recommend,
-    reviewer_name: reviewerName,
+    name: reviewer_name,
+    email,
+    photos: [],
+    characteristics: {},
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setModalIsOpen(false);
     axios.post('/reviews', postReviewObj)
-      .then(() => getData(productOverviewId))
+      .then(() => console.log('added new review'))
       .catch(() => console.log('error posting review'));
-    console.log(postReviewObj);
   };
+
   const onPhotoUpload = (event) => {
     setUploadPhoto(URL.createObjectURL(event.target.files[0]));
   };
@@ -164,7 +169,7 @@ function AddReview({ productOverviewId, getData }) {
           }}
         >
           <h2>Write Your Review</h2>
-          <h3>About the [products/:product_id.name]</h3>
+          {/* <h3>About the [products/:product_id.name]</h3> */}
           <div>
             <legend style={{ position: 'relative' }}>How Much Would You Rate This Product?* </legend>
             <div style={{ position: 'relative', left: '20px' }}>
@@ -435,7 +440,8 @@ function AddReview({ productOverviewId, getData }) {
               placeholder="Example: jackson11!"
               required
               maxLength={60}
-              value={reviewerName}
+              // eslint-disable-next-line camelcase
+              value={reviewer_name}
               onChange={(event) => setNickname(event.target.value)}
             />
             <p style={{ fontSize: '15px' }}>
@@ -449,6 +455,7 @@ function AddReview({ productOverviewId, getData }) {
             <input
               type="email"
               placeholder="Example: jackson11@email.com"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <p style={{ fontSize: '15px' }}>
               (For authentication reasons, you will not be emailed)

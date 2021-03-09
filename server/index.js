@@ -96,18 +96,9 @@ app.get('/products', (req, res) => {
     })
     .catch((err) => {
       throw err;
-<<<<<<< HEAD
-<<<<<<< HEAD
     });
 });
 
-=======
->>>>>>> tried to fix
-=======
-    });
-});
-
->>>>>>> fixed merge conflicts
 app.put('/qa/questions/:questionId/helpful', (req, res) => {
   const options = {
     headers: {
@@ -273,10 +264,10 @@ app.put('/reviews/report', (req, res) => {
 });
 
 app.post('/reviews', (req, res) => {
-  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews', req.body, options)
+  const productOverviewId = req.body.product_id;
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/?product_id=${productOverviewId}`, req.body, options)
     .then(() => {
-      console.log('successful post');
-      res.send(201);
+      res.status(201).end('created');
     })
     .catch((error) => console.log('server review post err', error));
 });

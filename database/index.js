@@ -6,9 +6,9 @@ const connection = mysql.createConnection({
   database: 'fec',
 });
 
-connection.connect(err => {
+connection.connect((err) => {
   if (err) {
-    console.log('error connection to database: ', error);
+    console.log('error connection to database: ', err);
     return;
   }
 
