@@ -15,12 +15,7 @@ const App = () => {
   const [productOverviewId, setProductOverviewId] = useState(20111);
 
   const productClickHandler = (clickedId) => {
-<<<<<<< HEAD
     // console.log(clickedId);
-||||||| constructed merge base
-    console.log(clickedId);
-=======
->>>>>>> added click tracker component to App.jsx and listeners to related products and outfits components
     setProductOverviewId(clickedId);
   };
 
