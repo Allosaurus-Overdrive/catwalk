@@ -4,7 +4,27 @@ import React, { useState } from 'react';
 import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import styled from 'styled-components';
 import PhotoDisplay from './PhotoDisplay';
+
+const Container = styled.div`
+font-size: 12px;
+font-weight: lighter;
+color: grey;
+`;
+
+const Button = styled.button`
+background-color: transparent;
+border: none;
+font-weight: lighter;
+font-size: 10px;
+text-decoration: underline;
+color: grey;
+`;
+
+const HelpfulSpan = styled.span`
+font-size: 10px;
+`;
 
 export default function AnswersListItem({ answer, refresh }) {
   const {
@@ -44,7 +64,7 @@ export default function AnswersListItem({ answer, refresh }) {
   }
 
   return (
-    <div key={answer_id}>
+    <Container key={answer_id}>
       <p>
         A:
         {body}
@@ -52,15 +72,16 @@ export default function AnswersListItem({ answer, refresh }) {
       <div>
         <span>
           By
+          {'   '}
           {answerer_name}
-          {' '}
+          {', '}
           <Moment format="MMMM DD, YYYY">{date}</Moment>
         </span>
         {' '}
-        <span>
+        <HelpfulSpan>
           Helpful?
-        </span>
-        <button
+        </HelpfulSpan>
+        <Button
           type="button"
           onClick={(e) => { handleHelpClick(e); setHelpClick(true); }}
           disabled={helpClick === true}
@@ -68,17 +89,17 @@ export default function AnswersListItem({ answer, refresh }) {
           Yes(
           {helpfulness}
           )
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
           onClick={(e) => { handleReportClick(e); setReportClick(true); }}
           disabled={reportClick === true}
         >
           Report
-        </button>
+        </Button>
         <PhotoDisplay photos={photos} />
       </div>
-    </div>
+    </Container>
   );
 }
 

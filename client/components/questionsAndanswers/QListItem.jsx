@@ -3,9 +3,29 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import AnswersListItem from './AnswersListItem';
 // import AddAnswer from './AddAnswer';
+
+const Question = styled.h5`
+display: inline-block;
+color: darkslategray;
+`;
+
+const Button = styled.button`
+background-color: transparent;
+border: none;
+font-weight: lighter;
+font-size: 10px;
+text-decoration: underline;
+color: grey;
+`;
+
+const Span = styled.span`
+font-size: 10px;
+font-weight: lighter;
+color: grey;
+`;
 
 export default function QListItem(props) {
   const { question, refresh } = props;
@@ -63,14 +83,14 @@ export default function QListItem(props) {
     <div className="question-layout">
       <div className="question">
         <span>
-          <h5>
+          <Question>
             Q:
             {question_body}
-          </h5>
-          <span>
+          </Question>
+          <Span>
             Helpful?
             {' '}
-            <button
+            <Button
               type="button"
               onClick={(e) => { updateHelpfulness(e); setHelpClick(true); }}
               disabled={helpClick === true}
@@ -78,19 +98,19 @@ export default function QListItem(props) {
               Yes (
               {question_helpfulness}
               )
-            </button>
-            <button type="button">
+            </Button>
+            <Button type="button">
               Add Answer
-            </button>
+            </Button>
             {' '}
-            <button
+            <Button
               type="button"
               onClick={(e) => { reportQuestion(e); setReportClick(true); }}
               disabled={reportClick === true}
             >
               Report
-            </button>
-          </span>
+            </Button>
+          </Span>
         </span>
       </div>
       <div className="answer">
