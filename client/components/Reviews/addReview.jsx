@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import { FaStar } from 'react-icons/fa';
 
 Modal.setAppElement('#app');
-function AddReview({ productOverviewId }) {
+function AddReview({ productOverviewId, clickTracker }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [recommend, setIsRecommended] = useState();
   const [summary, setChangeSummary] = useState('');
@@ -145,10 +145,13 @@ function AddReview({ productOverviewId }) {
       return (<span>Runs long</span>);
     }
   };
-
+  function handleModalClick() {
+    setModalIsOpen(true);
+    clickTracker(`product id: ${productOverviewId}`, 'Ratings & Reviews/Add Review');
+  }
   return (
     <div>
-      <button type="button" onClick={() => setModalIsOpen(true)} style={{ margin: '1.5em', position: 'relative', left: '200px', bottom: '88px', fontSize: '20px' }}>
+      <button type="button" onClick={handleModalClick} style={{ margin: '1.5em', position: 'relative', left: '200px', bottom: '88px', fontSize: '20px' }}>
         Add Review +
       </button>
       <Modal

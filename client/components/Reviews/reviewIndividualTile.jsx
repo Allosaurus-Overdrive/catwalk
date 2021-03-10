@@ -9,12 +9,12 @@ const tileBox = {
   font: 'Georgia',
 };
 
-function ReviewIndividualTile(props) {
-  const { review } = props;
+function ReviewIndividualTile({ review, clickTracker }) {
   const [yesCount, setYesCount] = useState(review.helpfulness);
   const [helpful, setHelpful] = useState(false);
 
   function handleYesClick() {
+    clickTracker(`reviewId: ${review.review_id}`, 'Ratings & Reviews/Helpful');
     if (!helpful) {
       setYesCount(yesCount + 1);
       axios.put('/reviews/helpful', { id: review.review_id })
@@ -23,6 +23,7 @@ function ReviewIndividualTile(props) {
     }
   }
   function handleNoClick() {
+    clickTracker(`reviewId: ${review.review_id}`, 'Ratings & Reviews/Report');
     axios.put('/reviews/report', { id: review.review_id })
       .then(() => console.log('removed item'))
       .catch((err) => console.log(err));
@@ -52,7 +53,7 @@ function ReviewIndividualTile(props) {
           review.photos.length > 0 ? <img height="60px" width="60px" border="3px" src={photo.url} alt="uploadedImg" /> : null
         ))}
       </div>
-      <div style={{backgroundColor: 'lightgrey', fontSize: '16px', marginTop: '1em', marginBottom: '1em'}}>
+      <div style={{ backgroundColor: 'lightgrey', fontSize: '16px', marginTop: '1em', marginBottom: '1em' }}>
         {review.response === null ? null : `Response from seller:  ${review.response}`}
       </div>
       <div>
