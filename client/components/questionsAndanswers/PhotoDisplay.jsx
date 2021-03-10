@@ -1,12 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const PhotoDiv = styled.div`
+display: inline-block;
+padding: 4px;
+`;
 
 export default function PhotoDisplay({ photos }) {
   if (photos.length !== 0) {
     return (
       <div>
         {photos.map((photo) => (
-          <img key={photo.id} src={photo.url} alt="customer-answer" width="40" height="40" />
+          <PhotoDiv>
+            <img
+              key={photo.id}
+              src={photo.url}
+              alt="customer-answer"
+              width="60"
+              height="45"
+              border="1px solid darkslategrey"
+            />
+          </PhotoDiv>
         ))}
       </div>
     );

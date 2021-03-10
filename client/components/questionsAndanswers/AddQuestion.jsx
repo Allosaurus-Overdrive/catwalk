@@ -1,7 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import axios from 'axios';
 import Modal from 'react-modal';
+
+const Button = styled.button`
+border: 1px;
+border-style: solid;
+background-color: white;
+font-size: 12px;
+padding: 15px;
+border-color: darkslategray;
+font-weight: 600;
+color: darkslategray
+outline: none
+`;
+
+const Container = styled.div`
+display: inline-block;
+`;
 
 export default function AddQuestion(props) {
   const { product, refresh } = props;
@@ -38,8 +55,8 @@ export default function AddQuestion(props) {
   Modal.setAppElement('#app');
 
   return (
-    <div>
-      <button type="button" onClick={() => setModalStatus(true)}>ADD A QUESTION +</button>
+    <Container>
+      <Button type="button" onClick={() => setModalStatus(true)}>ADD A QUESTION +</Button>
       <Modal
         isOpen={modalStatus}
         onRequestClose={() => setModalStatus(false)}
@@ -97,7 +114,7 @@ export default function AddQuestion(props) {
           </form>
         </div>
       </Modal>
-    </div>
+    </Container>
   );
 }
 
