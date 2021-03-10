@@ -6,12 +6,14 @@ import styled from 'styled-components';
 
 const DescriptionGrid = styled.div`
   display: grid;
-  grid-tempelate-colums: 2fr 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr;
-  margin-top: 50px;
+  margin-top: 25px;
 `;
 
 const Column1 = styled.div`
+  max-width: 66%;
+  overflow: hidden;
   grid-column: 1/2;
 `;
 
@@ -38,41 +40,21 @@ const FeatureStyle = styled.div`
 
 // **Functionality Section** //
 
-const Description = ({ productOverviewId }) => {
-  const [description, setDescription] = useState('');
-  const [slogan, setSlogan] = useState('');
-  const [features, setFeatures] = useState([]);
-
-  const getDescription = () => axios.get('/products', { params: { id: productOverviewId } })
-    .then((response) => {
-      setSlogan(response.data.slogan);
-      setDescription(response.data.description);
-      setFeatures(response.data.features);
-    })
-    .catch((err) => {
-      throw err;
-    });
-
-  useEffect(() => {
-    getDescription();
-  }, [productOverviewId]);
-
-  return (
-    <DescriptionGrid>
-      <Column1>
-        <SloganStyle>{slogan}</SloganStyle>
-        <DescriptionStyle>{description}</DescriptionStyle>
-      </Column1>
-      <Column2>
-        {features.map((feature) => (
-          <FeatureStyle key={feature.feature}>
-            &#10003;
-            {`${feature.feature} ${feature.value}`}
-          </FeatureStyle>
-        ))}
-      </Column2>
-    </DescriptionGrid>
-  );
-};
+const Description = ({ description, slogan, features }) => (
+  <DescriptionGrid>
+    <Column1>
+      <SloganStyle>{slogan}</SloganStyle>
+      <DescriptionStyle>{description}</DescriptionStyle>
+    </Column1>
+    <Column2>
+      {features.map((feature) => (
+        <FeatureStyle key={feature.feature}>
+          &#10003;
+          {`${feature.feature} ${feature.value}`}
+        </FeatureStyle>
+      ))}
+    </Column2>
+  </DescriptionGrid>
+);
 
 export default Description;

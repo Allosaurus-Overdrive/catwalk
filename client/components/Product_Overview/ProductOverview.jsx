@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import ImageGallery from './ImageGallery';
 import ProductInfo from './ProductInfo';
@@ -9,55 +10,145 @@ import Description from './Description';
 // **Styling Tempelates** //
 
 const Layout = styled.div`
-  height: 850px;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 10px 10px 10px 10px;
+  height: 1000px;
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 2fr 1fr;
+  grid-template-columns: 1fr 3fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
 `;
 
 const Column1Row1 = styled.div`
   height: 700px;
-  grid-column: 1;
+  grid-column: 2;
+  grid-row: 2;
   place-self: center;
-  background-color: light gray;
+  background-color: lightgray;
   background-size: 100%;
 `;
 
 const Buttons = styled.div`
-  grid-column: 2/3;
-  grid-row: 1;
+  grid-column: 3/4;
+  grid-row: 2;
   align-self: end;
 `;
 
 const ProductInfoPos = styled.div`
-  grid-column: 2/3;
-  grid-row: 1;
+  grid-column: 3/4;
+  grid-row: 2;
   align-self: start;
 `;
 
 const Row2 = styled.div`
-  grid-column: 1/3;
-  grid-row: 2
+  grid-column: 2/5;
+  grid-row: 3;
 `;
 
+const TopBar = styled.div`
+  grid-row: 1;
+  grid-column: 2/4;
+  background-color: dimgray;
+  margin-bottom: 20px;
+  height: 75px;
+`;
+
+const TopText = styled.div`
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 25px;
+  margin-top: 20px;
+  text-decoration: underline;
+  margin-left: 15px;
+`;
 // **Functionality Section** //
 
-const ProductOverview = ({ productOverviewId }) => (
-  <Layout>
-    <Column1Row1>
-      <ImageGallery productOverviewId={productOverviewId} />
-    </Column1Row1>
-    <ProductInfoPos>
-      <ProductInfo productOverviewId={productOverviewId} />
-    </ProductInfoPos>
-    <Buttons>
-      <StyleSelector productOverviewId={productOverviewId} />
-      <AddToCart productOverviewId={productOverviewId} />
-    </Buttons>
-    <Row2>
-      <Description productOverviewId={productOverviewId} />
-    </Row2>
-  </Layout>
-);
+const ProductOverview = ({ productOverviewId }) => {
+  // **States**//
+  const [results, setResults] = useState({});
+  const [description, setDescription] = useState('');
+  const [slogan, setSlogan] = useState('');
+  const [features, setFeatures] = useState([]);
+  const [thumbnail, setThumbnail] = useState([]);
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState();
+  const [bigImage, setBigImage] = useState([]);
+  const [galleryThumbnail, setGalleryThumbnail] = useState([]);
+  const [currentImage, setCurrentImage] = useState(0);
+
+  // **Axios Requests** //
+  const getProduct = () => axios.get('/products', { params: { id: productOverviewId } })
+    .then((response) => {
+      setSlogan(response.data.slogan);
+      setDescription(response.data.description);
+      setFeatures(response.data.features);
+      setName(response.data.name);
+      setCategory(response.data.category);
+      setPrice(response.data.default_price);
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+  const getStyle = () => axios.get('/styles', { params: {id: productOverviewId } })
+    .then(({ data }) => (
+      (setBigImage(() => []),
+      setGalleryThumbnail(() => []),
+      setResults(data.results[0].skus),
+      setThumbnail(data.results),
+      data.results.map((style) => (
+        (setBigImage((arr) => [...arr, style.photos[0].url]),
+        setGalleryThumbnail((arr) => [...arr, style.photos[0].thumbnail_url]))))
+      )))
+    .catch((err) => {
+      throw err;
+    });
+
+  // **Effect/ComponentDidMount** //
+  useEffect(() => {
+    getProduct();
+    getStyle();
+  }, [productOverviewId]);
+
+  // **Render**//
+  return (
+    <Layout>
+      <TopBar>
+        <TopText>Overdrive Outfits</TopText>
+      </TopBar>
+      <Column1Row1>
+        <ImageGallery
+          galleryThumbnail={galleryThumbnail}
+          bigImage={bigImage}
+          setCurrentImage={setCurrentImage}
+          currentImage={currentImage}
+        />
+      </Column1Row1>
+      <ProductInfoPos>
+        <ProductInfo
+          name={name}
+          category={category}
+          price={price}
+        />
+      </ProductInfoPos>
+      <Buttons>
+        <StyleSelector
+          thumbnail={thumbnail}
+          setCurrentImage={setCurrentImage}
+        />
+        <AddToCart results={results} productOverviewId={productOverviewId} />
+      </Buttons>
+      <Row2>
+        <Description
+          description={description}
+          slogan={slogan}
+          features={features}
+        />
+      </Row2>
+    </Layout>
+  );
+};
 
 export default ProductOverview;

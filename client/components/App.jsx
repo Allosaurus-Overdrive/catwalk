@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import ProductOverview from './Product_Overview/ProductOverview';
 import Questions from './questionsAndanswers/Questions';
 import Reviews from './Reviews/reviews';
@@ -19,6 +20,11 @@ const App = () => {
     setProductOverviewId(clickedId);
   };
 
+  const clickTracker = (element, module) => {
+    axios.post('/clicktracker', { element: element, modulecomponent: module })
+      .catch((err) => console.log('error in storing click data: ', err));
+  };
+
   return (
     <div>
       <ProductOverview productOverviewId={productOverviewId} />
@@ -26,8 +32,12 @@ const App = () => {
       <RelatedProducts
         productOverviewId={productOverviewId}
         productClickHandler={productClickHandler}
+        clickTracker={clickTracker}
       />
-      <Outfits productOverviewId={productOverviewId} />
+      <Outfits
+        productOverviewId={productOverviewId}
+        clickTracker={clickTracker}
+      />
       <Questions productOverviewId={productOverviewId} />
       <Reviews productOverviewId={productOverviewId} />
     </div>

@@ -1,18 +1,19 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import Search from './Search';
 import QListItem from './QListItem';
 import AddQuestion from './AddQuestion';
 
 const productId = 20111;
 
-export default function Questions() {
+export default function Questions({ productOverviewId }) {
   const [questions, setQuestions] = useState([]);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    axios.get(`/qa/questions/${productId}`)
+    axios.get(`/qa/questions/${productOverviewId}`)
       .then(({ data }) => {
         const { results } = data;
         setQuestions(results);
@@ -28,7 +29,7 @@ export default function Questions() {
   }
 
   function submitRefresh() {
-    axios.get(`/qa/questions/${productId}`)
+    axios.get(`/qa/questions/${productOverviewId}`)
       .then(({ data }) => {
         const { results } = data;
         setQuestions(results);
@@ -37,8 +38,13 @@ export default function Questions() {
       });
   }
 
+  const Container = styled.div`
+  text-align: center;
+  width: auto;
+  `;
+
   return (
-    <div>
+    <Container>
       <h4>Questions + Answers</h4>
       <div>
         <Search
@@ -57,8 +63,8 @@ export default function Questions() {
       <div className="more-questions">
         <button type="button">More Answered Questions</button>
         {' '}
-        <AddQuestion product={productId} refresh={submitRefresh} />
+        <AddQuestion product={productOverviewId} refresh={submitRefresh} />
       </div>
-    </div>
+    </Container>
   );
 }

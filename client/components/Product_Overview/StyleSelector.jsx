@@ -21,27 +21,14 @@ const StyleNameStyles = styled.div`
 
 // **Functionality Section** //
 
-const StyleSelector = ({ productOverviewId }) => {
-  const [thumbnail, setThumbnail] = useState([]);
-  const [styleName, setStyleName] = useState('');
-
-  const getThumbnail = () => axios.get('/styles', { params: { id: productOverviewId } })
-    .then(({ data }) => (
-      setThumbnail(data.results)
-    ))
-    .catch((err) => {
-      throw err;
-    });
-
-  useEffect(() => {
-    getThumbnail();
-  }, [productOverviewId]);
+const StyleSelector = ({ thumbnail, setCurrentImage }) => {
+  const [styleName, setStyleName] = useState('Azure');
 
   return (
     <div>
       <StyleNameStyles>{styleName}</StyleNameStyles>
-      {thumbnail.map((style) => (
-        <RoundImg key={style.name} src={style.photos[0].thumbnail_url} alt="" onClick={() => { setStyleName(style.name); }} />
+      {thumbnail.map((style, idx) => (
+        <RoundImg key={style.name} src={style.photos[0].thumbnail_url} alt="" onClick={() => { setStyleName(style.name); setCurrentImage(idx); }} />
       ))}
     </div>
   );

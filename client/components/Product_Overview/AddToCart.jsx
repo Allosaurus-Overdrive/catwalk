@@ -58,48 +58,121 @@ const ButtonStyle = styled.button`
 
 // **Functionality Section** //
 
-const AddToCart = ({ productOverviewId }) => {
+const AddToCart = ({ results, productOverviewId }) => {
+  // **states and variables** //
   const [amount, setAmount] = useState('0');
-  const [results, setResults] = useState({});
+  const [sku, setSku] = useState();
+  const [number, setNumber] = useState(null);
+  const [outfitsArray, setOutfitsArray] = useState([]);
+  const [outfitsStylesObj, setOutfitsStylesObj] = useState({});
+  const [currentProductData, setCurrentProductData] = useState(null);
+  const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const quantityVals = quantityOptions.slice(0, amount);
 
-  const getResults = () => axios.get('/styles', { params: {id: productOverviewId } })
-    .then(({ data }) => (
-      setResults(data.results[0].skus)
-    ))
-    .catch((err) => {
-      throw err;
-    });
+  // **methods** //
+  const handleSizeChange = ((event) => {
+    setAmount(event.target.value.slice(7, 9));
+    setSku(event.target.value.slice(0, 6));
+  });
+
+  const handleQuantityChange = ((event) => {
+    setNumber(event.target.value);
+  });
+
+
+
+  // **Outfits Button Functionality **//
+  const getYourOutfits = () => {
+    axios.get('/product-features', { params: { id: productOverviewId } })
+      .then(({ data }) => { setCurrentProductData(data); })
+      .catch((err) => console.log(err));
+
+    const storedOutfits = JSON.parse(localStorage.getItem('outfits'));
+    const storedStyles = JSON.parse(localStorage.getItem('styles'));
+    if (storedOutfits) {
+      setOutfitsArray(storedOutfits);
+      setOutfitsStylesObj(storedStyles);
+    }
+  };
 
   useEffect(() => {
-    getResults();
-  }, [productOverviewId]);
+    getYourOutfits();
+  }, []);
 
-  const handleChange = ((event) => {
-    setAmount(event.target.value);
-  });
-  console.log(results)
+  const onAddCardClickHandler = () => {
+    axios.get('/product-features', { params: { id: productOverviewId } })
+      .then(({ data }) => {
+        const newOutfitsArray = outfitsArray;
+        const newOutfitsStylesObj = outfitsStylesObj || {};
+        let duplicate = false;
+
+        setCurrentProductData(data);
+
+        newOutfitsArray.forEach((outfit) => {
+          if (outfit.id === data.id) {
+            duplicate = true;
+          }
+        });
+
+        if (!duplicate) {
+          newOutfitsArray.push(data);
+          setOutfitsArray(newOutfitsArray);
+          setCurrentProductData(data);
+        } else {
+          alert('This item is already saved in your outfits!');
+        }
+
+        axios.get('/outfit-styles', { params: { id: productOverviewId } })
+          .then(({ data }) => {
+            newOutfitsStylesObj[data.product_id] = data.results;
+            setOutfitsStylesObj(newOutfitsStylesObj);
+
+            return {
+              outfitInfo: newOutfitsArray,
+              outfitStyles: newOutfitsStylesObj,
+            };
+          })
+          .then(({ outfitInfo, outfitStyles }) => {
+            localStorage.setItem('outfits', JSON.stringify(outfitInfo));
+            localStorage.setItem('styles', JSON.stringify(outfitStyles));
+            getYourOutfits();
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <CartGrid>
       <Column1Row1>
-        <SelectStyle onChange={handleChange}>
+        <SelectStyle onChange={handleSizeChange}>
           <option>Select Size</option>
           {Object.keys(results).map((size) => (
-            <option key={size} value={results[size].quantity}>{results[size].size}</option>
+            results[size].quantity !== 0
+            && (
+              <option
+                key={size}
+                value={[size, results[size].quantity]}
+              >
+                {results[size].size}
+              </option>
+            )
           ))}
         </SelectStyle>
       </Column1Row1>
       <Column2Row1>
-        <SelectStyle>
+        <SelectStyle onChange={handleQuantityChange}>
           <option>-</option>
-          <option value="quantity">{amount}</option>
+          {quantityVals.map((quantity) => (
+            <option value={quantity}>{quantity}</option>
+          ))}
         </SelectStyle>
       </Column2Row1>
       <Column1Row2>
         <ButtonStyle type="submit">ADD TO BAG</ButtonStyle>
       </Column1Row2>
       <Column3Row2>
-        <ButtonStyle type="submit">Outfit Adder</ButtonStyle>
+        <ButtonStyle type="submit" onClick={onAddCardClickHandler}>Outfit Adder</ButtonStyle>
       </Column3Row2>
     </CartGrid>
   );

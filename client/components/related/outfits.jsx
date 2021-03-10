@@ -48,7 +48,7 @@ const OutfitAddText = styled.h3`
 // YOUR OUTFITS FUNCTIONAL COMPONENTS /
 //  //  //  //  //  //  //  //  //  //
 
-const Outfits = ({ productOverviewId }) => {
+const Outfits = ({ productOverviewId, clickTracker }) => {
   const ref = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [scrollWidth, setScrollWidth] = useState(0);
@@ -122,6 +122,8 @@ const Outfits = ({ productOverviewId }) => {
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
+
+    clickTracker('add to outfit card', 'Your Outfits');
   };
 
   const scroll = (scrollOffset) => {
@@ -208,6 +210,7 @@ const Outfits = ({ productOverviewId }) => {
                   currentFeatures={currentProductData.features}
                   currentName={currentProductData.name}
                   handleOutfitDeleteClick={handleOutfitDeleteClick}
+                  clickTracker={clickTracker}
                 />
               ))}
             </RelatedProductsList>
