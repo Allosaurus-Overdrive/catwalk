@@ -131,6 +131,14 @@ app.get('/products', (req, res) => {
     });
 });
 
+app.post('/cart', (req, res) => {
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/cart', req.body, options)
+    .then(() => {
+      res.status(201).end('created');
+    })
+    .catch((error) => console.log('server review post err', error));
+});
+
 app.get('/related-products', (req, res) => {
   const productOverviewId = req.query.id;
   const relatedProductObjs = [];

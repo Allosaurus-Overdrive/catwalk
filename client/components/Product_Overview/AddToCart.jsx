@@ -79,7 +79,13 @@ const AddToCart = ({ results, productOverviewId }) => {
     setNumber(event.target.value);
   });
 
-
+  const AddToBag = () => axios.post('/cart', { sku_id: sku, count: number })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   // **Outfits Button Functionality **//
   const getYourOutfits = () => {
@@ -169,7 +175,7 @@ const AddToCart = ({ results, productOverviewId }) => {
         </SelectStyle>
       </Column2Row1>
       <Column1Row2>
-        <ButtonStyle type="submit">ADD TO BAG</ButtonStyle>
+        <ButtonStyle type="submit" onClick={AddToBag}>ADD TO BAG</ButtonStyle>
       </Column1Row2>
       <Column3Row2>
         <ButtonStyle type="submit" onClick={onAddCardClickHandler}>Outfit Adder</ButtonStyle>
