@@ -20,7 +20,7 @@ const RatingsStyle = styled.div`
   grid-row: 1;
   grid-column: 1;
   position: relative;
-  left: 50px;
+  left: 100px;
 `;
 
 const CharStyle = styled.div`
@@ -28,7 +28,7 @@ const CharStyle = styled.div`
   grid-row: 2;
   grid-column: 1;
   position: relative;
-  left: 40px;
+  left: 60px;
 `;
 
 const SortStyle = styled.div`
@@ -46,7 +46,7 @@ const ReviewStyle = styled.div`
   grid-column: 2 / 3 / 4;
 `;
 
-function Reviews({ productOverviewId }) {
+function Reviews({ productOverviewId, clickTracker }) {
   // const [showMore, setMore] = useState(false);
   const [reviewsData, setReviews] = useState([]);
   const [count, setCount] = useState('');
@@ -99,7 +99,7 @@ function Reviews({ productOverviewId }) {
         />
       </CharStyle>
       <SortStyle>
-        <div>
+        <div onClick={() => clickTracker(`sort id: ${sortId}`, 'Ratings & Reviews')}>
           <label htmlFor="review-sort">
             <strong>
               {count}
@@ -114,7 +114,6 @@ function Reviews({ productOverviewId }) {
             <option value="newest">newest</option>
           </select>
         </div>
-        {/* <SortReviews productOverviewId={productOverviewId} /> */}
       </SortStyle>
       <ReviewStyle>
         <ReviewTile
@@ -122,6 +121,7 @@ function Reviews({ productOverviewId }) {
           reviewsData={reviewsData}
           getData={getData}
           count={count}
+          clickTracker={clickTracker}
         />
       </ReviewStyle>
     </GridLayout>
