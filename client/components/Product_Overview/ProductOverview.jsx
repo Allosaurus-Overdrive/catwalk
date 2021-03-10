@@ -55,13 +55,35 @@ const TopBar = styled.div`
 `;
 
 const TopText = styled.div`
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Monoton', cursive;
   color: white;
   font-size: 25px;
   margin-top: 20px;
-  text-decoration: underline;
   margin-left: 15px;
+  float: left;
 `;
+
+const TopSearchBar = styled.div`
+  color: white;
+  margin-right: 30px;
+  margin-top: 30px;
+  float: right;
+  font-size: 90%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+`;
+
+const TopAnnouncements = styled.div`
+  grid-row: 1;
+  grid-column: 2/4;
+  margin-top: 85px;
+  color: gray;
+  font-size: 90%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  text-align: center;
+`;
+
 // **Functionality Section** //
 
 const ProductOverview = ({ productOverviewId }) => {
@@ -117,7 +139,15 @@ const ProductOverview = ({ productOverviewId }) => {
     <Layout>
       <TopBar>
         <TopText>Overdrive Outfits</TopText>
+        <TopSearchBar>___________________&nbsp; &nbsp;SEARCH</TopSearchBar>
       </TopBar>
+      <TopAnnouncements>
+        <em>SITE WIDE ANNOUNCEMENT MESSAGE!</em>
+        &nbsp; &mdash; SALE / DISCOUNT&nbsp;
+        <b>OFFER</b>
+        &nbsp; &mdash; &nbsp;
+        <u>NEW PRODUCT HIGHLIGHT</u>
+      </TopAnnouncements>
       <Column1Row1>
         <ImageGallery
           galleryThumbnail={galleryThumbnail}
