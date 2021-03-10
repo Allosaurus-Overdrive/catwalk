@@ -27,6 +27,9 @@ padding: 15px;
 border-color: darkslategray;
 font-weight: 600;
 color: darkslategray
+hover: {
+  opacity: 0.8;
+}
 `;
 
 const QuestionsList = styled.div`

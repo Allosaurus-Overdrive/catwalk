@@ -13,6 +13,7 @@ padding: 15px;
 border-color: darkslategray;
 font-weight: 600;
 color: darkslategray
+outline: none
 `;
 
 const Container = styled.div`

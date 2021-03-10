@@ -9,7 +9,19 @@ height: 30px;
 width: 500px;
 border-style: solid;
 border-color: black;
+border-right: none;
 border-width: thin;
+outline: none;
+`;
+
+const Button = styled.button`
+position: relative;
+padding: 8px;
+padding-bottom: 9px;
+background-color: transparent;
+border: 1px solid;
+border-left: none;
+outline: none;
 `;
 
 export default function Search(props) {
@@ -27,7 +39,7 @@ export default function Search(props) {
         />
       </label>
       <label>
-        <button type="submit"><i className="fas fa-search icon 9x" /></button>
+        <Button type="submit"><i className="fas fa-search fa-1x" /></Button>
       </label>
     </form>
   );

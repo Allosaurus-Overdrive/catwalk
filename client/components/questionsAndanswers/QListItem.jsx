@@ -19,6 +19,7 @@ font-weight: lighter;
 font-size: 10px;
 text-decoration: underline;
 color: grey;
+outline: none
 `;
 
 const Span = styled.span`
