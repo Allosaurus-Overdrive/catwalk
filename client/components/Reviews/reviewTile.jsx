@@ -14,24 +14,33 @@ const tileBox = {
   fontSize: '19px',
 };
 
-function ReviewTile({ reviewsData, count, productOverviewId, getData }) {
+function ReviewTile({ reviewsData, count, productOverviewId, getData, clickTracker }) {
   const [showMore, setMore] = useState(false);
+
+  function showMoreReviews() {
+    setMore(true);
+    clickTracker(`product id: ${productOverviewId}`, 'Ratings & Reviews/More Reviews');
+  }
 
   return (
     <div style={tileBox}>
       <ul>
         {showMore
           ? reviewsData.map((review) =>
-            <ReviewIndividualTile key={review.review_id} review={review} />)
+            <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)
           : reviewsData.slice(0, 2).map((review) =>
-            <ReviewIndividualTile key={review.review_id} review={review} />)}
+            <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)}
       </ul>
       {count > 2
-        ? (<button type="button" onClick={() => setMore(true)} style={{ margin: '1.5em', position: 'relative', left: '16px', fontSize: '20px' }}>
+        ? (<button type="button" onClick={showMoreReviews} style={{ margin: '1.5em', position: 'relative', left: '16px', fontSize: '20px' }}>
         More Reviews
       </button>) : null}
       <br />
-      <AddReview productOverviewId={productOverviewId} getData={getData} />
+      <AddReview
+        productOverviewId={productOverviewId}
+        getData={getData}
+        clickTracker={clickTracker}
+      />
     </div>
   );
 }

@@ -15,16 +15,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(compression());
-
 app.use(express.static(PUBLIC_DIR));
 
-app.get('/qa/questions/:productId', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
+const options = {
+  headers: {
+    Authorization: config.TOKEN,
+  },
+};
 
+// ======================================================================
+// Questions and Answers
+// ======================================================================
+
+app.get('/qa/questions/:productId', (req, res) => {
   const { productId } = req.params;
 
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, options)
@@ -36,14 +39,7 @@ app.get('/qa/questions/:productId', (req, res) => {
 });
 
 app.post('/qa/questions/:productId', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
   const { productId } = req.params;
-
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, req.body, options)
     .then(() => {
       res.status(201).end('created');
@@ -53,12 +49,6 @@ app.post('/qa/questions/:productId', (req, res) => {
 });
 
 app.get('/qa/questions/:questionId/answers', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
   const { questionId } = req.params;
 
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/answers`, options)
@@ -69,11 +59,53 @@ app.get('/qa/questions/:questionId/answers', (req, res) => {
     });
 });
 
-const options = {
-  headers: {
-    Authorization: config.TOKEN,
-  },
-};
+app.put('/qa/questions/:questionId/helpful', (req, res) => {
+  const { questionId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/helpful`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error updating helpfulness', err);
+    });
+});
+
+app.put('/qa/questions/:questionId/report', (req, res) => {
+  const { questionId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/report`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error reporting the question', err);
+    });
+});
+
+app.put('/qa/answers/:answerId/helpful', (req, res) => {
+  const { answerId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/answers/${answerId}/helpful`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error adding to answer helpfulness', err);
+    });
+});
+
+app.put('/qa/answers/:answerId/report', (req, res) => {
+  const { answerId } = req.params;
+
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/answers/${answerId}/report`, req.body, options)
+    .then(() => {
+      res.status(204).end('NO CONTENT');
+    }).catch((err) => {
+      console.log('error reporting answer at server', err);
+    });
+});
+
+// ======================================================================
+// Product Overview & Related & Outfits
+// ======================================================================
 
 app.get('/styles', (req, res) => {
   const productOverviewId = req.query.id;
@@ -99,81 +131,7 @@ app.get('/products', (req, res) => {
     });
 });
 
-app.put('/qa/questions/:questionId/helpful', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
-  const { questionId } = req.params;
-
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/helpful`, req.body, options)
-    .then(() => {
-      res.status(204).end('NO CONTENT');
-    }).catch((err) => {
-      console.log('error updating helpfulness', err);
-    });
-});
-
-app.put('/qa/questions/:questionId/report', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
-  const { questionId } = req.params;
-
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/${questionId}/report`, req.body, options)
-    .then(() => {
-      res.status(204).end('NO CONTENT');
-    }).catch((err) => {
-      console.log('error reporting the question', err);
-    });
-});
-
-app.put('/qa/answers/:answerId/helpful', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
-  const { answerId } = req.params;
-
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/answers/${answerId}/helpful`, req.body, options)
-    .then(() => {
-      res.status(204).end('NO CONTENT');
-    }).catch((err) => {
-      console.log('error adding to answer helpfulness', err);
-    });
-});
-
-app.put('/qa/answers/:answerId/report', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
-  const { answerId } = req.params;
-
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/answers/${answerId}/report`, req.body, options)
-    .then(() => {
-      res.status(204).end('NO CONTENT');
-    }).catch((err) => {
-      console.log('error reporting answer at server', err);
-    });
-});
-
 app.get('/related-products', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
   const productOverviewId = req.query.id;
   const relatedProductObjs = [];
 
@@ -197,12 +155,6 @@ app.get('/related-products', (req, res) => {
 });
 
 app.get('/related-styles', (req, res) => {
-  const options = {
-    headers: {
-      Authorization: config.TOKEN,
-    },
-  };
-
   const productOverviewId = req.query.id;
   const relatedProductsStyles = {};
 
@@ -227,9 +179,23 @@ app.get('/related-styles', (req, res) => {
     .catch(() => res.sendStatus(400));
 });
 
-// =================
+app.get('/product-features', (req, res) => {
+  const productOverviewId = req.query.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
+    .then(({ data }) => { res.send(data); })
+    .catch(() => res.sendStatus(400));
+});
+
+app.get('/outfit-styles', (req, res) => {
+  const productOverviewId = req.query.id;
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/styles`, options)
+    .then(({ data }) => { res.send(data); })
+    .catch(() => res.sendStatus(400));
+});
+
+// ======================================================================
 // RATINGS & REVIEWS
-// =================
+// ======================================================================
 
 app.get('/reviews', (req, res) => {
   const productOverviewId = req.query.id;
@@ -264,29 +230,17 @@ app.put('/reviews/report', (req, res) => {
 });
 
 app.post('/reviews', (req, res) => {
-  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews', req.body, options)
+  const productOverviewId = req.body.product_id;
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/reviews/?product_id=${productOverviewId}`, req.body, options)
     .then(() => {
-      console.log('successful post');
-      res.send(201);
+      res.status(201).end('created');
     })
     .catch((error) => console.log('server review post err', error));
 });
-// ======================================
-// ======================================
 
-app.get('/product-features', (req, res) => {
-  const productOverviewId = req.query.id;
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}`, options)
-    .then(({ data }) => { res.send(data); })
-    .catch(() => res.sendStatus(400));
-});
-
-app.get('/outfit-styles', (req, res) => {
-  const productOverviewId = req.query.id;
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/products/${productOverviewId}/styles`, options)
-    .then(({ data }) => { res.send(data); })
-    .catch(() => res.sendStatus(400));
-});
+// ======================================================================
+// clicktracker for entire page
+// ======================================================================
 
 app.post('/clicktracker', (req, res) => {
   const params = [req.body.element, req.body.modulecomponent];

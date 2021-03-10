@@ -39,7 +39,7 @@ const App = () => {
         clickTracker={clickTracker}
       />
       <Questions productOverviewId={productOverviewId} />
-      <Reviews productOverviewId={productOverviewId} />
+      <Reviews productOverviewId={productOverviewId} clickTracker={clickTracker} />
     </div>
   );
 };

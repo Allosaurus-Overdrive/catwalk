@@ -69,7 +69,7 @@ function Ratings({ ratings, recommend }) {
         ))}
       </div>
       <div style={{
-        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', left: '40px',
+        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', right: '10px',
       }}
       >
         {Number.isNaN(percent) ? null
