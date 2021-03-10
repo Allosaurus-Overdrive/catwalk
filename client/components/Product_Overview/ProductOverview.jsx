@@ -13,7 +13,6 @@ const Layout = styled.div`
   max-width: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
-  padding: 10px 10px 10px 10px;
   height: 1000px;
   display: grid;
   grid-template-columns: 1fr 3fr 2fr 1fr;
@@ -118,7 +117,7 @@ const ProductOverview = ({ productOverviewId }) => {
     .then(({ data }) => (
       (setBigImage(() => []),
       setGalleryThumbnail(() => []),
-      setResults(data.results[0].skus),
+      setResults(data.results[currentImage].skus),
       setThumbnail(data.results),
       data.results.map((style) => (
         (setBigImage((arr) => [...arr, style.photos[0].url]),
@@ -132,14 +131,13 @@ const ProductOverview = ({ productOverviewId }) => {
   useEffect(() => {
     getProduct();
     getStyle();
-  }, [productOverviewId]);
+  }, [currentImage, productOverviewId]);
 
   // **Render**//
   return (
     <Layout>
       <TopBar>
-        <TopText>Overdrive Outfits</TopText>
-        <TopSearchBar>___________________&nbsp; &nbsp;SEARCH</TopSearchBar>
+        <TopText>OO      OVERDRIVE OUTFITS</TopText>
       </TopBar>
       <TopAnnouncements>
         <em>SITE WIDE ANNOUNCEMENT MESSAGE!</em>
@@ -168,7 +166,10 @@ const ProductOverview = ({ productOverviewId }) => {
           thumbnail={thumbnail}
           setCurrentImage={setCurrentImage}
         />
-        <AddToCart results={results} productOverviewId={productOverviewId} />
+        <AddToCart
+          results={results}
+          productOverviewId={productOverviewId}
+        />
       </Buttons>
       <Row2>
         <Description
