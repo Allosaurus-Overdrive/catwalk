@@ -2,3 +2,4 @@ node_modules
 config.js
 bundle.js
 public/bundle.js
+public/bundle.js.LICENSE.txt

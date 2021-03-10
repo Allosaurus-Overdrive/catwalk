@@ -61,9 +61,9 @@ function ReviewIndividualTile({ review, clickTracker }) {
       </div>
       <div style={{ fontSize: '14px' }}>
         Helpful?
-        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', position: 'relative', left: '5px' }} onClick={handleYesClick}> Yes </button>
+        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px' }} onClick={handleYesClick}> Yes </button>
         {yesCount === 0 ? null : `(${yesCount})`}
-        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', position: 'relative', left: '5px' }} onClick={handleNoClick}> Report </button>
+        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px' }} onClick={handleNoClick}> Report </button>
       </div>
     </div>
   );
