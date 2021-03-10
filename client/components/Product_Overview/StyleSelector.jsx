@@ -29,7 +29,7 @@ const StyleSelector = ({ thumbnail, setCurrentImage }) => {
       <StyleNameStyles>{styleName}</StyleNameStyles>
       {thumbnail.map((style, idx) => (
         <RoundImg
-          key={style.name}
+          key={style.style_id}
           src={style.photos[0].thumbnail_url}
           alt=""
           onClick={() => { setStyleName(style.name); setCurrentImage(idx); }}

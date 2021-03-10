@@ -95,6 +95,7 @@ const ProductOverview = ({ productOverviewId }) => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState();
+  const [salesPrice, setSalesPrice] = useState('');
   const [bigImage, setBigImage] = useState([]);
   const [galleryThumbnail, setGalleryThumbnail] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
@@ -107,7 +108,6 @@ const ProductOverview = ({ productOverviewId }) => {
       setFeatures(response.data.features);
       setName(response.data.name);
       setCategory(response.data.category);
-      setPrice(response.data.default_price);
     })
     .catch((err) => {
       throw err;
@@ -117,8 +117,11 @@ const ProductOverview = ({ productOverviewId }) => {
     .then(({ data }) => (
       (setBigImage(() => []),
       setGalleryThumbnail(() => []),
+      setThumbnail(() => []),
       setResults(data.results[currentImage].skus),
       setThumbnail(data.results),
+      setPrice(data.results[currentImage].original_price),
+      setSalesPrice(data.results[currentImage].sale_price),
       data.results.map((style) => (
         (setBigImage((arr) => [...arr, style.photos[0].url]),
         setGalleryThumbnail((arr) => [...arr, style.photos[0].thumbnail_url]))))
@@ -159,6 +162,7 @@ const ProductOverview = ({ productOverviewId }) => {
           name={name}
           category={category}
           price={price}
+          salesPrice={salesPrice}
         />
       </ProductInfoPos>
       <Buttons>

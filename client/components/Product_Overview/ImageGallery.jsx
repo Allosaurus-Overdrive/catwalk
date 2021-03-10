@@ -98,7 +98,7 @@ const ImageGallery = ({ galleryThumbnail, bigImage, setCurrentImage, currentImag
       )}
       <ThumbnailPos>
         {galleryThumbnail.map((pic, idx) => (
-          <ThumbnailStyle src={pic} alt="" onClick={() => { setCurrentImage(idx); }} />
+          <ThumbnailStyle key={pic} src={pic} alt="" onClick={() => { setCurrentImage(idx); }} />
         ))}
       </ThumbnailPos>
       <ImageStyle>
