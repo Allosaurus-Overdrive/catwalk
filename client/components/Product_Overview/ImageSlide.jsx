@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Picture = styled.img`
-  width: 450px;
+  width: 100%;
+  height: auto;
   grid-column: 1;
   place-self: center;
   background-color: light grey;

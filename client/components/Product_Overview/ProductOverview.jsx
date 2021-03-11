@@ -13,7 +13,6 @@ const Layout = styled.div`
   max-width: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
-  padding: 10px 10px 10px 10px;
   height: 1000px;
   display: grid;
   grid-template-columns: 1fr 3fr 2fr 1fr;
@@ -86,7 +85,7 @@ const TopAnnouncements = styled.div`
 
 // **Functionality Section** //
 
-const ProductOverview = ({ productOverviewId }) => {
+const ProductOverview = ({ productOverviewId, clickTracker }) => {
   // **States**//
   const [results, setResults] = useState({});
   const [description, setDescription] = useState('');
@@ -96,6 +95,7 @@ const ProductOverview = ({ productOverviewId }) => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState();
+  const [salesPrice, setSalesPrice] = useState('');
   const [bigImage, setBigImage] = useState([]);
   const [galleryThumbnail, setGalleryThumbnail] = useState([]);
   const [currentImage, setCurrentImage] = useState(0);
@@ -108,7 +108,6 @@ const ProductOverview = ({ productOverviewId }) => {
       setFeatures(response.data.features);
       setName(response.data.name);
       setCategory(response.data.category);
-      setPrice(response.data.default_price);
     })
     .catch((err) => {
       throw err;
@@ -118,8 +117,11 @@ const ProductOverview = ({ productOverviewId }) => {
     .then(({ data }) => (
       (setBigImage(() => []),
       setGalleryThumbnail(() => []),
-      setResults(data.results[0].skus),
+      setThumbnail(() => []),
+      setResults(data.results[currentImage].skus),
       setThumbnail(data.results),
+      setPrice(data.results[currentImage].original_price),
+      setSalesPrice(data.results[currentImage].sale_price),
       data.results.map((style) => (
         (setBigImage((arr) => [...arr, style.photos[0].url]),
         setGalleryThumbnail((arr) => [...arr, style.photos[0].thumbnail_url]))))
@@ -132,14 +134,13 @@ const ProductOverview = ({ productOverviewId }) => {
   useEffect(() => {
     getProduct();
     getStyle();
-  }, [productOverviewId]);
+  }, [currentImage, productOverviewId]);
 
   // **Render**//
   return (
     <Layout>
       <TopBar>
-        <TopText>Overdrive Outfits</TopText>
-        <TopSearchBar>___________________&nbsp; &nbsp;SEARCH</TopSearchBar>
+        <TopText>OVERDRIVE OUTFITS</TopText>
       </TopBar>
       <TopAnnouncements>
         <em>SITE WIDE ANNOUNCEMENT MESSAGE!</em>
@@ -161,14 +162,21 @@ const ProductOverview = ({ productOverviewId }) => {
           name={name}
           category={category}
           price={price}
+          salesPrice={salesPrice}
+          productOverviewId={productOverviewId}
         />
       </ProductInfoPos>
       <Buttons>
         <StyleSelector
           thumbnail={thumbnail}
           setCurrentImage={setCurrentImage}
+          clickTracker={clickTracker}
         />
-        <AddToCart results={results} productOverviewId={productOverviewId} />
+        <AddToCart
+          results={results}
+          productOverviewId={productOverviewId}
+          clickTracker={clickTracker}
+        />
       </Buttons>
       <Row2>
         <Description

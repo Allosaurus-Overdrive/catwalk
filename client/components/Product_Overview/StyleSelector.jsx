@@ -21,14 +21,19 @@ const StyleNameStyles = styled.div`
 
 // **Functionality Section** //
 
-const StyleSelector = ({ thumbnail, setCurrentImage }) => {
+const StyleSelector = ({ thumbnail, setCurrentImage, clickTracker }) => {
   const [styleName, setStyleName] = useState('Azure');
 
   return (
     <div>
       <StyleNameStyles>{styleName}</StyleNameStyles>
       {thumbnail.map((style, idx) => (
-        <RoundImg key={style.name} src={style.photos[0].thumbnail_url} alt="" onClick={() => { setStyleName(style.name); setCurrentImage(idx); }} />
+        <RoundImg
+          key={style.style_id}
+          src={style.photos[0].thumbnail_url}
+          alt=""
+          onClick={() => { setStyleName(style.name); setCurrentImage(idx); clickTracker(`New Style Selected=${styleName}`, 'Style Selector'); }}
+        />
       ))}
     </div>
   );
