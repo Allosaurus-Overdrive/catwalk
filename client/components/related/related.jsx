@@ -35,7 +35,6 @@ const RelatedProductsListWrapper = styled.div`
   width: 98%;
   margin-left: 10px;
   margin-right: 10px;
-  background: white;
   position: absolute;
   overflow: hidden;
   white-space: nowrap;
