@@ -21,7 +21,7 @@ const StyleNameStyles = styled.div`
 
 // **Functionality Section** //
 
-const StyleSelector = ({ thumbnail, setCurrentImage }) => {
+const StyleSelector = ({ thumbnail, setCurrentImage, clickTracker }) => {
   const [styleName, setStyleName] = useState('Azure');
 
   return (
@@ -32,7 +32,7 @@ const StyleSelector = ({ thumbnail, setCurrentImage }) => {
           key={style.style_id}
           src={style.photos[0].thumbnail_url}
           alt=""
-          onClick={() => { setStyleName(style.name); setCurrentImage(idx); }}
+          onClick={() => { setStyleName(style.name); setCurrentImage(idx); clickTracker(`New Style Selected=${styleName}`, 'Style Selector'); }}
         />
       ))}
     </div>

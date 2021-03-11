@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
+import StarRating from '../Reviews/StarRating';
 
 // **Styling Tempelates**//
 const CategoryStyle = styled.div`
@@ -41,8 +41,9 @@ const SalePriceStyle = styled.div`
 
 // **Functionality Section** //
 
-const ProductInfo = ({ name, category, price, salesPrice }) => (
+const ProductInfo = ({ name, category, price, salesPrice, productOverviewId }) => (
   <div>
+    <StarRating productOverviewId={productOverviewId} />
     <CategoryStyle>{category}</CategoryStyle>
     <NameStyle>{name}</NameStyle>
     {!salesPrice

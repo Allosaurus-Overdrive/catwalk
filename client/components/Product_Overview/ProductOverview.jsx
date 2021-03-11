@@ -85,7 +85,7 @@ const TopAnnouncements = styled.div`
 
 // **Functionality Section** //
 
-const ProductOverview = ({ productOverviewId }) => {
+const ProductOverview = ({ productOverviewId, clickTracker }) => {
   // **States**//
   const [results, setResults] = useState({});
   const [description, setDescription] = useState('');
@@ -163,16 +163,19 @@ const ProductOverview = ({ productOverviewId }) => {
           category={category}
           price={price}
           salesPrice={salesPrice}
+          productOverviewId={productOverviewId}
         />
       </ProductInfoPos>
       <Buttons>
         <StyleSelector
           thumbnail={thumbnail}
           setCurrentImage={setCurrentImage}
+          clickTracker={clickTracker}
         />
         <AddToCart
           results={results}
           productOverviewId={productOverviewId}
+          clickTracker={clickTracker}
         />
       </Buttons>
       <Row2>

@@ -21,7 +21,8 @@ const ThumbnailStyle = styled.img`
 `;
 
 const ThumbnailPos = styled.div`
-  width: 150px;
+  width: 150;
+  height: auto;
   grid-column: 1;
   grid-row: 1;
   display: grid;
@@ -35,6 +36,8 @@ const Arrow1 = styled.div`
 `;
 
 const ImageStyle = styled.div`
+  width: 450;
+  heigth: auto;
   grid-column: 3;
   place-self: center;
 `;
