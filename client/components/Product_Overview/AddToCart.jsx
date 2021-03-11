@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -163,11 +164,11 @@ const AddToCart = ({ results, productOverviewId, clickTracker }) => {
   return (
     <CartGrid>
       <Column1Row1>
-          <SelectStyle id="size" onChange={handleSizeChange}>
-            <label htmlFor="size">Select Size</label>
-            <option>Select Size</option>
-            {Object.keys(results).map((size) => (
-              results[size].quantity !== 0
+        <SelectStyle id="size" onChange={handleSizeChange}>
+          <label htmlFor="size">Select Size</label>
+          <option>Select Size</option>
+          {Object.keys(results).map((size) => (
+            results[size].quantity !== 0
               && (
                 <option
                   key={size}
@@ -176,8 +177,8 @@ const AddToCart = ({ results, productOverviewId, clickTracker }) => {
                   {results[size].size}
                 </option>
               )
-            ))}
-          </SelectStyle>
+          ))}
+        </SelectStyle>
       </Column1Row1>
       <Column2Row1>
         <SelectStyle id="quantity" type="control" onChange={handleQuantityChange}>
