@@ -63,6 +63,7 @@ const RelatedName = styled.h3`
   font-size: 100%;
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
+  color: black;
   &:hover{
     cursor: pointer;
   }
