@@ -21,6 +21,7 @@ const RatingsStyle = styled.div`
   grid-column: 1;
   position: relative;
   left: 100px;
+  display: flex;
 `;
 
 const CharStyle = styled.div`
@@ -29,6 +30,7 @@ const CharStyle = styled.div`
   grid-column: 1;
   position: relative;
   left: 60px;
+  display: flex;
 `;
 
 const SortStyle = styled.div`
