@@ -108,7 +108,7 @@ function Reviews({ productOverviewId, clickTracker }) {
               {' '}
             </strong>
           </label>
-          <select onChange={(e) => setSortId(e.target.value)}>
+          <select id="review-sort" onChange={(e) => setSortId(e.target.value)}>
             <option value="relevant">relevant</option>
             <option value="helpful">helpful</option>
             <option value="newest">newest</option>

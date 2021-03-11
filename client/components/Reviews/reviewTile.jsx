@@ -25,11 +25,13 @@ function ReviewTile({ reviewsData, count, productOverviewId, getData, clickTrack
   return (
     <div style={tileBox}>
       <ul>
+        <li style={{ listStyleType: 'none' }}>
         {showMore
           ? reviewsData.map((review) =>
             <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)
           : reviewsData.slice(0, 2).map((review) =>
             <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)}
+        </li>
       </ul>
       {count > 2
         ? (<button type="button" onClick={showMoreReviews} style={{ margin: '1.5em', position: 'relative', left: '16px', fontSize: '20px' }}>
