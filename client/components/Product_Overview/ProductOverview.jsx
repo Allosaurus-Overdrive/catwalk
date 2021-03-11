@@ -140,7 +140,7 @@ const ProductOverview = ({ productOverviewId, clickTracker }) => {
   return (
     <Layout>
       <TopBar>
-        <TopText>OO      OVERDRIVE OUTFITS</TopText>
+        <TopText>OVERDRIVE OUTFITS</TopText>
       </TopBar>
       <TopAnnouncements>
         <em>SITE WIDE ANNOUNCEMENT MESSAGE!</em>
