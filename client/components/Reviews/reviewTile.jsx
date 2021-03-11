@@ -14,7 +14,9 @@ const tileBox = {
   fontSize: '19px',
 };
 
-function ReviewTile({ reviewsData, count, productOverviewId, getData, clickTracker }) {
+function ReviewTile({
+  reviewsData, count, productOverviewId, getData, clickTracker,
+}) {
   const [showMore, setMore] = useState(false);
 
   function showMoreReviews() {
@@ -26,17 +28,31 @@ function ReviewTile({ reviewsData, count, productOverviewId, getData, clickTrack
     <div style={tileBox}>
       <ul>
         <li style={{ listStyleType: 'none' }}>
-        {showMore
-          ? reviewsData.map((review) =>
-            <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)
-          : reviewsData.slice(0, 2).map((review) =>
-            <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)}
+          {showMore
+            ? reviewsData.map((review) => <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)
+            : reviewsData.slice(0, 2).map((review) => <ReviewIndividualTile key={review.review_id} review={review} clickTracker={clickTracker} />)}
         </li>
       </ul>
       {count > 2
-        ? (<button type="button" onClick={showMoreReviews} style={{ margin: '1.5em', position: 'relative', left: '16px', fontSize: '20px' }}>
-        More Reviews
-      </button>) : null}
+        ? (
+          <button
+            type="button"
+            onClick={showMoreReviews}
+            style={{
+              margin: '1.5em',
+              position: 'relative',
+              left: '16px',
+              border: '1px solid darkslategray',
+              fontSize: '12px',
+              padding: '15px',
+              backgroundColor: 'white',
+              fontWeight: '600',
+              outline: 'none',
+            }}
+          >
+            MORE REVIEWS
+          </button>
+        ) : null}
       <br />
       <AddReview
         productOverviewId={productOverviewId}

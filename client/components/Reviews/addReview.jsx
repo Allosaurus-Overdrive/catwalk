@@ -151,8 +151,23 @@ function AddReview({ productOverviewId, clickTracker }) {
   }
   return (
     <div>
-      <button type="button" onClick={handleModalClick} style={{ margin: '1.5em', position: 'relative', left: '200px', bottom: '88px', fontSize: '20px' }}>
-        Add Review +
+      <button
+        type="button"
+        onClick={handleModalClick}
+        style={{
+          margin: '1.5em',
+          position: 'relative',
+          left: '160px',
+          bottom: '81px',
+          border: '1px solid darkslategray',
+          fontSize: '12px',
+          padding: '15px',
+          backgroundColor: 'white',
+          fontWeight: '600',
+          outline: 'none',
+        }}
+      >
+        ADD REVIEW +
       </button>
       <Modal
         isOpen={modalIsOpen}
@@ -166,13 +181,13 @@ function AddReview({ productOverviewId, clickTracker }) {
          }
         }
       >
-        <form style={{ float: 'center' }}
+        <form
+          style={{ float: 'center' }}
           onSubmit={(event) => {
             handleSubmit(event);
           }}
         >
           <h2>Write Your Review</h2>
-          {/* <h3>About the [products/:product_id.name]</h3> */}
           <div>
             <legend style={{ position: 'relative' }}>How Much Would You Rate This Product?* </legend>
             <div style={{ position: 'relative', left: '20px' }}>
@@ -248,7 +263,12 @@ function AddReview({ productOverviewId, clickTracker }) {
                 );
               })}
               <span style={{ float: 'right', position: 'relative', right: '240px' }}>A size too big</span>
-              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleSize()}</span>
+              <span style={{
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+              }}
+              >
+                {handleSize()}
+              </span>
             </div>
           </div>
           <div>
@@ -277,7 +297,12 @@ function AddReview({ productOverviewId, clickTracker }) {
               <span style={{ float: 'right', position: 'relative', right: '240px' }}>
                 Too wide
               </span>
-              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleWidth()}</span>
+              <span style={{
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+              }}
+              >
+                {handleWidth()}
+              </span>
             </div>
           </div>
           <div>
@@ -306,7 +331,12 @@ function AddReview({ productOverviewId, clickTracker }) {
               <span style={{ float: 'right', position: 'relative', right: '240px' }}>
                 Perfect
               </span>
-              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleComfort()}</span>
+              <span style={{
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+              }}
+              >
+                {handleComfort()}
+              </span>
             </div>
           </div>
           <div>
@@ -335,7 +365,12 @@ function AddReview({ productOverviewId, clickTracker }) {
               <span style={{ float: 'right', position: 'relative', right: '240px' }}>
                 Runs long
               </span>
-              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleLength()}</span>
+              <span style={{
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+              }}
+              >
+                {handleLength()}
+              </span>
             </div>
           </div>
           <div>
@@ -364,7 +399,12 @@ function AddReview({ productOverviewId, clickTracker }) {
               <span style={{ float: 'right', position: 'relative', right: '240px' }}>
                 Runs big
               </span>
-              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleFit()}</span>
+              <span style={{
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+              }}
+              >
+                {handleFit()}
+              </span>
             </div>
           </div>
           <div>
@@ -393,7 +433,12 @@ function AddReview({ productOverviewId, clickTracker }) {
               <span style={{ float: 'right', position: 'relative', right: '240px' }}>
                 Perfect
               </span>
-              <span style={{ padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black' }}>{handleQuality()}</span>
+              <span style={{
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+              }}
+              >
+                {handleQuality()}
+              </span>
             </div>
           </div>
           <div style={{ padding: '1.5em', marginTop: '4em' }}>
