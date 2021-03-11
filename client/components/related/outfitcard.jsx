@@ -36,7 +36,7 @@ function OutfitCard(props) {
   return (
     <RelatedCardWrapper className="related-card-wrapper" onClick={() => props.clickTracker(`product card id: ${props.item.id}`, 'Your Outfits')}>
       <OutfitIcon className="fas fa-times-circle fa-lg" onClick={() => props.handleOutfitDeleteClick(props.item.id)} />
-      <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
+      <RelatedImage className="related-image" height="200px" width="200px" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
       <RelatedOverview className="related-overview">
         <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
         <RelatedName className="related-name">{props.item.name}</RelatedName>

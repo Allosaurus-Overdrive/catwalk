@@ -30,9 +30,6 @@ const RelatedCardWrapper = styled.li`
 `;
 
 const RelatedImage = styled.img`
-  height: 67%;
-  width: 100%;
-  background: no-repeat center center;
   object-fit: cover;
 `;
 
@@ -146,7 +143,7 @@ function ProductCard(props) {
       <RelatedIcon className="far fa-star" onClick={toggleModal} />
       {props.styles && (
         <>
-          <RelatedImage className="related-image" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
+          <RelatedImage className="related-image" height="200px" width="200px" src={props.styles[0].photos[0].thumbnail_url} alt="Model wearing selected style" />
           <RelatedOverview className="related-overview">
             <RelatedCategory className="related-category">{props.item.category}</RelatedCategory>
             <RelatedName className="related-name" onClick={() => props.productClickHandler(props.item.id)}>{props.item.name}</RelatedName>
