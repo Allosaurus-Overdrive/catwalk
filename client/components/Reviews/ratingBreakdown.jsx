@@ -27,9 +27,6 @@ function Ratings({ ratings, recommend }) {
     starPercentArray.push(starPercent);
   }
 
-  // function handleFilter() {
-
-  // }
   return (
     <div>
       <span style={{ fontSize: '60px', fontWeight: '3em', display: 'inline-flex', flexDirection: 'row', justifyContent: 'space-around', position: 'relative', left: '40px' }}>
@@ -69,7 +66,7 @@ function Ratings({ ratings, recommend }) {
         ))}
       </div>
       <div style={{
-        font: 'Gerogia', fontSize: '17px', fontWeight: 'bold', position: 'relative', right: '10px',
+        fontSize: '17px', fontWeight: 'bold', position: 'relative', right: '10px',
       }}
       >
         {Number.isNaN(percent) ? null
