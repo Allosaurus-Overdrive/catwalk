@@ -47,7 +47,7 @@ const ButtonPos = styled.div`
 // **Functionality Section** //
 
 const ProductInfo = ({
-  name, category, price, salesPrice, productOverviewId, scroll
+  name, category, price, salesPrice, productOverviewId
 }) => (
   <div>
     <Ratings productOverviewId={productOverviewId} />
