@@ -29,7 +29,7 @@ color: grey;
 `;
 
 export default function QListItem(props) {
-  const { question, refresh } = props;
+  const { question } = props;
   const { question_id, question_body, question_helpfulness } = question;
 
   const [answers, setAnswers] = useState([]);
@@ -52,7 +52,7 @@ export default function QListItem(props) {
     axios.put(`/qa/questions/${question_id}/helpful`)
       .then(() => {
         console.log('NO CONTENT');
-        refresh();
+        // refresh();
       }).catch((err) => {
         console.log('error updating helpfulness', err);
       });
@@ -122,7 +122,6 @@ export default function QListItem(props) {
 }
 
 QListItem.propTypes = {
-  refresh: PropTypes.func.isRequired,
   question: PropTypes.shape({
     question_id: PropTypes.number.isRequired,
     question_body: PropTypes.string.isRequired,

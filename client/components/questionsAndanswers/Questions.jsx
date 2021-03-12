@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
@@ -8,6 +9,7 @@ import styled from 'styled-components';
 import Search from './Search';
 import QListItem from './QListItem';
 import AddQuestion from './AddQuestion';
+import QuestionsAccordion from './QuestionsAccordion';
 
 const Container = styled.div`
 text-align: center;
@@ -18,20 +20,6 @@ font-family: 'Roboto', sans-serif;
 const Title = styled.h4`
 font-weight: lighter;
 font-size: 15px;
-`;
-
-const Button = styled.button`
-border: 1px;
-border-style: solid;
-background-color: white;
-font-size: 12px;
-padding: 15px;
-border-color: darkslategray;
-font-weight: 600;
-color: darkslategray
-hover: {
-  opacity: 0.8;
-}
 `;
 
 const QuestionsList = styled.div`
@@ -63,15 +51,15 @@ export default function Questions({ productOverviewId }) {
     setSearch('');
   }
 
-  function submitRefresh() {
-    axios.get(`/qa/questions/${productOverviewId}`)
-      .then(({ data }) => {
-        const { results } = data;
-        setQuestions(results);
-      }).catch((err) => {
-        console.log('there was an error with the request', err);
-      });
-  }
+  // function submitRefresh() {
+  //   axios.get(`/qa/questions/${productOverviewId}`)
+  //     .then(({ data }) => {
+  //       const { results } = data;
+  //       setQuestions(results);
+  //     }).catch((err) => {
+  //       console.log('there was an error with the request', err);
+  //     });
+  // }
 
   function QuestionsRender({ questions }) {
     if (questions.length >= 2) {
@@ -79,7 +67,7 @@ export default function Questions({ productOverviewId }) {
         questions.slice(0, 2).filter((question) => (
           question.question_body.toLowerCase().includes(search.substring(1).toLowerCase())
         )).map((result) => (
-          <QListItem key={result.question_id} question={result} refresh={submitRefresh} />
+          <QListItem key={result.question_id} question={result} />
         ))
       );
     }
@@ -87,9 +75,18 @@ export default function Questions({ productOverviewId }) {
       questions.filter((question) => (
         question.question_body.toLowerCase().includes(search.substring(1).toLowerCase())
       )).map((result) => (
-        <QListItem key={result.question_id} question={result} refresh={submitRefresh} />
+        <QListItem key={result.question_id} question={result} />
       ))
     );
+  }
+
+  function DisplayAccordion({ questions }) {
+    if (questions.length > 2) {
+      return (
+        <QuestionsAccordion questions={questions.slice(2)} />
+      );
+    }
+    return null;
   }
 
   return (
@@ -106,9 +103,9 @@ export default function Questions({ productOverviewId }) {
         <QuestionsRender questions={questions} />
       </QuestionsList>
       <MoreQuestions className="more-questions">
-        <Button type="button">MORE ANSWERED QUESTIONS</Button>
+        <DisplayAccordion questions={questions} />
         {' '}
-        <AddQuestion product={productOverviewId} refresh={submitRefresh} />
+        <AddQuestion product={productOverviewId} />
       </MoreQuestions>
     </Container>
   );
