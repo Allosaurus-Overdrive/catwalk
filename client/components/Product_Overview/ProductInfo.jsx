@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import StarRating from '../Reviews/StarRating';
+// import StarRating from '../Reviews/StarRating';
+import Ratings from './ProductRating';
 
 // **Styling Tempelates**//
 const CategoryStyle = styled.div`
@@ -41,9 +42,11 @@ const SalePriceStyle = styled.div`
 
 // **Functionality Section** //
 
-const ProductInfo = ({ name, category, price, salesPrice, productOverviewId }) => (
+const ProductInfo = ({
+  name, category, price, salesPrice, productOverviewId
+}) => (
   <div>
-    <StarRating productOverviewId={productOverviewId} />
+    <Ratings productOverviewId={productOverviewId} />
     <CategoryStyle>{category}</CategoryStyle>
     <NameStyle>{name}</NameStyle>
     {!salesPrice
