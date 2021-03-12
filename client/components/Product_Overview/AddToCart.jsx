@@ -63,9 +63,6 @@ const AddToCart = ({ results, productOverviewId, clickTracker }) => {
   const [amount, setAmount] = useState('0');
   const [sku, setSku] = useState();
   const [number, setNumber] = useState(null);
-  const [outfitsArray, setOutfitsArray] = useState([]);
-  const [outfitsStylesObj, setOutfitsStylesObj] = useState({});
-  const [currentProductData, setCurrentProductData] = useState(null);
   const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   const quantityVals = quantityOptions.slice(0, amount);
 
@@ -93,8 +90,11 @@ const AddToCart = ({ results, productOverviewId, clickTracker }) => {
     clickTracker(`Items added to bag=${sku}`, 'Add To Bag');
   };
 
-
   // **Outfits Button Functionality **//
+  const [outfitsArray, setOutfitsArray] = useState([]);
+  const [outfitsStylesObj, setOutfitsStylesObj] = useState({});
+  const [currentProductData, setCurrentProductData] = useState(null);
+
   const getYourOutfits = () => {
     axios.get('/product-features', { params: { id: productOverviewId } })
       .then(({ data }) => { setCurrentProductData(data); })

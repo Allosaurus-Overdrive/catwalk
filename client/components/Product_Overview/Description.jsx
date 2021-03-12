@@ -49,7 +49,9 @@ const Description = ({ description, slogan, features }) => (
       {features.map((feature) => (
         <FeatureStyle key={feature.feature}>
           &#10003;
-          {`${feature.feature} ${feature.value}`}
+          {feature.feature}
+          &nbsp;
+          {feature.value}
         </FeatureStyle>
       ))}
     </Column2>

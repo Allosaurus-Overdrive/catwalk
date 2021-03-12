@@ -75,7 +75,10 @@ const App = () => {
           <Divider />
           <Questions productOverviewId={productOverviewId} />
           <Divider />
-          <Reviews productOverviewId={productOverviewId} clickTracker={clickTracker} />
+          <Reviews
+            productOverviewId={productOverviewId}
+            clickTracker={clickTracker}
+          />
         </div>
       </>
     </ThemeProvider>
