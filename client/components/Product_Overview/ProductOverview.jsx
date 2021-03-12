@@ -6,6 +6,7 @@ import ProductInfo from './ProductInfo';
 import StyleSelector from './StyleSelector';
 import AddToCart from './AddToCart';
 import Description from './Description';
+import StarRating from '../Reviews/StarRating';
 
 // **Styling Tempelates** //
 
