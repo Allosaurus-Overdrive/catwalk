@@ -176,7 +176,7 @@ function AddReview({ productOverviewId, clickTracker }) {
          {
            overlay: { backgroundColor: 'grey' },
            content: {
-             backgroundColor: '#33FFD7', fontSize: '18px', textAlign: 'center', width: '1000px', height: '500px', justifyContent: 'space-between', lineHeight: '2em', color: '#C70039',
+             backgroundColor: '#4A4E69', fontSize: '18px', textAlign: 'center', width: '1000px', height: '500px', justifyContent: 'space-between', lineHeight: '2em', color: 'white', float: 'center',
            },
          }
         }
@@ -264,7 +264,7 @@ function AddReview({ productOverviewId, clickTracker }) {
               })}
               <span style={{ float: 'right', position: 'relative', right: '240px' }}>A size too big</span>
               <span style={{
-                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'white', textDecoration: 'underline',
               }}
               >
                 {handleSize()}
@@ -298,7 +298,7 @@ function AddReview({ productOverviewId, clickTracker }) {
                 Too wide
               </span>
               <span style={{
-                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'white', textDecoration: 'underline',
               }}
               >
                 {handleWidth()}
@@ -332,7 +332,7 @@ function AddReview({ productOverviewId, clickTracker }) {
                 Perfect
               </span>
               <span style={{
-                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'white', textDecoration: 'underline',
               }}
               >
                 {handleComfort()}
@@ -366,7 +366,7 @@ function AddReview({ productOverviewId, clickTracker }) {
                 Runs long
               </span>
               <span style={{
-                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'white', textDecoration: 'underline',
               }}
               >
                 {handleLength()}
@@ -400,7 +400,7 @@ function AddReview({ productOverviewId, clickTracker }) {
                 Runs big
               </span>
               <span style={{
-                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'white', textDecoration: 'underline',
               }}
               >
                 {handleFit()}
@@ -434,7 +434,7 @@ function AddReview({ productOverviewId, clickTracker }) {
                 Perfect
               </span>
               <span style={{
-                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'black',
+                padding: '1em', position: 'relative', top: '40px', right: '200px', float: 'center', color: 'white', textDecoration: 'underline',
               }}
               >
                 {handleQuality()}
