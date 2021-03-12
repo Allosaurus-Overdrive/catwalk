@@ -52,7 +52,7 @@ function Ratings({ ratings, recommend }) {
       <div
         className="rating-display"
         style={{
-          float: 'center', margin: '1em', padding: '1em', width: '350px', display: 'inline-flex', flexDirection: 'column-reverse', justifyContent: 'space-between',
+          float: 'center', margin: '1em', padding: '1em', width: '70%', display: 'inline-flex', flexDirection: 'column-reverse', justifyContent: 'space-between',
         }}
       >
         {starPercentArray.map((percentStar, idx) => (
@@ -61,7 +61,7 @@ function Ratings({ ratings, recommend }) {
               {idx === 0 ? `${idx + 1} star` : `${idx + 1} stars`}
             </strong>
             <ProgressBar bgcolor="green" completed={percentStar} />
-            <span style={{ fontWeight: '4em', position: 'relative', left: '340px', bottom: '16px' }}>{indiRatings[idx]}</span>
+            <span style={{ fontWeight: '4em', position: 'relative', left: '260px', bottom: '16px' }}>{indiRatings[idx]}</span>
           </span>
         ))}
       </div>
