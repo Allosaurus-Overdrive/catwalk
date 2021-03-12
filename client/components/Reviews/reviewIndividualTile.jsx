@@ -60,7 +60,7 @@ function ReviewIndividualTile({ review, clickTracker }) {
         {review.recommend ? <i className="far fa-check-circle"><em>I recommend this product</em></i> : null}
       </div>
       <div style={{ fontSize: '14px' }}>
-        Helpful?
+        Was this review helpful?
         <button type="button" style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px' }} onClick={handleYesClick}> Yes </button>
         {yesCount === 0 ? null : `(${yesCount})`}
         <button type="button" style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px' }} onClick={handleNoClick}> Report </button>

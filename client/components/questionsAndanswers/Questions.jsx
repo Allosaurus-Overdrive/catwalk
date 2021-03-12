@@ -51,15 +51,15 @@ export default function Questions({ productOverviewId }) {
     setSearch('');
   }
 
-  // function submitRefresh() {
-  //   axios.get(`/qa/questions/${productOverviewId}`)
-  //     .then(({ data }) => {
-  //       const { results } = data;
-  //       setQuestions(results);
-  //     }).catch((err) => {
-  //       console.log('there was an error with the request', err);
-  //     });
-  // }
+  function submitRefresh() {
+    axios.get(`/qa/questions/${productOverviewId}`)
+      .then(({ data }) => {
+        const { results } = data;
+        setQuestions(results);
+      }).catch((err) => {
+        console.log('there was an error with the request', err);
+      });
+  }
 
   function QuestionsRender({ questions }) {
     if (questions.length >= 2) {
@@ -105,7 +105,7 @@ export default function Questions({ productOverviewId }) {
       <MoreQuestions className="more-questions">
         <DisplayAccordion questions={questions} />
         {' '}
-        <AddQuestion product={productOverviewId} />
+        <AddQuestion product={productOverviewId} refresh={submitRefresh} />
       </MoreQuestions>
     </Container>
   );
