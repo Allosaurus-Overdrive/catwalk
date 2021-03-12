@@ -40,7 +40,7 @@ function Ratings({ ratings, recommend }) {
       <br />
       <br />
       <div style={{
-        font: 'Gerogia', fontSize: '18px', fontWeight: 'bold', position: 'relative', left: '40px',
+        fontSize: '18px', fontWeight: 'bold', position: 'relative', left: '40px',
       }}
       >
         {Number.isNaN(total)
