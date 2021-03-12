@@ -11,7 +11,7 @@ const tileBox = {
   height: '1400px',
   width: '700px',
   overflowY: 'scroll',
-  fontSize: '19px',
+  fontSize: '16px',
 };
 
 function ReviewTile({

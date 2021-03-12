@@ -64,7 +64,7 @@ const Characteristics = ({ characteristics }) => {
       <div
         className="quality"
         style={{
-          float: 'center', margin: '1em', padding: '1em', width: '400px', display: 'inline-flex', flexDirection: 'column', justifyContent: 'space-between', lineHeight: '30px',
+          float: 'center', margin: '1em', padding: '1em', width: '350px', display: 'inline-flex', flexDirection: 'column', justifyContent: 'space-between', lineHeight: '30px',
         }}
       >
         {quals.map((quality, idx) => (

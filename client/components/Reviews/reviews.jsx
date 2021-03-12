@@ -35,7 +35,7 @@ const CharStyle = styled.div`
 
 const SortStyle = styled.div`
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   position: relative;
   top: 25px;
   left: 400px;

@@ -27,9 +27,6 @@ function Ratings({ ratings, recommend }) {
     starPercentArray.push(starPercent);
   }
 
-  // function handleFilter() {
-
-  // }
   return (
     <div>
       <span style={{ fontSize: '60px', fontWeight: '3em', display: 'inline-flex', flexDirection: 'row', justifyContent: 'space-around', position: 'relative', left: '40px' }}>
@@ -40,7 +37,7 @@ function Ratings({ ratings, recommend }) {
       <br />
       <br />
       <div style={{
-        font: 'Gerogia', fontSize: '24px', fontWeight: 'bold', position: 'relative', left: '40px',
+        fontSize: '18px', fontWeight: 'bold', position: 'relative', left: '40px',
       }}
       >
         {Number.isNaN(total)
@@ -55,7 +52,7 @@ function Ratings({ ratings, recommend }) {
       <div
         className="rating-display"
         style={{
-          float: 'center', margin: '1em', padding: '1em', width: '400px', display: 'inline-flex', flexDirection: 'column-reverse', justifyContent: 'space-between',
+          float: 'center', margin: '1em', padding: '1em', width: '350px', display: 'inline-flex', flexDirection: 'column-reverse', justifyContent: 'space-between',
         }}
       >
         {starPercentArray.map((percentStar, idx) => (
@@ -64,12 +61,12 @@ function Ratings({ ratings, recommend }) {
               {idx === 0 ? `${idx + 1} star` : `${idx + 1} stars`}
             </strong>
             <ProgressBar bgcolor="green" completed={percentStar} />
-            <span style={{ fontWeight: '4em', position: 'relative', left: '370px', bottom: '16px' }}>{indiRatings[idx]}</span>
+            <span style={{ fontWeight: '4em', position: 'relative', left: '340px', bottom: '16px' }}>{indiRatings[idx]}</span>
           </span>
         ))}
       </div>
       <div style={{
-        font: 'Gerogia', fontSize: '20px', fontWeight: 'bold', position: 'relative', right: '10px',
+        fontSize: '17px', fontWeight: 'bold', position: 'relative', right: '10px',
       }}
       >
         {Number.isNaN(percent) ? null
