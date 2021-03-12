@@ -83,36 +83,34 @@ export default function QListItem(props) {
   return (
     <div className="question-layout">
       <div className="question">
-        <span>
-          <Question>
-            Q:
-            {question_body}
-          </Question>
-          <Span>
-            Helpful?
-            {' '}
-            <Button
-              type="button"
-              onClick={(e) => { updateHelpfulness(e); setHelpClick(true); }}
-              disabled={helpClick === true}
-            >
-              Yes (
-              {question_helpfulness}
-              )
-            </Button>
-            <Button type="button">
-              Add Answer
-            </Button>
-            {' '}
-            <Button
-              type="button"
-              onClick={(e) => { reportQuestion(e); setReportClick(true); }}
-              disabled={reportClick === true}
-            >
-              Report
-            </Button>
-          </Span>
-        </span>
+        <Question>
+          Q:
+          {question_body}
+        </Question>
+        <Span>
+          Helpful?
+          {' '}
+          <Button
+            type="button"
+            onClick={(e) => { updateHelpfulness(e); setHelpClick(true); }}
+            disabled={helpClick === true}
+          >
+            Yes (
+            {question_helpfulness}
+            )
+          </Button>
+          <Button type="button">
+            Add Answer
+          </Button>
+          {' '}
+          <Button
+            type="button"
+            onClick={(e) => { reportQuestion(e); setReportClick(true); }}
+            disabled={reportClick === true}
+          >
+            Report
+          </Button>
+        </Span>
       </div>
       <div className="answer">
         {answers.map((answer) => (

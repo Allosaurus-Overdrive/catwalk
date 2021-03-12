@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -71,6 +73,25 @@ export default function Questions({ productOverviewId }) {
       });
   }
 
+  function QuestionsRender({ questions }) {
+    if (questions.length >= 2) {
+      return (
+        questions.slice(0, 2).filter((question) => (
+          question.question_body.toLowerCase().includes(search.substring(1).toLowerCase())
+        )).map((result) => (
+          <QListItem key={result.question_id} question={result} refresh={submitRefresh} />
+        ))
+      );
+    }
+    return (
+      questions.filter((question) => (
+        question.question_body.toLowerCase().includes(search.substring(1).toLowerCase())
+      )).map((result) => (
+        <QListItem key={result.question_id} question={result} refresh={submitRefresh} />
+      ))
+    );
+  }
+
   return (
     <Container>
       <div>
@@ -82,11 +103,7 @@ export default function Questions({ productOverviewId }) {
         />
       </div>
       <QuestionsList className="Questions-list">
-        {questions.filter((question) => (
-          question.question_body.toLowerCase().includes(search.substring(1).toLowerCase())
-        )).map((result) => (
-          <QListItem key={result.question_id} question={result} refresh={submitRefresh} />
-        ))}
+        <QuestionsRender questions={questions} />
       </QuestionsList>
       <MoreQuestions className="more-questions">
         <Button type="button">MORE ANSWERED QUESTIONS</Button>
