@@ -213,7 +213,7 @@ const Outfits = ({ productOverviewId, clickTracker }) => {
                   clickTracker={clickTracker}
                 />
               ))}
-            </RelatedProductsList>
+            </RelatedProductsList>z
           )}
         </RelatedProductsListWrapper>
         {endReached !== 'right' && endReached !== 'both'

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import StarRating from '../Reviews/StarRating';
+import ScrollIntoView from 'react-scroll-into-view';
 import Ratings from './ProductRating';
 
 // **Styling Tempelates**//
@@ -40,13 +40,24 @@ const SalePriceStyle = styled.div`
   margin: 7.5px 10px 7.5px 10px;
 `;
 
+const ButtonPos = styled.div`
+  margin: 10px 10px 10px 10px;
+`;
+
 // **Functionality Section** //
 
 const ProductInfo = ({
-  name, category, price, salesPrice, productOverviewId
+  name, category, price, salesPrice, productOverviewId, scroll
 }) => (
   <div>
     <Ratings productOverviewId={productOverviewId} />
+    <ButtonPos>
+      <ScrollIntoView selector=".rating-display">
+        <button className="mdl-button mdl-js-button mdl-button--raised" type="submit">
+          Read all reviews
+        </button>
+      </ScrollIntoView>
+    </ButtonPos>
     <CategoryStyle>{category}</CategoryStyle>
     <NameStyle>{name}</NameStyle>
     {!salesPrice

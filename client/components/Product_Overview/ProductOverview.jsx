@@ -86,7 +86,7 @@ const TopAnnouncements = styled.div`
 
 // **Functionality Section** //
 
-const ProductOverview = ({ productOverviewId, clickTracker }) => {
+const ProductOverview = ({ productOverviewId, clickTracker, scroll }) => {
   // **States**//
   const [results, setResults] = useState({});
   const [description, setDescription] = useState('');
@@ -165,6 +165,7 @@ const ProductOverview = ({ productOverviewId, clickTracker }) => {
           price={price}
           salesPrice={salesPrice}
           productOverviewId={productOverviewId}
+          scroll={scroll}
         />
       </ProductInfoPos>
       <Buttons>
