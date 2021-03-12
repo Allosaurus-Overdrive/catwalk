@@ -72,6 +72,7 @@ const App = () => {
             productOverviewId={productOverviewId}
             clickTracker={clickTracker}
           />
+          <Divider />
           <Questions productOverviewId={productOverviewId} />
           <Divider />
           <Reviews productOverviewId={productOverviewId} clickTracker={clickTracker} />
