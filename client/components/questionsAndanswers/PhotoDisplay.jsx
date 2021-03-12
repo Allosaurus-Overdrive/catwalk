@@ -12,7 +12,7 @@ export default function PhotoDisplay({ photos }) {
     return (
       <div>
         {photos.map((photo) => (
-          <PhotoDiv>
+          <PhotoDiv key={photo.id}>
             <img
               key={photo.id}
               src={photo.url}

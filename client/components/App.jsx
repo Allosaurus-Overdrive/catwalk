@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import axios from 'axios';
 import ProductOverview from './Product_Overview/ProductOverview';

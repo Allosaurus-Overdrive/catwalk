@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import PhotoDisplay from './PhotoDisplay';
 
 const Container = styled.div`
-font-size: 12px;
+font-size: 13px;
 font-weight: lighter;
 color: grey;
 `;
@@ -20,6 +20,7 @@ font-weight: lighter;
 font-size: 10px;
 text-decoration: underline;
 color: grey;
+outline: none;
 `;
 
 const HelpfulSpan = styled.span`
