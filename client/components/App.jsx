@@ -61,7 +61,6 @@ const App = () => {
           <ProductOverview
             productOverviewId={productOverviewId}
             clickTracker={clickTracker}
-            scroll={scroll}
           />
           <Divider />
           <RelatedProducts
