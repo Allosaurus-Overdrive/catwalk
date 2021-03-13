@@ -31,7 +31,7 @@ const options = {
 app.get('/qa/questions/:productId', (req, res) => {
   const { productId } = req.params;
 
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, options)
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}&count=${99}`, options)
     .then(({ data }) => {
       res.status(200).send(data);
     }).catch((err) => {
@@ -39,9 +39,8 @@ app.get('/qa/questions/:productId', (req, res) => {
     });
 });
 
-app.post('/qa/questions/:productId', (req, res) => {
-  const { productId } = req.params;
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions/?product_id=${productId}`, req.body, options)
+app.post('/qa/questions', (req, res) => {
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-sea/qa/questions', req.body, options)
     .then(() => {
       res.status(201).end('created');
     }).catch((err) => {

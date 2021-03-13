@@ -35,6 +35,7 @@ export default function QListItem(props) {
   const [answers, setAnswers] = useState([]);
   const [helpClick, setHelpClick] = useState(false);
   const [reportClick, setReportClick] = useState(false);
+  const [reportStatus, setReportStatus] = useState('Report');
 
   useEffect(() => {
     axios.get(`/qa/questions/${question_id}/answers`)
@@ -105,10 +106,10 @@ export default function QListItem(props) {
           {' '}
           <Button
             type="button"
-            onClick={(e) => { reportQuestion(e); setReportClick(true); }}
+            onClick={(e) => { reportQuestion(e); setReportClick(true); setReportStatus('Reported'); }}
             disabled={reportClick === true}
           >
-            Report
+            {reportStatus}
           </Button>
         </Span>
       </div>

@@ -13,7 +13,7 @@ const Button = styled.button`
   padding: 15px;
   border-color: darkslategray;
   font-weight: 600;
-  color: darkslategray;
+  color: black;
   outline: none;
 `;
 
@@ -87,18 +87,21 @@ export default function AddQuestion(props) {
     },
   };
 
+  const postObj = {
+    body,
+    name,
+    email,
+    product_id: product,
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
 
-    axios.post(`/qa/questions/${product}`, {
-      body,
-      name,
-      email,
-      product_id: product,
-    }).then(() => {
-      console.log('Added Question');
-      refresh();
-    }).catch((err) => console.log('error adding a question', err));
+    axios.post('/qa/questions', postObj)
+      .then(() => {
+        console.log('Added Question', postObj);
+        // refresh();
+      }).catch((err) => console.log('error adding a question', err));
   }
 
   Modal.setAppElement('#app');

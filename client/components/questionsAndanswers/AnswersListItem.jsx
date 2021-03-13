@@ -39,6 +39,7 @@ export default function AnswersListItem({ answer, refresh }) {
 
   const [helpClick, setHelpClick] = useState(false);
   const [reportClick, setReportClick] = useState(false);
+  const [reportStatus, setReportStatus] = useState('Report');
 
   function handleHelpClick(e) {
     e.preventDefault();
@@ -93,10 +94,10 @@ export default function AnswersListItem({ answer, refresh }) {
         </Button>
         <Button
           type="button"
-          onClick={(e) => { handleReportClick(e); setReportClick(true); }}
+          onClick={(e) => { handleReportClick(e); setReportClick(true); setReportStatus('Reported'); }}
           disabled={reportClick === true}
         >
-          Report
+          {reportStatus}
         </Button>
         <PhotoDisplay photos={photos} />
       </div>
