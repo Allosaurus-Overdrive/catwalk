@@ -12,6 +12,7 @@ const tileBox = {
 function ReviewIndividualTile({ review, clickTracker }) {
   const [yesCount, setYesCount] = useState(review.helpfulness);
   const [helpful, setHelpful] = useState(false);
+  const [report, setReport] = useState('Report');
 
   function handleYesClick() {
     clickTracker(`reviewId: ${review.review_id}`, 'Ratings & Reviews/Helpful');
@@ -23,6 +24,7 @@ function ReviewIndividualTile({ review, clickTracker }) {
     }
   }
   function handleNoClick() {
+    setReport('Reported');
     clickTracker(`reviewId: ${review.review_id}`, 'Ratings & Reviews/Report');
     axios.put('/reviews/report', { id: review.review_id })
       .then(() => console.log('removed item'))
@@ -33,13 +35,15 @@ function ReviewIndividualTile({ review, clickTracker }) {
     <div style={tileBox} className="review-entry">
       <span>
         {[...Array(5)].map((star, idx) => (
-        <label key={idx} value={review.rating}>
-          <FaStar size={13} color={review.rating > idx ? '#ffc107' : 'lightgrey'} />
+          <label key={idx} value={review.rating}>
+            <FaStar size={13} color={review.rating > idx ? '#ffc107' : 'lightgrey'} />
           </label>
         ))}
       </span>
       <span style={{ float: 'right', fontSize: '13px', wordSpacing: '2px' }}>
-        {review.reviewer_name}, { moment(review.date).format('LL')}
+        {review.reviewer_name}
+        ,
+        { moment(review.date).format('LL')}
       </span>
       <div style={{ lineHeight: '1em' }}>
         <strong>{review.summary}</strong>
@@ -53,7 +57,10 @@ function ReviewIndividualTile({ review, clickTracker }) {
           review.photos.length > 0 ? <img height="60px" width="60px" border="3px" src={photo.url} alt="uploadedImg" /> : null
         ))}
       </div>
-      <div style={{ backgroundColor: 'lightgrey', fontSize: '16px', marginTop: '1em', marginBottom: '1em' }}>
+      <div style={{
+        backgroundColor: 'lightgrey', fontSize: '16px', marginTop: '1em', marginBottom: '1em',
+      }}
+      >
         {review.response === null ? null : `Response from seller:  ${review.response}`}
       </div>
       <div>
@@ -61,9 +68,28 @@ function ReviewIndividualTile({ review, clickTracker }) {
       </div>
       <div style={{ fontSize: '14px' }}>
         Was this review helpful?
-        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px' }} onClick={handleYesClick}> Yes </button>
+        <button
+          type="button"
+          style={{
+            backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px',
+          }}
+          onClick={handleYesClick}
+        >
+          {' '}
+          Yes
+        </button>
         {yesCount === 0 ? null : `(${yesCount})`}
-        <button type="button" style={{ backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px' }} onClick={handleNoClick}> Report </button>
+        <button
+          type="button"
+          style={{
+            backgroundColor: 'transparent', border: 'none', outline: 'none', position: 'relative', left: '5px',
+          }}
+          onClick={handleNoClick}
+        >
+          {' '}
+          {report}
+          {' '}
+        </button>
       </div>
     </div>
   );
