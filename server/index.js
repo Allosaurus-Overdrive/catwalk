@@ -51,6 +51,7 @@ app.post('/qa/questions', (req, res) => {
 
 app.get('/qa/questions/:questionId/answers', (req, res) => {
   const { questionId } = req.params;
+
   axios.get(`http://localhost:3003/qa/questions/${questionId}/answers`, options)
     .then(({ data }) => {
       res.status(200).send(data);
