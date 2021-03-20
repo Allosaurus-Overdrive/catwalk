@@ -62,7 +62,6 @@ app.get('/qa/questions/:questionId/answers', (req, res) => {
 
 app.put('/qa/questions/:questionId/helpful', (req, res) => {
   const { questionId } = req.params;
-
   axios.put(`http://localhost:3003/qa/questions/${questionId}/helpful`, req.body, options)
     .then(() => {
       res.status(204).end('NO CONTENT');
