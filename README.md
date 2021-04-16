@@ -1,7 +1,7 @@
-# <h1>Overdrive Outfits</h1>
+# Overdrive Outfits
 
 
-Components and Contributers
+<h2>Components and Contributers</h2>
 =============
 
 Product Overview: [Alex Duncan](https://github.com/monkeymedic26 "Alex Duncan") <br>
