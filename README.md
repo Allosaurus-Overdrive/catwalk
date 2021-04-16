@@ -1,4 +1,4 @@
-# Overdrive Outfits
+<p align="center"># Overdrive Outfits </p>
 
 
 <h2>Components and Contributers</h2>
@@ -10,11 +10,11 @@ Q/A: [Eric Hernandez](https://github.com/EricMHernandez "Eric Hernandez") <br>
 Related Products: [Dani Tian](https://github.com/danitian "Dani Tian") <br>
 
 
-Introduction
+<h2>Introduction</h2>
 =============
 
 
-Tech Stack
+<h2>Tech Stack</h2>
 =============
 <ul>
 <li>React</li>
@@ -31,7 +31,7 @@ Tech Stack
 <li>Compression</li>
 </ul>
 
-User Stories
+<h2>User Stories</h2>
 =============
 <ul>
 <li>As a user, I should be able to toggle between light and dark mode for the entire page</li>
@@ -51,14 +51,14 @@ User Stories
 <li>As a user, I should be able to submit a new review and have that review displayed at the top of the list, when sorted with the 'newest' sort option</li>
 </ul>
 
-Requirements
+<h2>Requirements</h2>
 =============
 <h3>Installing Dependencies</h3>
 
 From within the root directory:<br>
 `npm install`
 
-Development
+<h2>Development</h2>
 =============
 From within the root directory:
 
@@ -74,7 +74,7 @@ To run webpack watch<br>
 To run tests<br>
 `npm test`
 
-App Demo
+<h2>App Demo</h2>
 =============
 
 # <h4>Product Overview & Related Products:</h4>
