@@ -89,7 +89,7 @@ App Demo
 <br>
 <br>
 
-# Questions & Answers:
+# <h4>Questions & Answers:</h4>
 <img src="./assets/questionsoverview.gif">
 <br>
 <img src="./assets/reportquestion.gif">
@@ -98,7 +98,7 @@ App Demo
 <br>
 <br>
 
-# Ratings and Reviews:
+# <h4>Ratings and Reviews:</h4>
 <img src="./assets/reviewsscroll.gif">
 <br>
 <img src="./assets/sortandhelpful.gif">
