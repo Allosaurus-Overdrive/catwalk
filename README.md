@@ -10,8 +10,8 @@ Related Products & Your Outfit: [Dani Tian](https://github.com/danitian "Dani Ti
 
 
 <h2>Introduction</h2>
-Overdrive Outfits is a single-page e-commerce webapp for clothing and accessories, built with service-oriented architecture.
-<br>
+Overdrive Outfits is a single-page e-commerce webapp for clothing and accessories, built with service-oriented architecture.<br>
+
 The app includes:
 - An overview with general product information and images
 - A related products section to compare related items
