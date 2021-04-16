@@ -1,8 +1,7 @@
-<p align="center"># Overdrive Outfits </p>
+<h1 align="center"> Overdrive Outfits </h1>
 
 
 <h2>Components and Contributers</h2>
-=============
 
 Product Overview: [Alex Duncan](https://github.com/monkeymedic26 "Alex Duncan") <br>
 Ratings/Reviews: [Sheeba Nair](https://github.com/sheebanair "Sheeba Nair") <br>
@@ -11,11 +10,11 @@ Related Products: [Dani Tian](https://github.com/danitian "Dani Tian") <br>
 
 
 <h2>Introduction</h2>
-=============
+
 
 
 <h2>Tech Stack</h2>
-=============
+
 <ul>
 <li>React</li>
 <li>Express</li>
@@ -32,7 +31,7 @@ Related Products: [Dani Tian](https://github.com/danitian "Dani Tian") <br>
 </ul>
 
 <h2>User Stories</h2>
-=============
+
 <ul>
 <li>As a user, I should be able to toggle between light and dark mode for the entire page</li>
 <li>As a user, I would like to see a product displayed with an image carousel and a navigation button to go to the next/previous image</li>
@@ -52,14 +51,14 @@ Related Products: [Dani Tian](https://github.com/danitian "Dani Tian") <br>
 </ul>
 
 <h2>Requirements</h2>
-=============
+
 <h3>Installing Dependencies</h3>
 
 From within the root directory:<br>
 `npm install`
 
 <h2>Development</h2>
-=============
+
 From within the root directory:
 
 To run server<br>
@@ -75,7 +74,7 @@ To run tests<br>
 `npm test`
 
 <h2>App Demo</h2>
-=============
+
 
 # <h4>Product Overview & Related Products:</h4>
 <img src="./assets/products_display.gif">
