@@ -77,7 +77,7 @@ To run tests<br>
 App Demo
 =============
 
-# Product Overview & Related Products:
+# <h4>Product Overview & Related Products:</h4>
 <img src="./assets/products_display.gif">
 <br>
 <img src="./assets/newproduct.gif">
