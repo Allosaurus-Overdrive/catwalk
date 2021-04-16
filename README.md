@@ -72,9 +72,8 @@ To run webpack watch<br>
 
 To run tests<br>
 `npm test`
-
+<br>
 <h2>App Demo</h2>
-
 
 # <h4>Product Overview & Related Products:</h4>
 <img src="./assets/products_display.gif">
