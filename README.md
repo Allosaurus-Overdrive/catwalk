@@ -4,9 +4,9 @@
 <h2>Components and Contributers</h2>
 
 Product Overview: [Alex Duncan](https://github.com/monkeymedic26 "Alex Duncan") <br>
-Ratings/Reviews: [Sheeba Nair](https://github.com/sheebanair "Sheeba Nair") <br>
-Q/A: [Eric Hernandez](https://github.com/EricMHernandez "Eric Hernandez") <br>
-Related Products: [Dani Tian](https://github.com/danitian "Dani Tian") <br>
+Ratings & Reviews: [Sheeba Nair](https://github.com/sheebanair "Sheeba Nair") <br>
+Questions & Answers: [Eric Hernandez](https://github.com/EricMHernandez "Eric Hernandez") <br>
+Related Products & Your Outfit: [Dani Tian](https://github.com/danitian "Dani Tian") <br>
 
 
 <h2>Introduction</h2>
@@ -18,6 +18,7 @@ The app includes:
 - A your outfits section to add products to a user's personal outfit list
 - A question and answers section to ask questions and view responses to past questions
 - A ratings and reviews section to see the overall rating and past reviews of the product
+- Click tracking across the app to track user interactions in a database for future business analytics
 
 <h2>Tech Stack</h2>
 
