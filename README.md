@@ -1,7 +1,7 @@
 <h1 align="center"> Overdrive Outfits </h1>
 
 
-<h2>Components and Contributers</h2>
+<h2>Components and Contributors</h2>
 
 Product Overview: [Alex Duncan](https://github.com/monkeymedic26 "Alex Duncan") <br>
 Ratings & Reviews: [Sheeba Nair](https://github.com/sheebanair "Sheeba Nair") <br>
